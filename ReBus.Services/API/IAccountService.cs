@@ -20,7 +20,7 @@ namespace ReBus.Services.API
         /// <param name="firstName">firstName</param>
         /// <param name="lastName">lastName</param>
         /// <returns>error string if something went wrong/null otherwise</returns>
-        string Register(string userName, string password, string firstName, string lastName)
+        string Register(string userName, string password, string firstName, string lastName);
 
         /// <summary>
         /// Gets all transaction history corresponding to a user
