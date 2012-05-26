@@ -40,7 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\IAccountService.cs" />
+    <Compile Include="API\ISubscriptionService.cs" />
+    <Compile Include="API\ITicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicketService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReBus.Model\ReBus.Model.csproj">
@@ -52,6 +56,7 @@
       <Name>ReBus.Repository</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
