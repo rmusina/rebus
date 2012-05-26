@@ -44,7 +44,7 @@ namespace ReBus.WebServices
         /// <param name="limit">The max number of thickets to fetch</param>
         /// <returns></returns>
         [OperationContract]
-        IEnumerable<TicketWebServiceModel> GetHistory(AccountWebServiceModel account, int limit);
+        IEnumerable<TicketWebServiceModel> GetHistoryWithLimit(AccountWebServiceModel account, int limit);
 
         /// <summary>
         /// Get older tickets.
@@ -54,7 +54,7 @@ namespace ReBus.WebServices
         /// <param name="limit">The max number of thickets to fetch</param>
         /// <returns></returns>
         [OperationContract]
-        IEnumerable<TicketWebServiceModel> GetHistory(AccountWebServiceModel account, DateTime before, int limit);
+        IEnumerable<TicketWebServiceModel> GetNextHistoryWithLimit(AccountWebServiceModel account, DateTime before, int limit);
 
         /// <summary>
         /// Get the tickets that have been added after a given date (used to refresh the list with new values).

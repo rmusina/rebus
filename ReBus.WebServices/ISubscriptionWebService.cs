@@ -17,7 +17,7 @@ namespace ReBus.WebServices
         /// </summary>
         /// <param name="account">The account for which to buy the subscription</param>
         /// <returns></returns>
-        SubscriptionWebServiceModel BuySubscription(AccountWebServiceModel account);
+        SubscriptionWebServiceModel BuySubscriptionForAllLines(AccountWebServiceModel account);
 
         /// <summary>
         /// Buy a new subscription for all the lines
@@ -25,7 +25,7 @@ namespace ReBus.WebServices
         /// <param name="account">The account for which to buy the subscription</param>
         /// <param name="startDate">The start date for the new subscription</param>
         /// <returns></returns>
-        SubscriptionWebServiceModel BuySubscription(AccountWebServiceModel account, DateTime startDate);
+        SubscriptionWebServiceModel BuySubscriptionForAllLinesWithStartDate(AccountWebServiceModel account, DateTime startDate);
 
         /// <summary>
         /// Buy a new subscription
@@ -42,7 +42,7 @@ namespace ReBus.WebServices
         /// <param name="lines">The lines on which the subscription applies to</param>
         /// <param name="startDate">The start date for the new subscription</param>
         /// <returns></returns>
-        SubscriptionWebServiceModel BuySubscription(AccountWebServiceModel account, IEnumerable<LineWebServiceModel> lines, DateTime startDate);
+        SubscriptionWebServiceModel BuySubscriptionWithStartDate(AccountWebServiceModel account, IEnumerable<LineWebServiceModel> lines, DateTime startDate);
 
         /// <summary>
         /// Renew an existing subscription
@@ -57,7 +57,7 @@ namespace ReBus.WebServices
         /// <param name="subscription">The subscription to renew</param>
         /// <param name="startDate">The start date from which to renew the subscription</param>
         /// <returns></returns>
-        SubscriptionWebServiceModel RenewSubscription(SubscriptionWebServiceModel subscription, DateTime startDate);
+        SubscriptionWebServiceModel RenewSubscriptionWithStartDate(SubscriptionWebServiceModel subscription, DateTime startDate);
 
         /// <summary>
         /// Get the active subscription of a given account.
@@ -79,7 +79,7 @@ namespace ReBus.WebServices
         /// <param name="account">The account for which to get the subscriptions</param>
         /// <param name="limit">The max number of subscriptions to fetch</param>
         /// <returns></returns>
-        IEnumerable<SubscriptionWebServiceModel> GetHistory(AccountWebServiceModel account, int limit);
+        IEnumerable<SubscriptionWebServiceModel> GetHistoryWithLimit(AccountWebServiceModel account, int limit);
 
         /// <summary>
         /// Get older subscriptions.
@@ -88,7 +88,7 @@ namespace ReBus.WebServices
         /// <param name="before">The date before which to get the subscriptions</param>
         /// <param name="limit">The max number of subscriptions to fetch</param>
         /// <returns></returns>
-        IEnumerable<SubscriptionWebServiceModel> GetHistory(AccountWebServiceModel account, DateTime before, int limit);
+        IEnumerable<SubscriptionWebServiceModel> GetNextHistoryWithLimit(AccountWebServiceModel account, DateTime before, int limit);
 
         /// <summary>
         /// Get the subscriptions that have been added after a given date (used to refresh the list with new values).

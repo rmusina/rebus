@@ -54,7 +54,7 @@ namespace ReBus.WebServices
         /// <param name="account">The account for which to get the tickets</param>
         /// <param name="limit">The max number of thickets to fetch</param>
         /// <returns></returns>
-        public IEnumerable<TicketWebServiceModel> GetHistory(AccountWebServiceModel account, int limit)
+        public IEnumerable<TicketWebServiceModel> GetHistoryWithLimit(AccountWebServiceModel account, int limit)
         {
             var dmAccount = new Account() { GUID = account.GUID };
             return ticketService.GetHistory(dmAccount, limit).Select(t => TicketWebServiceModel.FromDataModel(t, account));
@@ -67,7 +67,7 @@ namespace ReBus.WebServices
         /// <param name="before">The date before which to get the tickets</param>
         /// <param name="limit">The max number of thickets to fetch</param>
         /// <returns></returns>
-        public IEnumerable<TicketWebServiceModel> GetHistory(AccountWebServiceModel account, DateTime before, int limit)
+        public IEnumerable<TicketWebServiceModel> GetNextHistoryWithLimit(AccountWebServiceModel account, DateTime before, int limit)
         {
             var dmAccount = new Account() { GUID = account.GUID };
             return ticketService.GetHistory(dmAccount, before, limit).Select(t => TicketWebServiceModel.FromDataModel(t, account));
