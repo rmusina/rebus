@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Transactions;
 using ReBus.Model;
 using ReBus.Repository;
@@ -11,7 +12,6 @@ namespace ReBus.Services
 {
     public class SubscriptionService : ISubscriptionService
     {
-        ReBusContainer db = new ReBusContainer();
         private static readonly List<Line> AllLines = new List<Line>();
 
         /// <summary>
@@ -55,18 +55,23 @@ namespace ReBus.Services
         /// <returns></returns>
         public Subscription BuySubscription(Account account, IEnumerable<Line> lines, DateTime startDate)
         {
-            Subscription subscription;
-            var myLines = new HashSet<Line>();
-            foreach (var line in lines)
-            {
-                myLines.Add(line);
-            }
-
             using (var db = new ReBusContainer())
             {
                 using (new TransactionScope())
                 {
-                    account = db.Accounts.Single(a => a.GUID == account.GUID);
+                    var myLines = new HashSet<Line>();
+                    List<Object> toRefresh = new List<Object>();
+
+                    foreach (var line in lines)
+                    {
+                        myLines.Add(line);
+                        db.Lines.Attach(line);
+                        toRefresh.Add(line);
+                    }
+
+                    db.Accounts.Attach(account);
+                    toRefresh.Add(account);
+                    db.Refresh(RefreshMode.StoreWins, toRefresh);
 
                     var subscriptionCost = db.SubscriptionCosts.SingleOrDefault(s => s.Lines == myLines.Count);
                     // If there is no subscription plan for the number of lines we want, get a subscription for all the lines
@@ -81,30 +86,30 @@ namespace ReBus.Services
                         throw new InsufficientCreditException();
                     }
 
-                    subscription = new Subscription
-                    {
-                        Account = account,
-                        Start = startDate.Date,
-                        End = startDate.Date + TimeSpan.FromDays(30),
-                        Lines = lines.ToList(),
-                        Created = DateTime.Today
-                    };
+                    var subscription = new Subscription
+                                       {
+                                           Account = account,
+                                           Start = startDate.Date,
+                                           End = startDate.Date + TimeSpan.FromDays(30),
+                                           Lines = lines.ToList(),
+                                           Created = DateTime.Today
+                                       };
                     var transaction = new Transaction
-                    {
-                        Account = account,
-                        Type = (int)TransactionType.Subscription,
-                        Amount = cost,
-                        Created = DateTime.Now
-                    };
+                                          {
+                                              Account = account,
+                                              Type = (int) TransactionType.Subscription,
+                                              Amount = cost,
+                                              Created = DateTime.Now
+                                          };
                     account.Credit -= cost;
 
                     db.Subscriptions.AddObject(subscription);
                     db.Transactions.AddObject(transaction);
                     db.SaveChanges();
+
+                    return subscription;
                 }
             }
-
-            return subscription;
         }
 
         /// <summary>
@@ -114,11 +119,20 @@ namespace ReBus.Services
         /// <returns></returns>
         public Subscription RenewSubscription(Subscription subscription)
         {
-            var date = subscription.End;
-            if (date.Date < DateTime.Today)
+            DateTime date;
+            using (var db = new ReBusContainer())
             {
-                date = DateTime.Today;
+                db.Subscriptions.Attach(subscription);
+                db.Refresh(RefreshMode.StoreWins, subscription);
+
+                date = subscription.End;
+                if (date.Date < DateTime.Today)
+                {
+                    date = DateTime.Today;
+                }
+                
             }
+
             return RenewSubscription(subscription, date);
         }
 
@@ -140,10 +154,16 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Subscription> GetActiveSubscriptins(Account account)
         {
-            return db.Subscriptions
-                .Where(s => s.Account == account)
-                .Where(s => s.End >= DateTime.Today)
-                .OrderBy(s => s.End).ToList();
+            using (var db = new ReBusContainer())
+            {
+                db.Accounts.Attach(account);
+                db.Refresh(RefreshMode.StoreWins, account);
+
+                return db.Subscriptions
+                    .Where(s => s.Account == account)
+                    .Where(s => s.End >= DateTime.Today)
+                    .OrderBy(s => s.End).ToList();
+            }
         }
 
         /// <summary>
@@ -176,11 +196,18 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Subscription> GetHistory(Account account, DateTime before, int limit)
         {
-            return db.Subscriptions
-                .Where(s => s.Account == account)
-                .Where(s => s.Created < before)
-                .OrderByDescending(s => s.Created)
-                .Take(limit).ToList();
+            using (var db = new ReBusContainer())
+            {
+                db.Accounts.Attach(account);
+                db.Refresh(RefreshMode.StoreWins, account);
+
+                return db.Subscriptions
+                    .Where(s => s.Account == account)
+                    .Where(s => s.Created < before)
+                    .OrderByDescending(s => s.Created)
+                    .Take(limit).ToList();
+                
+            }
         }
 
         /// <summary>
@@ -191,10 +218,16 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Subscription> GetNewSubscriptions(Account account, DateTime after)
         {
-            return db.Subscriptions
-                .Where(s => s.Account == account)
-                .Where(s => s.Created > after)
-                .OrderByDescending(s => s.Created).ToList();
+            using (var db = new ReBusContainer())
+            {
+                db.Accounts.Attach(account);
+                db.Refresh(RefreshMode.StoreWins, account);
+
+                return db.Subscriptions
+                    .Where(s => s.Account == account)
+                    .Where(s => s.Created > after)
+                    .OrderByDescending(s => s.Created).ToList();
+            }
         }
     }
 }

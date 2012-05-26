@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Transactions;
 using ReBus.Model;
 using ReBus.Repository;
@@ -11,8 +12,6 @@ namespace ReBus.Services
 {
     public class TicketService : ITicketService
     {
-        ReBusContainer db = new ReBusContainer();
-
         /// <summary>
         /// Buy a new ticket.
         /// </summary>
@@ -21,12 +20,15 @@ namespace ReBus.Services
         /// <returns></returns>
         public Ticket BuyTicket(Account account, Bus bus)
         {
-            Ticket ticket;
-            using (db = new ReBusContainer())
+            using (ReBusContainer db = new ReBusContainer())
             {
+                Ticket ticket;
                 using (new TransactionScope())
                 {
-                    account = db.Accounts.Single(t => t.GUID == account.GUID);
+                    db.Accounts.Attach(account);
+                    db.Buses.Attach(bus);
+                    db.Refresh(RefreshMode.StoreWins, new Object[] { account, bus});
+
                     var cost = db.TicketCost.Single().Cost;
                     if (cost > account.Credit) { throw new InsufficientCreditException(); }
 
@@ -43,9 +45,10 @@ namespace ReBus.Services
                     db.Tickets.AddObject(ticket);
                     db.SaveChanges();
                 }
+
+                return ticket;
             }
 
-            return ticket;
         }
 
         /// <summary>
@@ -55,12 +58,19 @@ namespace ReBus.Services
         /// <returns></returns>
         public Ticket GetActiveTicket(Account account)
         {
-            DateTime validity = DateTime.Now - new TimeSpan(0, 0, 45);
-            return db.Tickets
-                .Where(t => t.Account == account)
-                .Where(t => t.Created >= validity)
-                .OrderByDescending(t => t.Created)
-                .FirstOrDefault();
+            using (var db = new ReBusContainer())
+            {
+                db.Accounts.Attach(account);
+                db.Refresh(RefreshMode.StoreWins, account);
+
+                DateTime validity = DateTime.Now - new TimeSpan(0, 0, 45);
+                return db.Tickets
+                    .Where(t => t.Account == account)
+                    .Where(t => t.Created >= validity)
+                    .OrderByDescending(t => t.Created)
+                    .FirstOrDefault();
+                
+            }
         }
 
         /// <summary>
@@ -93,11 +103,17 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetHistory(Account account, DateTime before, int limit)
         {
-            return db.Tickets
-                .Where(t => t.Account == account)
-                .Where(t => t.Created < before)
-                .OrderByDescending(t => t.Created)
-                .Take(limit).ToList();
+            using (var db = new ReBusContainer()) 
+            {
+                db.Accounts.Attach(account);
+                db.Refresh(RefreshMode.StoreWins, account);
+
+                return db.Tickets
+                    .Where(t => t.Account == account)
+                    .Where(t => t.Created < before)
+                    .OrderByDescending(t => t.Created)
+                    .Take(limit).ToList();
+            }
         }
 
         /// <summary>
@@ -108,10 +124,16 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetNewTickets(Account account, DateTime after)
         {
-            return db.Tickets
-                .Where(t => t.Account == account)
-                .Where(t => t.Created > after)
-                .OrderByDescending(t => t.Created).ToList();
+            using (var db = new ReBusContainer())
+            {
+                db.Accounts.Attach(account);
+                db.Refresh(RefreshMode.StoreWins, account);
+
+                return db.Tickets
+                    .Where(t => t.Account == account)
+                    .Where(t => t.Created > after)
+                    .OrderByDescending(t => t.Created).ToList();
+            }
         }
     }
 }
