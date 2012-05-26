@@ -41,6 +41,9 @@ namespace ReBus.WebServices.WebServiceModel
 
         public static TransactionWebServiceModel FromModelObject(Transaction transaction)
         {
+            if (transaction == null)
+                return null;
+
             return new TransactionWebServiceModel()
                    {
                        Amount = transaction.Amount,

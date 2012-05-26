@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ReBus.Model;
 using System.Runtime.Serialization;
 
-namespace ReBus.Services
+namespace ReBus.WebServices.WebServiceModel
 {
     [DataContract]
     public class AccountWebServiceModel
@@ -47,6 +44,9 @@ namespace ReBus.Services
 
         internal static AccountWebServiceModel FromModelObject(Account account)
         {
+            if (account == null)
+                return null;
+
             return new AccountWebServiceModel() 
                    { 
                         GUID = account.GUID,
