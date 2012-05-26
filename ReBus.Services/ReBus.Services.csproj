@@ -46,8 +46,10 @@
   <ItemGroup>
     <Compile Include="AccountService.cs" />
     <Compile Include="API\IAccountService.cs" />
+    <Compile Include="API\IInformationService.cs" />
     <Compile Include="API\ISubscriptionService.cs" />
     <Compile Include="API\ITicketService.cs" />
+    <Compile Include="InformationService.cs" />
     <Compile Include="InsufficientCreditException.cs" />
     <Compile Include="NotAllFieldsFilledException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
