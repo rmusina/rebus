@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2012 18:30:11
--- Generated from EDMX file: F:\info\ReBus\rebus\ReBus.DataModel\ReBus.edmx
+-- Date Created: 05/26/2012 19:14:13
+-- Generated from EDMX file: D:\projects\rebus\ReBus.DataModel\ReBus.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,23 +20,23 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BusLine]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Buses] DROP CONSTRAINT [FK_BusLine];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TransactionAccount]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Transactions] DROP CONSTRAINT [FK_TransactionAccount];
-GO
-IF OBJECT_ID(N'[dbo].[FK_TicketAccount]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [FK_TicketAccount];
-GO
 IF OBJECT_ID(N'[dbo].[FK_SubscriptionAccount]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Subscriptions] DROP CONSTRAINT [FK_SubscriptionAccount];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TicketBus]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [FK_TicketBus];
+IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Line]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Line];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Subscription]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Subscription];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Line]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Line];
+IF OBJECT_ID(N'[dbo].[FK_TicketAccount]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [FK_TicketAccount];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TicketBus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [FK_TicketBus];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TransactionAccount]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Transactions] DROP CONSTRAINT [FK_TransactionAccount];
 GO
 
 -- --------------------------------------------------
@@ -46,23 +46,23 @@ GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
 GO
-IF OBJECT_ID(N'[dbo].[Transactions]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Transactions];
+IF OBJECT_ID(N'[dbo].[Buses]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Buses];
 GO
 IF OBJECT_ID(N'[dbo].[Lines]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Lines];
 GO
-IF OBJECT_ID(N'[dbo].[Buses]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Buses];
-GO
-IF OBJECT_ID(N'[dbo].[Tickets]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Tickets];
+IF OBJECT_ID(N'[dbo].[SubscriptionLine]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SubscriptionLine];
 GO
 IF OBJECT_ID(N'[dbo].[Subscriptions]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Subscriptions];
 GO
-IF OBJECT_ID(N'[dbo].[SubscriptionLine]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[SubscriptionLine];
+IF OBJECT_ID(N'[dbo].[Tickets]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Tickets];
+GO
+IF OBJECT_ID(N'[dbo].[Transactions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Transactions];
 GO
 
 -- --------------------------------------------------
@@ -71,7 +71,7 @@ GO
 
 -- Creating table 'Accounts'
 CREATE TABLE [dbo].[Accounts] (
-    [GUID] uniqueidentifier  NOT NULL default newid(),
+    [GUID] uniqueidentifier  NOT NULL DEFAULT newid(),
     [PasswordHash] nvarchar(max)  NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
@@ -93,21 +93,21 @@ GO
 
 -- Creating table 'Lines'
 CREATE TABLE [dbo].[Lines] (
-    [GUID] uniqueidentifier  NOT NULL,
+    [GUID] uniqueidentifier  NOT NULL DEFAULT newid(),
     [Name] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'Buses'
 CREATE TABLE [dbo].[Buses] (
-    [GUID] uniqueidentifier  NOT NULL default newid(),
+    [GUID] uniqueidentifier  NOT NULL DEFAULT newid(),
     [LineGUID] uniqueidentifier  NOT NULL
 );
 GO
 
 -- Creating table 'Tickets'
 CREATE TABLE [dbo].[Tickets] (
-    [GUID] uniqueidentifier  NOT NULL default newid(),
+    [GUID] uniqueidentifier  NOT NULL DEFAULT newid(),
     [AccountGUID] uniqueidentifier  NOT NULL,
     [Created] datetime  NOT NULL,
     [BusGUID] uniqueidentifier  NOT NULL
@@ -116,11 +116,25 @@ GO
 
 -- Creating table 'Subscriptions'
 CREATE TABLE [dbo].[Subscriptions] (
-    [GUID] uniqueidentifier  NOT NULL default newid(),
+    [GUID] uniqueidentifier  NOT NULL DEFAULT newid(),
     [AccountGUID] uniqueidentifier  NOT NULL,
     [Start] datetime  NOT NULL,
     [End] datetime  NOT NULL,
     [Created] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'TicketCost'
+CREATE TABLE [dbo].[TicketCost] (
+    [Cost] decimal(18,0)  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL
+);
+GO
+
+-- Creating table 'SubscriptionCosts'
+CREATE TABLE [dbo].[SubscriptionCosts] (
+    [Lines] int  NOT NULL,
+    [Cost] decimal(18,0)  NOT NULL
 );
 GO
 
@@ -169,6 +183,18 @@ GO
 ALTER TABLE [dbo].[Subscriptions]
 ADD CONSTRAINT [PK_Subscriptions]
     PRIMARY KEY CLUSTERED ([GUID] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TicketCost'
+ALTER TABLE [dbo].[TicketCost]
+ADD CONSTRAINT [PK_TicketCost]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Lines] in table 'SubscriptionCosts'
+ALTER TABLE [dbo].[SubscriptionCosts]
+ADD CONSTRAINT [PK_SubscriptionCosts]
+    PRIMARY KEY CLUSTERED ([Lines] ASC);
 GO
 
 -- Creating primary key on [Subscriptions_GUID], [Lines_GUID] in table 'SubscriptionLine'

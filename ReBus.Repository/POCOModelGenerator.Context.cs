@@ -78,6 +78,18 @@ namespace ReBus.Repository
             get { return _subscriptions  ?? (_subscriptions = CreateObjectSet<Subscription>("Subscriptions")); }
         }
         private ObjectSet<Subscription> _subscriptions;
+    
+        public ObjectSet<TicketCost> TicketCost
+        {
+            get { return _ticketCost  ?? (_ticketCost = CreateObjectSet<TicketCost>("TicketCost")); }
+        }
+        private ObjectSet<TicketCost> _ticketCost;
+    
+        public ObjectSet<SubscriptionCost> SubscriptionCosts
+        {
+            get { return _subscriptionCosts  ?? (_subscriptionCosts = CreateObjectSet<SubscriptionCost>("SubscriptionCosts")); }
+        }
+        private ObjectSet<SubscriptionCost> _subscriptionCosts;
 
         #endregion
     }

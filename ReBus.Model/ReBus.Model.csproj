@@ -65,12 +65,19 @@
     <Compile Include="Subscription.cs">
       <DependentUpon>POCOModelGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubscriptionCost.cs">
+      <DependentUpon>POCOModelGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ticket.cs">
+      <DependentUpon>POCOModelGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketCost.cs">
       <DependentUpon>POCOModelGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Transaction.cs">
       <DependentUpon>POCOModelGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="TransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

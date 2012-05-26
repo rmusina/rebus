@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Transactions;
 using ReBus.Model;
 using ReBus.Repository;
 using ReBus.Services.API;
 using System.Linq;
+using Transaction = ReBus.Model.Transaction;
 
 namespace ReBus.Services
 {
@@ -53,18 +55,53 @@ namespace ReBus.Services
         /// <returns></returns>
         public Subscription BuySubscription(Account account, IEnumerable<Line> lines, DateTime startDate)
         {
-            var subscription = new Subscription {
-                Account =  account,
-                Start = startDate.Date,
-                End = startDate.Date + TimeSpan.FromDays(30),
-                Lines = lines.ToList(),
-                Created = DateTime.Today
-            };
-
-            using (var insertDb = new ReBusContainer())
+            Subscription subscription;
+            var myLines = new HashSet<Line>();
+            foreach (var line in lines)
             {
-                insertDb.Subscriptions.AddObject(subscription);
-                insertDb.SaveChanges();
+                myLines.Add(line);
+            }
+
+            using (var db = new ReBusContainer())
+            {
+                using (new TransactionScope())
+                {
+                    account = db.Accounts.Single(a => a.GUID == account.GUID);
+
+                    var subscriptionCost = db.SubscriptionCosts.SingleOrDefault(s => s.Lines == myLines.Count);
+                    // If there is no subscription plan for the number of lines we want, get a subscription for all the lines
+                    if (subscriptionCost == null)
+                    {
+                        subscriptionCost = db.SubscriptionCosts.SingleOrDefault(s => s.Lines == 0);
+                        myLines.Clear();
+                    }
+                    var cost = subscriptionCost.Cost;
+                    if (account.Credit < cost)
+                    {
+                        throw new InsufficientCreditException();
+                    }
+
+                    subscription = new Subscription
+                    {
+                        Account = account,
+                        Start = startDate.Date,
+                        End = startDate.Date + TimeSpan.FromDays(30),
+                        Lines = lines.ToList(),
+                        Created = DateTime.Today
+                    };
+                    var transaction = new Transaction
+                    {
+                        Account = account,
+                        Type = (int)TransactionType.Subscription,
+                        Amount = cost,
+                        Created = DateTime.Now
+                    };
+                    account.Credit -= cost;
+
+                    db.Subscriptions.AddObject(subscription);
+                    db.Transactions.AddObject(transaction);
+                    db.SaveChanges();
+                }
             }
 
             return subscription;

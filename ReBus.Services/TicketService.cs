@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Transactions;
 using ReBus.Model;
 using ReBus.Repository;
 using ReBus.Services.API;
 using System.Linq;
+using Transaction = ReBus.Model.Transaction;
 
 namespace ReBus.Services
 {
@@ -19,12 +21,28 @@ namespace ReBus.Services
         /// <returns></returns>
         public Ticket BuyTicket(Account account, Bus bus)
         {
-            var ticket = new Ticket {Account = account, Bus = bus, Created = DateTime.Now};
-
-            using (var insertDb = new ReBusContainer())
+            Ticket ticket;
+            using (db = new ReBusContainer())
             {
-                insertDb.Tickets.AddObject(ticket);
-                insertDb.SaveChanges();
+                using (new TransactionScope())
+                {
+                    account = db.Accounts.Single(t => t.GUID == account.GUID);
+                    var cost = db.TicketCost.Single().Cost;
+                    if (cost > account.Credit) { throw new InsufficientCreditException(); }
+
+                    ticket = new Ticket { Account = account, Bus = bus, Created = DateTime.Now };
+                    var transaction = new Transaction
+                    {
+                        Account = account,
+                        Amount = cost,
+                        Type = (int)TransactionType.Ticket,
+                        Created = DateTime.Now
+                    };
+                    account.Credit -= cost;
+
+                    db.Tickets.AddObject(ticket);
+                    db.SaveChanges();
+                }
             }
 
             return ticket;
