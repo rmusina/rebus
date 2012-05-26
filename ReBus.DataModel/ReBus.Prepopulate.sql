@@ -1,5 +1,7 @@
 ﻿USE [ReBus];
 
+DELETE FROM BusStopLine;
+DELETE FROM BusStops;
 DELETE FROM TicketCost;
 DELETE FROM SubscriptionCosts;
 DELETE FROM Tickets;
@@ -16,13 +18,15 @@ VALUES
 
 INSERT INTO Lines(Name)
 VALUES
- ('24'),
  ('25'),
  ('4'),
  ('6'),
  ('30'),
  ('24b'),
  ('25b');
+
+ INSERT INTO Lines([GUID], Name)
+ VALUES ('b615c93d-9521-4cf4-9c7b-fd9c0e887f50', '24');
 
 INSERT INTO Buses(LineGUID)
 SELECT [GUID] FROM Lines;
@@ -119,3 +123,67 @@ SELECT [GUID], 250, NULL, CURRENT_TIMESTAMP, 0 FROM Accounts WHERE Username = 'a
 
 INSERT INTO Transactions(AccountGUID, Amount, AssociatedGUID, Created, [Type])
 SELECT [GUID], 50, '75c8242f-2d20-4f04-a137-1752c48763f6', CURRENT_TIMESTAMP, 2 FROM Accounts WHERE Username = 'a';
+
+
+INSERT INTO BusStops(Name, Latitude, Longitude)
+VALUES
+('Memorandumului I', 46.769496, 23.586663),
+('Memorandumului II', 46.769571,	 23.587218),
+('Regionala I',	46.773309	, 23.597306),
+('Regionala II',	 46.772935	, 23.596968),
+('Somesului I',	 46.775992	,23.604690),
+('Somesului II',	 46.775927	, 23.605123),
+('Piatza Marasti I',	46.777869	, 23.611514),
+('Piatza Marasti II',	 46.777669	, 23.611641),
+('Maresal Constantin Prezan',	 46.778334	,23.616046),
+( 'Arte',	 46.778736,	23.616266),
+( 'Dorobanti',	 46.777305	, 23.620113),
+( 'Campus Universitar II',	 46.773951,	 23.621691),
+( 'Campus Universitar I',	 46.774048	, 23.621961),
+( 'Iulius Mall II',	 46.771319	, 23.625384),
+( 'Iulius Mall I',	 46.771387	 ,23.625742),
+( 'Unirii II',	 46.768899	, 23.629496),
+('Unirii I',	 46.768574	, 23.630220),
+( 'Spitalul de copii I',	46.766339	, 23.579967),
+( 'Spitalul de copii II',	 46.766232	 ,23.580060),
+( 'Agronomie I',	 46.763804	, 23.573487),
+( 'Agronomie II',	 46.763725,	 23.573710),
+( 'Campului I',	 46.760882	, 23.564024),
+( 'Campului II',	 46.760678	, 23.564429),
+( 'Peco',	 46.758991	, 23.551528),
+( 'Peco II',	 46.758584	, 23.550947),
+( 'Calea Floresti I',	 46.757593	, 23.544685),
+( 'Calea Floresti II',	 46.757291	, 23.545074),
+( 'Bucium I',	 46.752637	, 23.543537),
+( 'Bucium II',	 46.752530	, 23.543994);
+
+INSERT INTO BusStopLine(Lines_GUID, BusStops_Id)
+VALUES
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',17),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',15),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',13),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',10),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',7),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',3),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',1),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',18),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',20),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',22),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',24),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',26),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',28),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',29),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',27),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',25),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',23),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',21),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',19),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',2),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',4),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',6),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',8),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',9),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',11),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',12),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',14),
+('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',16);
