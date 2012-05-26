@@ -14,9 +14,7 @@
     <EntitySet Name="Subscriptions" EntityType="Model1.Store.Subscriptions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TicketCost" EntityType="Model1.Store.TicketCost" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SubscriptionCosts" EntityType="Model1.Store.SubscriptionCosts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="BusStops" EntityType="Model1.Store.BusStops" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SubscriptionLine" EntityType="Model1.Store.SubscriptionLine" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="BusStopLine" EntityType="Model1.Store.BusStopLine" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="BusLine" Association="Model1.Store.BusLine">
       <End Role="Bus" EntitySet="Buses" />
       <End Role="Line" EntitySet="Lines" />
@@ -45,14 +43,6 @@
       <End Role="Line" EntitySet="Lines" />
       <End Role="SubscriptionLine" EntitySet="SubscriptionLine" />
     </AssociationSet>
-    <AssociationSet Name="FK_BusStopLine_BusStop" Association="Model1.Store.FK_BusStopLine_BusStop">
-      <End Role="BusStop" EntitySet="BusStops" />
-      <End Role="BusStopLine" EntitySet="BusStopLine" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BusStopLine_Line" Association="Model1.Store.FK_BusStopLine_Line">
-      <End Role="Line" EntitySet="Lines" />
-      <End Role="BusStopLine" EntitySet="BusStopLine" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Accounts">
     <Key>
@@ -64,6 +54,7 @@
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Credit" Type="decimal" Nullable="false" Scale="2" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsTicketController" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Transactions">
     <Key>
@@ -123,29 +114,12 @@
     <Property Name="Lines" Type="int" Nullable="false" />
     <Property Name="Cost" Type="decimal" Nullable="false" Scale="2" />
   </EntityType>
-  <EntityType Name="BusStops">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Latitude" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Longitude" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
   <EntityType Name="SubscriptionLine">
     <Key>
       <PropertyRef Name="Subscriptions_GUID" />
       <PropertyRef Name="Lines_GUID" />
     </Key>
     <Property Name="Subscriptions_GUID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Lines_GUID" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="BusStopLine">
-    <Key>
-      <PropertyRef Name="BusStops_Id" />
-      <PropertyRef Name="Lines_GUID" />
-    </Key>
-    <Property Name="BusStops_Id" Type="int" Nullable="false" />
     <Property Name="Lines_GUID" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <Association Name="BusLine">
@@ -232,30 +206,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BusStopLine_BusStop">
-    <End Role="BusStop" Type="Model1.Store.BusStops" Multiplicity="1" />
-    <End Role="BusStopLine" Type="Model1.Store.BusStopLine" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="BusStop">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="BusStopLine">
-        <PropertyRef Name="BusStops_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BusStopLine_Line">
-    <End Role="BusStopLine" Type="Model1.Store.BusStopLine" Multiplicity="*" />
-    <End Role="Line" Type="Model1.Store.Lines" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Line">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="BusStopLine">
-        <PropertyRef Name="Lines_GUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -293,11 +243,6 @@
           </AssociationSet>
           <EntitySet Name="TicketCost" EntityType="Model1.TicketCost" />
           <EntitySet Name="SubscriptionCosts" EntityType="Model1.SubscriptionCost" />
-          <EntitySet Name="BusStops" EntityType="Model1.BusStop" />
-          <AssociationSet Name="BusStopLine" Association="Model1.BusStopLine">
-            <End Role="BusStop" EntitySet="BusStops" />
-            <End Role="Line" EntitySet="Lines" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -312,6 +257,7 @@
           <NavigationProperty Name="Tickets" Relationship="Model1.TicketAccount" FromRole="Account" ToRole="Ticket" />
           <NavigationProperty Name="Subscriptions" Relationship="Model1.SubscriptionAccount" FromRole="Account" ToRole="Subscription" />
           <Property Type="String" Name="Username" Nullable="false" />
+          <Property Type="Boolean" Name="IsTicketController" Nullable="false" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -333,7 +279,6 @@
           <Property Type="String" Name="Name" Nullable="false" />
           <NavigationProperty Name="Buses" Relationship="Model1.BusLine" FromRole="Line" ToRole="Bus" />
           <NavigationProperty Name="Subscriptions" Relationship="Model1.SubscriptionLine" FromRole="Line" ToRole="Subscription" />
-          <NavigationProperty Name="BusStops" Relationship="Model1.BusStopLine" FromRole="Line" ToRole="BusStop" />
         </EntityType>
         <EntityType Name="Bus">
           <Key>
@@ -445,20 +390,6 @@
           <Property Type="Int32" Name="Lines" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Type="Decimal" Name="Cost" Nullable="false" Scale="2" />
         </EntityType>
-        <EntityType Name="BusStop">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" />
-          <Property Type="String" Name="Latitude" Nullable="false" />
-          <Property Type="String" Name="Longitude" Nullable="false" />
-          <NavigationProperty Name="Lines" Relationship="Model1.BusStopLine" FromRole="BusStop" ToRole="Line" />
-        </EntityType>
-        <Association Name="BusStopLine">
-          <End Type="Model1.BusStop" Role="BusStop" Multiplicity="*" />
-          <End Type="Model1.Line" Role="Line" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -474,6 +405,7 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Credit" ColumnName="Credit" />
           <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="IsTicketController" ColumnName="IsTicketController" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -542,27 +474,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="BusStops">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.BusStop)">
-        <MappingFragment StoreEntitySet="BusStops">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <AssociationSetMapping Name="SubscriptionLine" TypeName="Model1.SubscriptionLine" StoreEntitySet="SubscriptionLine">
       <EndProperty Name="Subscription">
         <ScalarProperty Name="GUID" ColumnName="Subscriptions_GUID" />
-      </EndProperty>
-      <EndProperty Name="Line">
-        <ScalarProperty Name="GUID" ColumnName="Lines_GUID" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="BusStopLine" TypeName="Model1.BusStopLine" StoreEntitySet="BusStopLine">
-      <EndProperty Name="BusStop">
-        <ScalarProperty Name="Id" ColumnName="BusStops_Id" />
       </EndProperty>
       <EndProperty Name="Line">
         <ScalarProperty Name="GUID" ColumnName="Lines_GUID" />
@@ -589,7 +503,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Model1" DisplayType="true" >
-        <EntityTypeShape EntityType="Model1.Account" Width="1.5" PointX="0.5" PointY="0.5" Height="2.7494921875" />
+        <EntityTypeShape EntityType="Model1.Account" Width="1.5" PointX="0.5" PointY="0.5" Height="2.9417936197916661" />
         <EntityTypeShape EntityType="Model1.Transaction" Width="2.125" PointX="2.75" PointY="0.5" Height="2.364889322916667" />
         <EntityTypeShape EntityType="Model1.Line" Width="1.5" PointX="5.125" PointY="0.5" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="Model1.Bus" Width="1.5" PointX="7.625" PointY="0.5" Height="1.7879850260416663" />
@@ -598,47 +512,33 @@
           <ConnectorPoint PointX="6.625" PointY="1.3939925130208333" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.TransactionAccount">
-          <ConnectorPoint PointX="2.75" PointY="1.6824446614583333" />
-          <ConnectorPoint PointX="2" PointY="1.6824446614583333" />
+          <ConnectorPoint PointX="2.75" PointY="1.6824446614583337" />
+          <ConnectorPoint PointX="2" PointY="1.6824446614583337" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model1.Ticket" Width="2.625" PointX="0.5" PointY="3.625" Height="2.1725878906249996" />
         <AssociationConnector Association="Model1.TicketAccount">
-          <ConnectorPoint PointX="1.25" PointY="3.625" />
-          <ConnectorPoint PointX="1.25" PointY="3.2494921875" />
+          <ConnectorPoint PointX="1.6875" PointY="3.625" />
+          <ConnectorPoint PointX="1.6875" PointY="3.4417936197916661" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model1.Subscription" Width="2.25" PointX="4.75" PointY="3.125" Height="2.3648893229166656" />
         <AssociationConnector Association="Model1.SubscriptionAccount" ManuallyRouted="false">
           <ConnectorPoint PointX="4.75" PointY="4.3074446614583328" />
-          <ConnectorPoint PointX="4.583333333333333" PointY="4.3074446614583319" />
-          <ConnectorPoint PointX="4.416666666666667" PointY="4.3074446614583328" />
-          <ConnectorPoint PointX="3.375" PointY="4.3074446614583328" />
-          <ConnectorPoint PointX="3.375" PointY="3.4994921875" />
-          <ConnectorPoint PointX="1.25" PointY="3.4994921875" />
-          <ConnectorPoint PointX="1.25" PointY="3.2494921875" />
+          <ConnectorPoint PointX="3.1875" PointY="4.3074446614583328" />
+          <ConnectorPoint PointX="3.1875" PointY="3.5625" />
+          <ConnectorPoint PointX="1.0624980000000002" PointY="3.5625" />
+          <ConnectorPoint PointX="1.0624980000000002" PointY="3.4417936197916661" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.TicketBus">
           <ConnectorPoint PointX="3.125" PointY="5.6749886067708326" />
-          <ConnectorPoint PointX="4.416666666666667" PointY="5.6749886067708317" />
-          <ConnectorPoint PointX="4.583333333333333" PointY="5.6749886067708326" />
           <ConnectorPoint PointX="8.375" PointY="5.6749886067708326" />
           <ConnectorPoint PointX="8.375" PointY="2.2879850260416665" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.SubscriptionLine">
-          <ConnectorPoint PointX="6.3125" PointY="3.125" />
-          <ConnectorPoint PointX="6.3125" PointY="2.4802864583333331" />
+          <ConnectorPoint PointX="5.875" PointY="3.125" />
+          <ConnectorPoint PointX="5.875" PointY="2.2879850260416674" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model1.TicketCost" Width="1.5" PointX="9.5" PointY="0.625" Height="1.4033821614583331" />
         <EntityTypeShape EntityType="Model1.SubscriptionCost" Width="1.875" PointX="9.25" PointY="2.5" Height="1.4033821614583331" />
-        <EntityTypeShape EntityType="Model1.BusStop" Width="1.5" PointX="2.75" PointY="6.375" Height="1.7879850260416657" />
-        <AssociationConnector Association="Model1.BusStopLine">
-          <ConnectorPoint PointX="4.25" PointY="7.3651432291666676" />
-          <ConnectorPoint PointX="4.5" PointY="7.3651432291666676" />
-          <ConnectorPoint PointX="4.5" PointY="3.1148893229166674" />
-          <ConnectorPoint PointX="5.125" PointY="3.1148893229166674" />
-          <ConnectorPoint PointX="5.125" PointY="2.8552864583333331" />
-          <ConnectorPoint PointX="5.687498" PointY="2.8552864583333331" />
-          <ConnectorPoint PointX="5.687498" PointY="2.4802864583333331" />
-        </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

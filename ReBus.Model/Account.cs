@@ -54,6 +54,12 @@ namespace ReBus.Model
             get;
             set;
         }
+    
+        public virtual bool IsTicketController
+        {
+            get;
+            set;
+        }
 
         #endregion
         #region Navigation Properties
