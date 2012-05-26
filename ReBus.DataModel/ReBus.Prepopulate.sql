@@ -1,7 +1,7 @@
 ﻿USE [ReBus];
 
-DELETE FROM BusStopLine;
-DELETE FROM BusStops;
+DELETE FROM StationLine;
+DELETE FROM Stations;
 DELETE FROM TicketCost;
 DELETE FROM SubscriptionCosts;
 DELETE FROM Tickets;
@@ -125,7 +125,7 @@ INSERT INTO Transactions(AccountGUID, Amount, AssociatedGUID, Created, [Type])
 SELECT [GUID], 50, '75c8242f-2d20-4f04-a137-1752c48763f6', CURRENT_TIMESTAMP, 2 FROM Accounts WHERE Username = 'a';
 
 
-INSERT INTO BusStops(Name, Latitude, Longitude)
+INSERT INTO Stations(Name, Latitude, Longitude)
 VALUES
 ('Memorandumului I', 46.769496, 23.586663),
 ('Memorandumului II', 46.769571,	 23.587218),
@@ -157,7 +157,7 @@ VALUES
 ( 'Bucium I',	 46.752637	, 23.543537),
 ( 'Bucium II',	 46.752530	, 23.543994);
 
-INSERT INTO BusStopLine(Lines_GUID, BusStops_Id)
+INSERT INTO StationLine(Lines_GUID, Stations_Id)
 VALUES
 ('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',17),
 ('b615c93d-9521-4cf4-9c7b-fd9c0e887f50',15),

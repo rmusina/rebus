@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/27/2012 01:21:44
--- Generated from EDMX file: F:\info\ReBus\rebus\ReBus.DataModel\ReBus.edmx
+-- Date Created: 05/27/2012 02:07:03
+-- Generated from EDMX file: D:\projects\rebus\ReBus.DataModel\ReBus.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -38,6 +38,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Line]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Line];
 GO
+IF OBJECT_ID(N'[dbo].[FK_StationLine_Station]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[StationLine] DROP CONSTRAINT [FK_StationLine_Station];
+GO
+IF OBJECT_ID(N'[dbo].[FK_StationLine_Line]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[StationLine] DROP CONSTRAINT [FK_StationLine_Line];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -67,8 +73,14 @@ GO
 IF OBJECT_ID(N'[dbo].[SubscriptionCosts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SubscriptionCosts];
 GO
+IF OBJECT_ID(N'[dbo].[Stations]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Stations];
+GO
 IF OBJECT_ID(N'[dbo].[SubscriptionLine]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SubscriptionLine];
+GO
+IF OBJECT_ID(N'[dbo].[StationLine]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[StationLine];
 GO
 
 -- --------------------------------------------------
@@ -145,9 +157,25 @@ CREATE TABLE [dbo].[SubscriptionCosts] (
 );
 GO
 
+-- Creating table 'Stations'
+CREATE TABLE [dbo].[Stations] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Latitude] float  NOT NULL,
+    [Longitude] float  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'SubscriptionLine'
 CREATE TABLE [dbo].[SubscriptionLine] (
     [Subscriptions_GUID] uniqueidentifier  NOT NULL,
+    [Lines_GUID] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'StationLine'
+CREATE TABLE [dbo].[StationLine] (
+    [Stations_Id] int  NOT NULL,
     [Lines_GUID] uniqueidentifier  NOT NULL
 );
 GO
@@ -204,10 +232,22 @@ ADD CONSTRAINT [PK_SubscriptionCosts]
     PRIMARY KEY CLUSTERED ([Lines] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Stations'
+ALTER TABLE [dbo].[Stations]
+ADD CONSTRAINT [PK_Stations]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Subscriptions_GUID], [Lines_GUID] in table 'SubscriptionLine'
 ALTER TABLE [dbo].[SubscriptionLine]
 ADD CONSTRAINT [PK_SubscriptionLine]
     PRIMARY KEY NONCLUSTERED ([Subscriptions_GUID], [Lines_GUID] ASC);
+GO
+
+-- Creating primary key on [Stations_Id], [Lines_GUID] in table 'StationLine'
+ALTER TABLE [dbo].[StationLine]
+ADD CONSTRAINT [PK_StationLine]
+    PRIMARY KEY NONCLUSTERED ([Stations_Id], [Lines_GUID] ASC);
 GO
 
 -- --------------------------------------------------
@@ -304,6 +344,29 @@ ADD CONSTRAINT [FK_SubscriptionLine_Line]
 -- Creating non-clustered index for FOREIGN KEY 'FK_SubscriptionLine_Line'
 CREATE INDEX [IX_FK_SubscriptionLine_Line]
 ON [dbo].[SubscriptionLine]
+    ([Lines_GUID]);
+GO
+
+-- Creating foreign key on [Stations_Id] in table 'StationLine'
+ALTER TABLE [dbo].[StationLine]
+ADD CONSTRAINT [FK_StationLine_Station]
+    FOREIGN KEY ([Stations_Id])
+    REFERENCES [dbo].[Stations]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Lines_GUID] in table 'StationLine'
+ALTER TABLE [dbo].[StationLine]
+ADD CONSTRAINT [FK_StationLine_Line]
+    FOREIGN KEY ([Lines_GUID])
+    REFERENCES [dbo].[Lines]
+        ([GUID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_StationLine_Line'
+CREATE INDEX [IX_FK_StationLine_Line]
+ON [dbo].[StationLine]
     ([Lines_GUID]);
 GO
 
