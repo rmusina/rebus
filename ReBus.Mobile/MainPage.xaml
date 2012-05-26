@@ -30,9 +30,9 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
                 <TextBlock Text="Username"/>
-                <TextBox x:Name="txtUserName" Text="{Binding Username, Mode=TwoWay}"/>
+                <TextBox x:Name="userNameTextBox" Text="{Binding Username, Mode=TwoWay}"/>
                 <TextBlock Text="Password"/>
-                <PasswordBox x:Name="txtPassword" Password="{Binding Password, Mode=TwoWay}"/>
+                <PasswordBox x:Name="passwordTextBox" Password="{Binding Password, Mode=TwoWay}"/>
                 <Button x:Name="logInButton"
                             Content="Log in" Click="logInButton_Click" />
             </StackPanel>

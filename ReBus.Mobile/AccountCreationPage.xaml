@@ -45,8 +45,8 @@
                     <TextBlock Grid.Row="3" Height="30" Margin="5,0,0,0" HorizontalAlignment="Left" Name="nameTextBlock" Text="Nume:"/>
                     <TextBlock Grid.Row="4" Height="30" Margin="5,0,0,0" HorizontalAlignment="Left" Name="surnameTextBlock" Text="Prenume:"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Height="72" Name="userTextBox"></TextBox>
-                    <TextBox Grid.Row="1" Grid.Column="1" Height="72" Name="pass1TextBox"></TextBox>
-                    <TextBox Grid.Row="2" Grid.Column="1" Height="72" Name="pass2TextBox"></TextBox>
+                    <PasswordBox Grid.Row="1" Grid.Column="1" Height="72" Name="pass1TextBox"></PasswordBox>
+                    <PasswordBox Grid.Row="2" Grid.Column="1" Height="72" Name="pass2TextBox"></PasswordBox>
                     <TextBox Grid.Row="3" Grid.Column="1" Height="72" Name="nameTextBox"></TextBox>
                     <TextBox Grid.Row="4" Grid.Column="1" Height="72" Name="surnameTextBox"></TextBox>
                 </Grid>

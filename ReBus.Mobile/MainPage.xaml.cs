@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using ReBus.Mobile.AuthenticatoinServiceReference;
 
 namespace ReBus.Mobile
 {
@@ -23,9 +24,28 @@ namespace ReBus.Mobile
 
         private void logInButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: log in
+            if (userNameTextBox.Text.Equals("") || passwordTextBox.Password.Equals(""))
+            {
+                MessageBox.Show("Toate campurile trebuie completate.");
+            }
+            else
+            {
+                AuthenticationWebServiceClient proxy = new AuthenticationWebServiceClient();
+                proxy.AuthenticateCompleted += new EventHandler<AuthenticateCompletedEventArgs>(proxy_AuthenticateCompleted);
+                proxy.AuthenticateAsync(userNameTextBox.Text, passwordTextBox.Password);
+            }
+        }
 
-            this.NavigationService.Navigate(new Uri("/ReBusPivotMenu.xaml", UriKind.Relative));
+        void proxy_AuthenticateCompleted(object sender, AuthenticateCompletedEventArgs e)
+        {
+            if (e.Error == null && e.Result != null)
+            {
+                this.NavigationService.Navigate(new Uri("/ReBusPivotMenu.xaml", UriKind.Relative));
+            }
+            else
+            {
+                MessageBox.Show("Eroare la log in.");
+            }
         }
 
         private void NewAccountButton_Click(object sender, EventArgs e)

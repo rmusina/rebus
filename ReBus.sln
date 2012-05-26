@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReBus.Model", "ReBus.Model\ReBus.Model.csproj", "{805B6A75-B3C9-4503-B3F5-8C72F3915389}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReBus.Mobile", "ReBus.Mobile\ReBus.Mobile.csproj", "{0C6EC16A-1A55-4FA1-BF62-008581AF39CE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1F6BDCC-28E4-4B72-B25A-DE2F981BF696} = {F1F6BDCC-28E4-4B72-B25A-DE2F981BF696}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReBus.DataModel", "ReBus.DataModel\ReBus.DataModel.csproj", "{B560E0E5-7C76-4D48-85C4-99A83439D88C}"
 EndProject
