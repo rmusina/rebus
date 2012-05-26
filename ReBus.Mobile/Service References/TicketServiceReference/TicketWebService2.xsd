@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.128/TicketWebService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="AccountWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Credit" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountWebServiceModel" nillable="true" type="tns:AccountWebServiceModel" />
+  <xs:complexType name="BusWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Line" nillable="true" type="tns:LineWebServiceModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusWebServiceModel" nillable="true" type="tns:BusWebServiceModel" />
+  <xs:complexType name="LineWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LineWebServiceModel" nillable="true" type="tns:LineWebServiceModel" />
+  <xs:complexType name="TicketWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Account" nillable="true" type="tns:AccountWebServiceModel" />
+      <xs:element minOccurs="0" name="Bus" nillable="true" type="tns:BusWebServiceModel" />
+      <xs:element minOccurs="0" name="Created" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TicketWebServiceModel" nillable="true" type="tns:TicketWebServiceModel" />
+  <xs:complexType name="ArrayOfTicketWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TicketWebServiceModel" nillable="true" type="tns:TicketWebServiceModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTicketWebServiceModel" nillable="true" type="tns:ArrayOfTicketWebServiceModel" />
+</xs:schema>

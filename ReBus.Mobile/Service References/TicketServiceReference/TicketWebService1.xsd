@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.128/TicketWebService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" />
+  <xs:element name="BuyTicket">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="account" nillable="true" type="q1:AccountWebServiceModel" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="bus" nillable="true" type="q2:BusWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyTicketResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="BuyTicketResult" nillable="true" type="q3:TicketWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActiveTicket">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="account" nillable="true" type="q4:AccountWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActiveTicketResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetActiveTicketResult" nillable="true" type="q5:TicketWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="account" nillable="true" type="q6:AccountWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetHistoryResult" nillable="true" type="q7:ArrayOfTicketWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHistoryWithLimit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="account" nillable="true" type="q8:AccountWebServiceModel" />
+        <xs:element minOccurs="0" name="limit" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHistoryWithLimitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetHistoryWithLimitResult" nillable="true" type="q9:ArrayOfTicketWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNextHistoryWithLimit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="account" nillable="true" type="q10:AccountWebServiceModel" />
+        <xs:element minOccurs="0" name="before" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="limit" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNextHistoryWithLimitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetNextHistoryWithLimitResult" nillable="true" type="q11:ArrayOfTicketWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNewTickets">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="account" nillable="true" type="q12:AccountWebServiceModel" />
+        <xs:element minOccurs="0" name="after" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNewTicketsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetNewTicketsResult" nillable="true" type="q13:ArrayOfTicketWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

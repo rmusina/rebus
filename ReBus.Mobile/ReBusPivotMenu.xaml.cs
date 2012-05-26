@@ -17,29 +17,47 @@ using System.Diagnostics;
 using Microsoft.Phone.Tasks;
 using ReBus.Mobile.Model;
 using System.Windows.Media.Imaging;
+using ReBus.Mobile.AuthenticationServiceReference;
+using ReBus.Mobile.TicketServiceReference;
+using ReBus.Mobile.SubscriptionServiceReference;
 
 namespace ReBus.Mobile
 {
     public partial class ReBusPivotMenu : PhoneApplicationPage
     {
         private List<HistoryItem> historyList;
+        private List<SubscriptionData> subscriptionsList;
+        private TicketData ticketData;
 
         public ReBusPivotMenu()
         {
             InitializeComponent();
 
-            String defaultDate = "26/5/2012 15:20:00";
-            ticketButton.DataContext = new TicketData("Test", defaultDate, "/Images/qrtest.jpg");
+            accountUserNameTextBlock.Text = (App.Current as App).UserData.FirstName;
+            accountUserSurnameTextBlock.Text = (App.Current as App).UserData.LastName;
+            accountCreditTextBlock.Text = (App.Current as App).UserData.Credit.ToString();
 
-            // TODO: request active subscriptions
-            List<SubscriptionData> subscriptionsList = new List<SubscriptionData>();
-            for (int i = 0; i < 10; i++)
-            {
-                subscriptionsList.Add(new SubscriptionData("24B", defaultDate, defaultDate, "/Images/qrtest.jpg"));
-            }
+            SubscriptionWebServiceClient subscriptionService = new SubscriptionWebServiceClient();
+            subscriptionService.GetActiveSubscriptinsCompleted += new EventHandler<GetActiveSubscriptinsCompletedEventArgs>(subscriptionService_GetActiveSubscriptinsCompleted);
+            subscriptionService.GetActiveSubscriptinsAsync((App.Current as App).SUserData);
+
+            TicketWebServiceClient ticketService = new TicketWebServiceClient();
+            ticketService.GetActiveTicketCompleted += new EventHandler<GetActiveTicketCompletedEventArgs>(ticketService_GetActiveTicketCompleted);
+            ticketService.GetActiveTicketAsync((App.Current as App).TUserData);
+
+            subscriptionService.GetHistoryCompleted += new EventHandler<SubscriptionServiceReference.GetHistoryCompletedEventArgs>(subscriptionService_GetHistoryCompleted);
+            subscriptionService.GetHistoryAsync((App.Current as App).SUserData);
+            
+            subscriptionsList = new List<SubscriptionData>();
             subscriptionsListBox.ItemsSource = subscriptionsList;
 
             historyList = new List<HistoryItem>();
+            historyListBox.ItemsSource = historyList;
+        }
+
+        void subscriptionService_GetHistoryCompleted(object sender, SubscriptionServiceReference.GetHistoryCompletedEventArgs e)
+        {
+            String defaultDate = "26/5/2012 15:20:00";
             for (int i = 0; i < 10; i++)
             {
                 string type = "ticket";
@@ -48,7 +66,6 @@ namespace ReBus.Mobile
                 HistoryItem newItem = new HistoryItem(type, i.ToString(), defaultDate, "/Images/qrtest.jpg");
                 historyList.Add(newItem);
             }
-            historyListBox.ItemsSource = historyList;
 
             HistoryItem currentHistoryItem = historyList[0];
 
@@ -57,16 +74,27 @@ namespace ReBus.Mobile
             dateTextBlock.Text = currentHistoryItem.Date;
         }
 
+        void ticketService_GetActiveTicketCompleted(object sender, GetActiveTicketCompletedEventArgs e)
+        {
+            String defaultDate = "26/5/2012 15:20:00";
+            ticketData = new TicketData("Test", defaultDate, "/Images/qrtest.jpg");
+            ticketButton.DataContext = ticketData;
+        }
+
+        void subscriptionService_GetActiveSubscriptinsCompleted(object sender, GetActiveSubscriptinsCompletedEventArgs e)
+        {
+            String defaultDate = "26/5/2012 15:20:00";
+            for (int i = 0; i < 10; i++)
+            {
+                subscriptionsList.Add(new SubscriptionData("24B", defaultDate, defaultDate, "/Images/qrtest.jpg"));
+            }
+        }
+
         private void buyTicket_button_Click(object sender, EventArgs e)
         {
             try
             {
-                WP7BarcodeManager.ScanMode = com.google.zxing.BarcodeFormat.QR_CODE;
-            
-            // TODO: remove test images
-            //   Uri localQR = new Uri("/Images/qrtest2.png", UriKind.Relative);
-            //    WP7BarcodeManager.ScanBarcode(localQR, new Action<BarcodeCaptureResult>(this.BarcodeResults_Finished));
-                WP7BarcodeManager.ScanBarcode(BarcodeResults_Finished); //Provide callback method
+                this.NavigationService.Navigate(new Uri("/BuyTicketPage.xaml", UriKind.Relative));
             }
             catch (Exception ex)
             {

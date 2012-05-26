@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SubscriptionWebService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISubscriptionWebService_BuySubscriptionForAllLines_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscriptionForAllLines" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_BuySubscriptionForAllLines_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscriptionForAllLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_BuySubscriptionForAllLinesWithStartDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscriptionForAllLinesWithStartDate" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_BuySubscriptionForAllLinesWithStartDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscriptionForAllLinesWithStartDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_BuySubscription_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscription" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_BuySubscription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_BuySubscriptionWithStartDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscriptionWithStartDate" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_BuySubscriptionWithStartDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuySubscriptionWithStartDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_RenewSubscription_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenewSubscription" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_RenewSubscription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenewSubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_RenewSubscriptionWithStartDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenewSubscriptionWithStartDate" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_RenewSubscriptionWithStartDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenewSubscriptionWithStartDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetActiveSubscriptins_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveSubscriptins" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetActiveSubscriptins_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveSubscriptinsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHistory" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetHistoryWithLimit_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHistoryWithLimit" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetHistoryWithLimit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHistoryWithLimitResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetNextHistoryWithLimit_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNextHistoryWithLimit" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetNextHistoryWithLimit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNextHistoryWithLimitResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetNewSubscriptions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewSubscriptions" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_GetNewSubscriptions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewSubscriptionsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISubscriptionWebService">
+    <wsdl:operation name="BuySubscriptionForAllLines">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionForAllLines" message="tns:ISubscriptionWebService_BuySubscriptionForAllLines_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionForAllLinesResponse" message="tns:ISubscriptionWebService_BuySubscriptionForAllLines_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuySubscriptionForAllLinesWithStartDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionForAllLinesWithStartDate" message="tns:ISubscriptionWebService_BuySubscriptionForAllLinesWithStartDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionForAllLinesWithStartDateResponse" message="tns:ISubscriptionWebService_BuySubscriptionForAllLinesWithStartDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuySubscription">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscription" message="tns:ISubscriptionWebService_BuySubscription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionResponse" message="tns:ISubscriptionWebService_BuySubscription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuySubscriptionWithStartDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionWithStartDate" message="tns:ISubscriptionWebService_BuySubscriptionWithStartDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionWithStartDateResponse" message="tns:ISubscriptionWebService_BuySubscriptionWithStartDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscription">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/RenewSubscription" message="tns:ISubscriptionWebService_RenewSubscription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/RenewSubscriptionResponse" message="tns:ISubscriptionWebService_RenewSubscription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscriptionWithStartDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/RenewSubscriptionWithStartDate" message="tns:ISubscriptionWebService_RenewSubscriptionWithStartDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/RenewSubscriptionWithStartDateResponse" message="tns:ISubscriptionWebService_RenewSubscriptionWithStartDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSubscriptins">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetActiveSubscriptins" message="tns:ISubscriptionWebService_GetActiveSubscriptins_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetActiveSubscriptinsResponse" message="tns:ISubscriptionWebService_GetActiveSubscriptins_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetHistory" message="tns:ISubscriptionWebService_GetHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetHistoryResponse" message="tns:ISubscriptionWebService_GetHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoryWithLimit">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetHistoryWithLimit" message="tns:ISubscriptionWebService_GetHistoryWithLimit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetHistoryWithLimitResponse" message="tns:ISubscriptionWebService_GetHistoryWithLimit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNextHistoryWithLimit">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetNextHistoryWithLimit" message="tns:ISubscriptionWebService_GetNextHistoryWithLimit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetNextHistoryWithLimitResponse" message="tns:ISubscriptionWebService_GetNextHistoryWithLimit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewSubscriptions">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetNewSubscriptions" message="tns:ISubscriptionWebService_GetNewSubscriptions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetNewSubscriptionsResponse" message="tns:ISubscriptionWebService_GetNewSubscriptions_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISubscriptionWebService" type="tns:ISubscriptionWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuySubscriptionForAllLines">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/BuySubscriptionForAllLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuySubscriptionForAllLinesWithStartDate">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/BuySubscriptionForAllLinesWithStartDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuySubscription">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/BuySubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuySubscriptionWithStartDate">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/BuySubscriptionWithStartDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscription">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/RenewSubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscriptionWithStartDate">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/RenewSubscriptionWithStartDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSubscriptins">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/GetActiveSubscriptins" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/GetHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoryWithLimit">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/GetHistoryWithLimit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNextHistoryWithLimit">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/GetNextHistoryWithLimit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewSubscriptions">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/GetNewSubscriptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SubscriptionWebService">
+    <wsdl:port name="BasicHttpBinding_ISubscriptionWebService" binding="tns:BasicHttpBinding_ISubscriptionWebService">
+      <soap:address location="http://192.168.1.128/SubscriptionWebService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

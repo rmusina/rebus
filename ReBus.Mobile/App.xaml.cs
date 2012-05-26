@@ -12,6 +12,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ReBus.Mobile.AuthenticationServiceReference;
+using ReBus.Mobile.SubscriptionServiceReference;
+using ReBus.Mobile.TicketServiceReference;
 
 namespace ReBus.Mobile
 {
@@ -22,6 +25,26 @@ namespace ReBus.Mobile
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
+
+        public Guid BusGuid { get; set; }
+
+        public AuthenticationServiceReference.AccountWebServiceModel UserData
+        {
+            get;
+            set;
+        }
+
+        public SubscriptionServiceReference.AccountWebServiceModel SUserData
+        {
+            get;
+            set;
+        }
+
+        public TicketServiceReference.AccountWebServiceModel TUserData
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Constructor for the Application object.

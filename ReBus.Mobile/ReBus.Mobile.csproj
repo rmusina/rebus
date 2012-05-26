@@ -13,7 +13,7 @@
     <AssemblyName>ReBus.Mobile</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
@@ -72,6 +72,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuyTicketPage.xaml.cs">
+      <DependentUpon>BuyTicketPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -79,10 +82,21 @@
     <Compile Include="Model\Subscription.cs" />
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QRModel\PhotoCameraLuminanceSource.cs" />
     <Compile Include="ReBusPivotMenu.xaml.cs">
       <DependentUpon>ReBusPivotMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Service References\AuthenticatoinServiceReference\Reference.cs">
+    <Compile Include="Service References\AuthenticationServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SubscriptionServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TicketServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -97,6 +111,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="AccountCreationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuyTicketPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,28 +134,68 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <None Include="Service References\AuthenticatoinServiceReference\AuthenticationWebService.disco" />
-    <None Include="Service References\AuthenticatoinServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\AuthenticatoinServiceReference\configuration.svcinfo" />
-    <None Include="Service References\AuthenticatoinServiceReference\ReBus.Mobile.AuthenticatoinServiceReference.AccountWebServiceModel.datasource">
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.disco" />
+    <None Include="Service References\AuthenticationServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\AuthenticationServiceReference\configuration.svcinfo" />
+    <None Include="Service References\AuthenticationServiceReference\ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\AuthenticatoinServiceReference\ReBus.Mobile.AuthenticatoinServiceReference.TransactionWebServiceModel.datasource">
+    <None Include="Service References\AuthenticationServiceReference\ReBus.Mobile.AuthenticationServiceReference.TransactionWebServiceModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\AuthenticatoinServiceReference\Reference.svcmap">
+    <None Include="Service References\AuthenticationServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SubscriptionServiceReference\ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService.disco" />
+    <None Include="Service References\SubscriptionServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\SubscriptionServiceReference\configuration.svcinfo" />
+    <None Include="Service References\SubscriptionServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\TicketServiceReference\ReBus.Mobile.TicketServiceReference.TicketWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TicketServiceReference\TicketWebService.disco" />
+    <None Include="Service References\TicketServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\TicketServiceReference\configuration.svcinfo" />
+    <None Include="Service References\TicketServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="ServiceReferences.ClientConfig" />
-    <None Include="Service References\AuthenticatoinServiceReference\AuthenticationWebService.wsdl" />
-    <None Include="Service References\AuthenticatoinServiceReference\AuthenticationWebService.xsd">
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.wsdl" />
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AuthenticatoinServiceReference\AuthenticationWebService1.xsd">
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AuthenticatoinServiceReference\AuthenticationWebService2.xsd">
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService.wsdl" />
+    <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TicketServiceReference\TicketWebService.wsdl" />
+    <None Include="Service References\TicketServiceReference\TicketWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TicketServiceReference\TicketWebService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TicketServiceReference\TicketWebService2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -161,7 +219,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\AuthenticatoinServiceReference\" />
+    <WCFMetadataStorage Include="Service References\AuthenticationServiceReference\" />
+    <WCFMetadataStorage Include="Service References\SubscriptionServiceReference\" />
+    <WCFMetadataStorage Include="Service References\TicketServiceReference\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
