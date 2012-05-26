@@ -52,7 +52,7 @@
     <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Credit" Type="decimal" Nullable="false" />
+    <Property Name="Credit" Type="decimal" Nullable="false" Scale="2" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Transactions">
@@ -60,7 +60,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Amount" Type="decimal" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" Scale="2" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="AssociatedGUID" Type="uniqueidentifier" Nullable="true" />
     <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
@@ -103,7 +103,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Cost" Type="decimal" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Nullable="false" Scale="2" />
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="SubscriptionCosts">
@@ -111,7 +111,7 @@
       <PropertyRef Name="Lines" />
     </Key>
     <Property Name="Lines" Type="int" Nullable="false" />
-    <Property Name="Cost" Type="decimal" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Nullable="false" Scale="2" />
   </EntityType>
   <EntityType Name="SubscriptionLine">
     <Key>
@@ -251,7 +251,7 @@
           <Property Type="String" Name="PasswordHash" Nullable="false" />
           <Property Type="String" Name="FirstName" Nullable="false" />
           <Property Type="String" Name="LastName" Nullable="false" />
-          <Property Type="Decimal" Name="Credit" Nullable="false" />
+          <Property Type="Decimal" Name="Credit" Nullable="false" Scale="2" />
           <NavigationProperty Name="Transactions" Relationship="Model1.TransactionAccount" FromRole="Account" ToRole="Transaction" />
           <NavigationProperty Name="Tickets" Relationship="Model1.TicketAccount" FromRole="Account" ToRole="Ticket" />
           <NavigationProperty Name="Subscriptions" Relationship="Model1.SubscriptionAccount" FromRole="Account" ToRole="Subscription" />
@@ -262,7 +262,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Decimal" Name="Amount" Nullable="false" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Scale="2" />
           <Property Type="Int32" Name="Type" Nullable="false" />
           <Property Type="Guid" Name="AssociatedGUID" Nullable="true" />
           <NavigationProperty Name="Account" Relationship="Model1.TransactionAccount" FromRole="Transaction" ToRole="Account" />
@@ -378,7 +378,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Decimal" Name="Cost" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Scale="2" />
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="SubscriptionCost">
@@ -386,7 +386,7 @@
             <PropertyRef Name="Lines" />
           </Key>
           <Property Type="Int32" Name="Lines" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Type="Decimal" Name="Cost" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>

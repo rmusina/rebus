@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2012 19:14:13
+-- Date Created: 05/26/2012 21:39:42
 -- Generated from EDMX file: D:\projects\rebus\ReBus.DataModel\ReBus.edmx
 -- --------------------------------------------------
 
@@ -20,23 +20,23 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BusLine]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Buses] DROP CONSTRAINT [FK_BusLine];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SubscriptionAccount]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Subscriptions] DROP CONSTRAINT [FK_SubscriptionAccount];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Line]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Line];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Subscription]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Subscription];
+IF OBJECT_ID(N'[dbo].[FK_TransactionAccount]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Transactions] DROP CONSTRAINT [FK_TransactionAccount];
 GO
 IF OBJECT_ID(N'[dbo].[FK_TicketAccount]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [FK_TicketAccount];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SubscriptionAccount]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Subscriptions] DROP CONSTRAINT [FK_SubscriptionAccount];
+GO
 IF OBJECT_ID(N'[dbo].[FK_TicketBus]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [FK_TicketBus];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TransactionAccount]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Transactions] DROP CONSTRAINT [FK_TransactionAccount];
+IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Subscription]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Subscription];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SubscriptionLine_Line]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SubscriptionLine] DROP CONSTRAINT [FK_SubscriptionLine_Line];
 GO
 
 -- --------------------------------------------------
@@ -46,23 +46,29 @@ GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
 GO
-IF OBJECT_ID(N'[dbo].[Buses]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Buses];
+IF OBJECT_ID(N'[dbo].[Transactions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Transactions];
 GO
 IF OBJECT_ID(N'[dbo].[Lines]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Lines];
 GO
-IF OBJECT_ID(N'[dbo].[SubscriptionLine]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[SubscriptionLine];
-GO
-IF OBJECT_ID(N'[dbo].[Subscriptions]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Subscriptions];
+IF OBJECT_ID(N'[dbo].[Buses]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Buses];
 GO
 IF OBJECT_ID(N'[dbo].[Tickets]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Tickets];
 GO
-IF OBJECT_ID(N'[dbo].[Transactions]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Transactions];
+IF OBJECT_ID(N'[dbo].[Subscriptions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Subscriptions];
+GO
+IF OBJECT_ID(N'[dbo].[TicketCost]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TicketCost];
+GO
+IF OBJECT_ID(N'[dbo].[SubscriptionCosts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SubscriptionCosts];
+GO
+IF OBJECT_ID(N'[dbo].[SubscriptionLine]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SubscriptionLine];
 GO
 
 -- --------------------------------------------------
@@ -75,7 +81,7 @@ CREATE TABLE [dbo].[Accounts] (
     [PasswordHash] nvarchar(max)  NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
-    [Credit] decimal(18,0)  NOT NULL,
+    [Credit] decimal(18,2)  NOT NULL,
     [Username] nvarchar(max)  NOT NULL
 );
 GO
@@ -83,7 +89,7 @@ GO
 -- Creating table 'Transactions'
 CREATE TABLE [dbo].[Transactions] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Amount] decimal(18,0)  NOT NULL,
+    [Amount] decimal(18,2)  NOT NULL,
     [Type] int  NOT NULL,
     [AssociatedGUID] uniqueidentifier  NULL,
     [AccountGUID] uniqueidentifier  NOT NULL,
@@ -126,7 +132,7 @@ GO
 
 -- Creating table 'TicketCost'
 CREATE TABLE [dbo].[TicketCost] (
-    [Cost] decimal(18,0)  NOT NULL,
+    [Cost] decimal(18,2)  NOT NULL,
     [Id] int IDENTITY(1,1) NOT NULL
 );
 GO
@@ -134,7 +140,7 @@ GO
 -- Creating table 'SubscriptionCosts'
 CREATE TABLE [dbo].[SubscriptionCosts] (
     [Lines] int  NOT NULL,
-    [Cost] decimal(18,0)  NOT NULL
+    [Cost] decimal(18,2)  NOT NULL
 );
 GO
 
