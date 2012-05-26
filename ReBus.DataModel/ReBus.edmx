@@ -54,6 +54,7 @@
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Credit" Type="decimal" Nullable="false" Scale="2" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsTicketController" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Transactions">
     <Key>
@@ -256,6 +257,7 @@
           <NavigationProperty Name="Tickets" Relationship="Model1.TicketAccount" FromRole="Account" ToRole="Ticket" />
           <NavigationProperty Name="Subscriptions" Relationship="Model1.SubscriptionAccount" FromRole="Account" ToRole="Subscription" />
           <Property Type="String" Name="Username" Nullable="false" />
+          <Property Type="Boolean" Name="IsTicketController" Nullable="false" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -403,6 +405,7 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Credit" ColumnName="Credit" />
           <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="IsTicketController" ColumnName="IsTicketController" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -500,7 +503,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Model1" DisplayType="true" >
-        <EntityTypeShape EntityType="Model1.Account" Width="1.5" PointX="0.5" PointY="0.5" Height="2.7494921875" />
+        <EntityTypeShape EntityType="Model1.Account" Width="1.5" PointX="0.5" PointY="0.5" Height="2.9417936197916661" />
         <EntityTypeShape EntityType="Model1.Transaction" Width="2.125" PointX="2.75" PointY="0.5" Height="2.364889322916667" />
         <EntityTypeShape EntityType="Model1.Line" Width="1.5" PointX="5.125" PointY="0.5" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="Model1.Bus" Width="1.5" PointX="7.625" PointY="0.5" Height="1.7879850260416663" />
@@ -509,21 +512,21 @@
           <ConnectorPoint PointX="6.625" PointY="1.3939925130208333" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.TransactionAccount">
-          <ConnectorPoint PointX="2.75" PointY="1.6824446614583333" />
-          <ConnectorPoint PointX="2" PointY="1.6824446614583333" />
+          <ConnectorPoint PointX="2.75" PointY="1.6824446614583337" />
+          <ConnectorPoint PointX="2" PointY="1.6824446614583337" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model1.Ticket" Width="2.625" PointX="0.5" PointY="3.625" Height="2.1725878906249996" />
         <AssociationConnector Association="Model1.TicketAccount">
-          <ConnectorPoint PointX="1.25" PointY="3.625" />
-          <ConnectorPoint PointX="1.25" PointY="3.2494921875" />
+          <ConnectorPoint PointX="1.6875" PointY="3.625" />
+          <ConnectorPoint PointX="1.6875" PointY="3.4417936197916661" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model1.Subscription" Width="2.25" PointX="4.75" PointY="3.125" Height="2.3648893229166656" />
         <AssociationConnector Association="Model1.SubscriptionAccount" ManuallyRouted="false">
           <ConnectorPoint PointX="4.75" PointY="4.3074446614583328" />
-          <ConnectorPoint PointX="3.375" PointY="4.3074446614583328" />
-          <ConnectorPoint PointX="3.375" PointY="3.4994921875" />
-          <ConnectorPoint PointX="1.25" PointY="3.4994921875" />
-          <ConnectorPoint PointX="1.25" PointY="3.2494921875" />
+          <ConnectorPoint PointX="3.1875" PointY="4.3074446614583328" />
+          <ConnectorPoint PointX="3.1875" PointY="3.5625" />
+          <ConnectorPoint PointX="1.0624980000000002" PointY="3.5625" />
+          <ConnectorPoint PointX="1.0624980000000002" PointY="3.4417936197916661" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.TicketBus">
           <ConnectorPoint PointX="3.125" PointY="5.6749886067708326" />

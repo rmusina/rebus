@@ -80,8 +80,6 @@
     <Compile Include="TransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
     <None Include="POCOModelGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>POCOModelGenerator.cs</LastGenOutput>

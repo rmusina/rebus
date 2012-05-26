@@ -36,11 +36,11 @@ VALUES
 	(1, 50),
 	(2, 75);
 
-INSERT INTO Accounts(Username, PasswordHash, FirstName, LastName, Credit)
+INSERT INTO Accounts(Username, PasswordHash, FirstName, LastName, Credit, IsTicketController)
 VALUES
- ('a', 'a', 'Alexandru', 'Spiridon', 200),
- ('b', 'b', 'Rares', 'Musina', 150),
- ('c', 'c', 'Razvan', 'Jurca', 100);
+ ('a', 'a', 'Alexandru', 'Spiridon', 200, 'true'),
+ ('b', 'b', 'Rares', 'Musina', 150, 'true'),
+ ('c', 'c', 'Razvan', 'Jurca', 100, 'false');
 
 
  INSERT INTO Tickets(AccountGUID, BusGUID, Created)

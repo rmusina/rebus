@@ -98,6 +98,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ReBus.DataModel\ReBus.DataModel.csproj">
+      <Project>{B560E0E5-7C76-4D48-85C4-99A83439D88C}</Project>
+      <Name>ReBus.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReBus.Model\ReBus.Model.csproj">
       <Project>{805B6A75-B3C9-4503-B3F5-8C72F3915389}</Project>
       <Name>ReBus.Model</Name>

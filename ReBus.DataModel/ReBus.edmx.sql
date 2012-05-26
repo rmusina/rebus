@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2012 21:39:42
--- Generated from EDMX file: D:\projects\rebus\ReBus.DataModel\ReBus.edmx
+-- Date Created: 05/27/2012 01:21:44
+-- Generated from EDMX file: F:\info\ReBus\rebus\ReBus.DataModel\ReBus.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -82,7 +82,8 @@ CREATE TABLE [dbo].[Accounts] (
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
     [Credit] decimal(18,2)  NOT NULL,
-    [Username] nvarchar(max)  NOT NULL
+    [Username] nvarchar(max)  NOT NULL,
+    [IsTicketController] bit  NOT NULL
 );
 GO
 
