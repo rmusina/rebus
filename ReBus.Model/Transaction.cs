@@ -59,6 +59,12 @@ namespace ReBus.Model
             }
         }
         private System.Guid _accountGUID;
+    
+        public virtual System.DateTime Created
+        {
+            get;
+            set;
+        }
 
         #endregion
         #region Navigation Properties

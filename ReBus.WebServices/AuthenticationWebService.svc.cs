@@ -7,6 +7,7 @@ using System.Text;
 using ReBus.Services;
 using ReBus.Services.API;
 using ReBus.Model;
+using ReBus.WebServices.WebServiceModel;
 
 namespace ReBus.WebServices
 {
@@ -25,6 +26,32 @@ namespace ReBus.WebServices
             }
 
             return AccountWebServiceModel.FromModelObject(account);
+        }
+
+
+        public string Register(string userName, string password, string firstName, string lastName)
+        {
+            return accountService.Register(userName, password, firstName, lastName);
+        }
+
+        public IEnumerable<TransactionWebServiceModel> GetTransactionHistory(AccountWebServiceModel userAccount)
+        {
+            IEnumerable<Transaction> transactions = accountService.GetTransactionHistory(new Account() 
+                                                                                         { 
+                                                                                             Username = userAccount.UserName,
+                                                                                             GUID = userAccount.GUID,
+                                                                                             Credit = userAccount.Credit,
+                                                                                             LastName = userAccount.LastName,
+                                                                                             FirstName = userAccount.FirstName
+                                                                                         });
+
+            if (transactions == null || transactions.Count<Transaction>() == 0)
+            {
+                return new List<TransactionWebServiceModel>();
+            }
+
+            return transactions.Select<Transaction, TransactionWebServiceModel>
+                    (currentTransaction => TransactionWebServiceModel.FromModelObject(currentTransaction));
         }
     }
 }

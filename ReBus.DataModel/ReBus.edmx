@@ -5,190 +5,191 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-  <EntityContainer Name="Model1StoreContainer">
-    <EntitySet Name="Accounts" EntityType="Model1.Store.Accounts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Transactions" EntityType="Model1.Store.Transactions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Lines" EntityType="Model1.Store.Lines" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Buses" EntityType="Model1.Store.Buses" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Tickets" EntityType="Model1.Store.Tickets" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Subscriptions" EntityType="Model1.Store.Subscriptions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SubscriptionLine" EntityType="Model1.Store.SubscriptionLine" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="BusLine" Association="Model1.Store.BusLine">
-      <End Role="Bus" EntitySet="Buses" />
-      <End Role="Line" EntitySet="Lines" />
-    </AssociationSet>
-    <AssociationSet Name="TransactionAccount" Association="Model1.Store.TransactionAccount">
-      <End Role="Transaction" EntitySet="Transactions" />
-      <End Role="Account" EntitySet="Accounts" />
-    </AssociationSet>
-    <AssociationSet Name="TicketAccount" Association="Model1.Store.TicketAccount">
-      <End Role="Ticket" EntitySet="Tickets" />
-      <End Role="Account" EntitySet="Accounts" />
-    </AssociationSet>
-    <AssociationSet Name="SubscriptionAccount" Association="Model1.Store.SubscriptionAccount">
-      <End Role="Subscription" EntitySet="Subscriptions" />
-      <End Role="Account" EntitySet="Accounts" />
-    </AssociationSet>
-    <AssociationSet Name="TicketBus" Association="Model1.Store.TicketBus">
-      <End Role="Ticket" EntitySet="Tickets" />
-      <End Role="Bus" EntitySet="Buses" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SubscriptionLine_Subscription" Association="Model1.Store.FK_SubscriptionLine_Subscription">
-      <End Role="Subscription" EntitySet="Subscriptions" />
-      <End Role="SubscriptionLine" EntitySet="SubscriptionLine" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SubscriptionLine_Line" Association="Model1.Store.FK_SubscriptionLine_Line">
-      <End Role="Line" EntitySet="Lines" />
-      <End Role="SubscriptionLine" EntitySet="SubscriptionLine" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Accounts">
-    <Key>
-      <PropertyRef Name="GUID" />
-    </Key>
-    <Property Name="GUID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Credit" Type="decimal" Nullable="false" />
-    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Transactions">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Amount" Type="decimal" Nullable="false" />
-    <Property Name="Type" Type="int" Nullable="false" />
-    <Property Name="AssociatedGUID" Type="uniqueidentifier" Nullable="true" />
-    <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Lines">
-    <Key>
-      <PropertyRef Name="GUID" />
-    </Key>
-    <Property Name="GUID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Buses">
-    <Key>
-      <PropertyRef Name="GUID" />
-    </Key>
-    <Property Name="GUID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="LineGUID" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Tickets">
-    <Key>
-      <PropertyRef Name="GUID" />
-    </Key>
-    <Property Name="GUID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Created" Type="datetime" Nullable="false" />
-    <Property Name="BusGUID" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Subscriptions">
-    <Key>
-      <PropertyRef Name="GUID" />
-    </Key>
-    <Property Name="GUID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Start" Type="datetime" Nullable="false" />
-    <Property Name="End" Type="datetime" Nullable="false" />
-    <Property Name="Created" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SubscriptionLine">
-    <Key>
-      <PropertyRef Name="Subscriptions_GUID" />
-      <PropertyRef Name="Lines_GUID" />
-    </Key>
-    <Property Name="Subscriptions_GUID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Lines_GUID" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <Association Name="BusLine">
-    <End Role="Bus" Type="Model1.Store.Buses" Multiplicity="*" />
-    <End Role="Line" Type="Model1.Store.Lines" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Line">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="Bus">
-        <PropertyRef Name="LineGUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TransactionAccount">
-    <End Role="Transaction" Type="Model1.Store.Transactions" Multiplicity="*" />
-    <End Role="Account" Type="Model1.Store.Accounts" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="Transaction">
-        <PropertyRef Name="AccountGUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TicketAccount">
-    <End Role="Ticket" Type="Model1.Store.Tickets" Multiplicity="*" />
-    <End Role="Account" Type="Model1.Store.Accounts" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="Ticket">
-        <PropertyRef Name="AccountGUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="SubscriptionAccount">
-    <End Role="Subscription" Type="Model1.Store.Subscriptions" Multiplicity="*" />
-    <End Role="Account" Type="Model1.Store.Accounts" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="Subscription">
-        <PropertyRef Name="AccountGUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TicketBus">
-    <End Role="Ticket" Type="Model1.Store.Tickets" Multiplicity="*" />
-    <End Role="Bus" Type="Model1.Store.Buses" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Bus">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="Ticket">
-        <PropertyRef Name="BusGUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SubscriptionLine_Subscription">
-    <End Role="Subscription" Type="Model1.Store.Subscriptions" Multiplicity="1" />
-    <End Role="SubscriptionLine" Type="Model1.Store.SubscriptionLine" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Subscription">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="SubscriptionLine">
-        <PropertyRef Name="Subscriptions_GUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SubscriptionLine_Line">
-    <End Role="SubscriptionLine" Type="Model1.Store.SubscriptionLine" Multiplicity="*" />
-    <End Role="Line" Type="Model1.Store.Lines" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Line">
-        <PropertyRef Name="GUID" />
-      </Principal>
-      <Dependent Role="SubscriptionLine">
-        <PropertyRef Name="Lines_GUID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="Accounts" EntityType="Model1.Store.Accounts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Buses" EntityType="Model1.Store.Buses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Lines" EntityType="Model1.Store.Lines" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SubscriptionLine" EntityType="Model1.Store.SubscriptionLine" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Subscriptions" EntityType="Model1.Store.Subscriptions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tickets" EntityType="Model1.Store.Tickets" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Transactions" EntityType="Model1.Store.Transactions" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_BusLine" Association="Model1.Store.FK_BusLine">
+            <End Role="Lines" EntitySet="Lines" />
+            <End Role="Buses" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionAccount" Association="Model1.Store.FK_SubscriptionAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionLine_Line" Association="Model1.Store.FK_SubscriptionLine_Line">
+            <End Role="Lines" EntitySet="Lines" />
+            <End Role="SubscriptionLine" EntitySet="SubscriptionLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionLine_Subscription" Association="Model1.Store.FK_SubscriptionLine_Subscription">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="SubscriptionLine" EntitySet="SubscriptionLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketAccount" Association="Model1.Store.FK_TicketAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketBus" Association="Model1.Store.FK_TicketBus">
+            <End Role="Buses" EntitySet="Buses" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionAccount" Association="Model1.Store.FK_TransactionAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Credit" Type="decimal" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Buses">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LineGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lines">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubscriptionLine">
+          <Key>
+            <PropertyRef Name="Subscriptions_GUID" />
+            <PropertyRef Name="Lines_GUID" />
+          </Key>
+          <Property Name="Subscriptions_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Lines_GUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscriptions">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="End" Type="datetime" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="BusGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="decimal" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="AssociatedGUID" Type="uniqueidentifier" />
+          <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BusLine">
+          <End Role="Lines" Type="Model1.Store.Lines" Multiplicity="1" />
+          <End Role="Buses" Type="Model1.Store.Buses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lines">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="Buses">
+              <PropertyRef Name="LineGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriptionAccount">
+          <End Role="Accounts" Type="Model1.Store.Accounts" Multiplicity="1" />
+          <End Role="Subscriptions" Type="Model1.Store.Subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="AccountGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriptionLine_Line">
+          <End Role="Lines" Type="Model1.Store.Lines" Multiplicity="1" />
+          <End Role="SubscriptionLine" Type="Model1.Store.SubscriptionLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lines">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="SubscriptionLine">
+              <PropertyRef Name="Lines_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriptionLine_Subscription">
+          <End Role="Subscriptions" Type="Model1.Store.Subscriptions" Multiplicity="1" />
+          <End Role="SubscriptionLine" Type="Model1.Store.SubscriptionLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="SubscriptionLine">
+              <PropertyRef Name="Subscriptions_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketAccount">
+          <End Role="Accounts" Type="Model1.Store.Accounts" Multiplicity="1" />
+          <End Role="Tickets" Type="Model1.Store.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="AccountGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketBus">
+          <End Role="Buses" Type="Model1.Store.Buses" Multiplicity="1" />
+          <End Role="Tickets" Type="Model1.Store.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buses">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="BusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionAccount">
+          <End Role="Accounts" Type="Model1.Store.Accounts" Multiplicity="1" />
+          <End Role="Transactions" Type="Model1.Store.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="AccountGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -228,7 +229,7 @@
           <Key>
             <PropertyRef Name="GUID" />
           </Key>
-          <Property Type="Guid" Name="GUID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="GUID" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:GetterAccess="Public" />
           <Property Type="String" Name="PasswordHash" Nullable="false" />
           <Property Type="String" Name="FirstName" Nullable="false" />
           <Property Type="String" Name="LastName" Nullable="false" />
@@ -248,6 +249,7 @@
           <Property Type="Guid" Name="AssociatedGUID" Nullable="true" />
           <NavigationProperty Name="Account" Relationship="Model1.TransactionAccount" FromRole="Transaction" ToRole="Account" />
           <Property Type="Guid" Name="AccountGUID" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
         </EntityType>
         <EntityType Name="Line">
           <Key>
@@ -380,6 +382,7 @@
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="AssociatedGUID" ColumnName="AssociatedGUID" />
           <ScalarProperty Name="AccountGUID" ColumnName="AccountGUID" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -443,13 +446,14 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Model1" DisplayType="true" >
         <EntityTypeShape EntityType="Model1.Account" Width="1.5" PointX="0.5" PointY="0.5" Height="2.7494921875" />
-        <EntityTypeShape EntityType="Model1.Transaction" Width="2.125" PointX="2.75" PointY="0.5" Height="2.1725878906249987" />
+        <EntityTypeShape EntityType="Model1.Transaction" Width="2.125" PointX="2.75" PointY="0.5" Height="2.364889322916667" />
         <EntityTypeShape EntityType="Model1.Line" Width="1.5" PointX="5.125" PointY="0.5" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="Model1.Bus" Width="1.5" PointX="7.625" PointY="0.5" Height="1.7879850260416663" />
         <AssociationConnector Association="Model1.BusLine">
@@ -457,8 +461,8 @@
           <ConnectorPoint PointX="6.625" PointY="1.3939925130208333" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.TransactionAccount">
-          <ConnectorPoint PointX="2.75" PointY="1.5862939453124993" />
-          <ConnectorPoint PointX="2" PointY="1.5862939453124993" />
+          <ConnectorPoint PointX="2.75" PointY="1.6824446614583333" />
+          <ConnectorPoint PointX="2" PointY="1.6824446614583333" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model1.Ticket" Width="2.625" PointX="0.5" PointY="3.625" Height="2.1725878906249996" />
         <AssociationConnector Association="Model1.TicketAccount">

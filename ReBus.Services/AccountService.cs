@@ -34,7 +34,7 @@ namespace ReBus.Services
             using (ReBusContainer repository = new ReBusContainer())
             {
                 Account userAccount = new Account();
-                userAccount.GUID = new Guid();
+
                 userAccount.Username = userName;
                 userAccount.PasswordHash = password;
                 userAccount.FirstName = firstName;
@@ -57,7 +57,9 @@ namespace ReBus.Services
 
         public IEnumerable<Transaction> GetTransactionHistory(Account userAccount)
         {
-            ReBusContainer repository = new ReBusContainer();            
+            ReBusContainer repository = new ReBusContainer();
+
+            repository.AttachTo("Accounts", userAccount);
             repository.Refresh(RefreshMode.StoreWins, userAccount);
 
             return userAccount.Transactions;

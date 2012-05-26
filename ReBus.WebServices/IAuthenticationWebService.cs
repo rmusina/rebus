@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using ReBus.Services;
+using ReBus.WebServices.WebServiceModel;
 
 namespace ReBus.WebServices
 {
@@ -14,5 +15,11 @@ namespace ReBus.WebServices
     {
         [OperationContract]
         AccountWebServiceModel Authenticate(string username, string password);
+
+        [OperationContract]
+        string Register(string userName, string password, string firstName, string lastName);
+
+        [OperationContract]
+        IEnumerable<TransactionWebServiceModel> GetTransactionHistory(AccountWebServiceModel userAccount);
     }
 }

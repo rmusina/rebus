@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2012 17:41:20
--- Generated from EDMX file: D:\projects\rebus\ReBus.DataModel\ReBus.edmx
+-- Date Created: 05/26/2012 18:30:11
+-- Generated from EDMX file: F:\info\ReBus\rebus\ReBus.DataModel\ReBus.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -71,7 +71,7 @@ GO
 
 -- Creating table 'Accounts'
 CREATE TABLE [dbo].[Accounts] (
-    [GUID] uniqueidentifier  NOT NULL,
+    [GUID] uniqueidentifier  NOT NULL default newid(),
     [PasswordHash] nvarchar(max)  NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
@@ -86,7 +86,8 @@ CREATE TABLE [dbo].[Transactions] (
     [Amount] decimal(18,0)  NOT NULL,
     [Type] int  NOT NULL,
     [AssociatedGUID] uniqueidentifier  NULL,
-    [AccountGUID] uniqueidentifier  NOT NULL
+    [AccountGUID] uniqueidentifier  NOT NULL,
+    [Created] datetime  NOT NULL
 );
 GO
 
@@ -99,14 +100,14 @@ GO
 
 -- Creating table 'Buses'
 CREATE TABLE [dbo].[Buses] (
-    [GUID] uniqueidentifier  NOT NULL,
+    [GUID] uniqueidentifier  NOT NULL default newid(),
     [LineGUID] uniqueidentifier  NOT NULL
 );
 GO
 
 -- Creating table 'Tickets'
 CREATE TABLE [dbo].[Tickets] (
-    [GUID] uniqueidentifier  NOT NULL,
+    [GUID] uniqueidentifier  NOT NULL default newid(),
     [AccountGUID] uniqueidentifier  NOT NULL,
     [Created] datetime  NOT NULL,
     [BusGUID] uniqueidentifier  NOT NULL
@@ -115,7 +116,7 @@ GO
 
 -- Creating table 'Subscriptions'
 CREATE TABLE [dbo].[Subscriptions] (
-    [GUID] uniqueidentifier  NOT NULL,
+    [GUID] uniqueidentifier  NOT NULL default newid(),
     [AccountGUID] uniqueidentifier  NOT NULL,
     [Start] datetime  NOT NULL,
     [End] datetime  NOT NULL,
