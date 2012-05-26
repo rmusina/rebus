@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReBus.edmx.sql" />
+    <Content Include="ReBus.Prepopulate.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
