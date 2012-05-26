@@ -59,12 +59,12 @@ namespace ReBus.Services
             {
                 using (new TransactionScope())
                 {
-                    var myLines = new HashSet<Line>();
+                    var myLines = new Dictionary<Guid, Line>();
                     List<Object> toRefresh = new List<Object>();
 
                     foreach (var line in lines)
                     {
-                        myLines.Add(line);
+                        myLines.Add(line.GUID, line);
                         db.Lines.Attach(line);
                         toRefresh.Add(line);
                     }
@@ -77,7 +77,7 @@ namespace ReBus.Services
                     // If there is no subscription plan for the number of lines we want, get a subscription for all the lines
                     if (subscriptionCost == null)
                     {
-                        subscriptionCost = db.SubscriptionCosts.SingleOrDefault(s => s.Lines == 0);
+                        subscriptionCost = db.SubscriptionCosts.Single(s => s.Lines == 0);
                         myLines.Clear();
                     }
                     var cost = subscriptionCost.Cost;
@@ -91,7 +91,7 @@ namespace ReBus.Services
                                            Account = account,
                                            Start = startDate.Date,
                                            End = startDate.Date + TimeSpan.FromDays(30),
-                                           Lines = lines.ToList(),
+                                           Lines = myLines.Values,
                                            Created = DateTime.Today
                                        };
                     var transaction = new Transaction
