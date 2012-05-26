@@ -31,7 +31,16 @@ namespace ReBus.WebServices
 
         public string Register(string userName, string password, string firstName, string lastName)
         {
-            return accountService.Register(userName, password, firstName, lastName);
+            try
+            {
+                Account account = accountService.Register(userName, password, firstName, lastName);
+            }
+            catch (Exception fieldsExc)
+            {
+                return fieldsExc.Message;
+            }
+
+            return String.Empty;
         }
 
         public IEnumerable<TransactionWebServiceModel> GetTransactionHistory(AccountWebServiceModel userAccount)
