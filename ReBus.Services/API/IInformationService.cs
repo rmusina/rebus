@@ -16,6 +16,8 @@ namespace ReBus.Services.API
 
         Ticket GetTicket(Guid ticket);
 
-        Subscription GetSubscription(Subscription subscription);
+        Subscription GetSubscription(Guid subscription);
+
+        Object GetSubscriptionOrTicket(Guid guid);
     }
 }
