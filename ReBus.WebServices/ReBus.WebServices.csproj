@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthenticationWebService.svc" />
+    <Content Include="InformationWebService.svc" />
     <Content Include="SubscriptionWebService.svc" />
     <Content Include="TicketWebService.svc" />
     <Content Include="Web.config">
@@ -70,6 +71,10 @@
       <DependentUpon>AuthenticationWebService.svc</DependentUpon>
     </Compile>
     <Compile Include="IAuthenticationWebService.cs" />
+    <Compile Include="IInformationWebService.cs" />
+    <Compile Include="InformationWebService.svc.cs">
+      <DependentUpon>InformationWebService.svc</DependentUpon>
+    </Compile>
     <Compile Include="ISubscriptionWebService.cs" />
     <Compile Include="ITicketWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +86,7 @@
     </Compile>
     <Compile Include="WebServiceModel\AccountWebServiceModel.cs" />
     <Compile Include="WebServiceModel\BusWebServiceModel.cs" />
+    <Compile Include="WebServiceModel\GeneralInformationWebServiceModel.cs" />
     <Compile Include="WebServiceModel\LineWebServiceModel.cs" />
     <Compile Include="WebServiceModel\SubscriptionWebServiceModel.cs" />
     <Compile Include="WebServiceModel\TicketWebServiceModel.cs" />

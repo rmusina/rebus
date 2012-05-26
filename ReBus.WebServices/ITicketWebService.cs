@@ -8,7 +8,6 @@ using ReBus.WebServices.WebServiceModel;
 
 namespace ReBus.WebServices
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "ITicketWebService" in both code and config file together.
     [ServiceContract]
     public interface ITicketWebService
     {

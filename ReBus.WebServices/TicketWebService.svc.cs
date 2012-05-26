@@ -11,7 +11,7 @@ namespace ReBus.WebServices
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "TicketWebService" in code, svc and config file together.
     public class TicketWebService : ITicketWebService
     {
-        ITicketService ticketService = new TicketService();
+        readonly ITicketService ticketService = new TicketService();
 
         /// <summary>
         /// Buy a new ticket.

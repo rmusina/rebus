@@ -10,7 +10,7 @@ namespace ReBus.WebServices
 {
     public class SubscriptionWebService : ISubscriptionWebService
     {
-        ISubscriptionService subscriptionService = new SubscriptionService();
+        readonly ISubscriptionService subscriptionService = new SubscriptionService();
 
         /// <summary>
         /// Buy a new subscription for all the lines

@@ -14,7 +14,7 @@ namespace ReBus.WebServices
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "AuthenticationWebService" in code, svc and config file together.
     public class AuthenticationWebService : IAuthenticationWebService
     {
-        IAccountService accountService = new AccountService();
+        readonly IAccountService accountService = new AccountService();
 
         public AccountWebServiceModel Authenticate(string username, string password)
         {
