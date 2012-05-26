@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>8f83de65-4a86-447f-8ec9-bc0566f4a82b</ProjectGuid>
+    <ProjectGuid>{F3DC02B2-74C6-4D5C-9C84-BAB107B00A21}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ReBus.Services</RootNamespace>
@@ -40,8 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReBus.Model\ReBus.Model.csproj">
+      <Project>{805B6A75-B3C9-4503-B3F5-8C72F3915389}</Project>
+      <Name>ReBus.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReBus.Repository\ReBus.Repository.csproj">
+      <Project>{FD49C54B-CB30-481E-8730-54690A7A5CDF}</Project>
+      <Name>ReBus.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
