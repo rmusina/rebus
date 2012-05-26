@@ -22,12 +22,12 @@ namespace ReBus.WebServices.WebServiceModel
         [DataMember]
         public BusWebServiceModel Bus { get; set; }
 
-        public TicketWebServiceModel FromDataModel(Ticket ticket)
+        public static TicketWebServiceModel FromDataModel(Ticket ticket)
         {
             return FromDataModel(ticket, AccountWebServiceModel.FromModelObject(ticket == null ? null : ticket.Account));
         }
 
-        private TicketWebServiceModel FromDataModel(Ticket ticket, AccountWebServiceModel accountWebServiceModel)
+        public static TicketWebServiceModel FromDataModel(Ticket ticket, AccountWebServiceModel accountWebServiceModel)
         {
             if (ticket == null)
                 return null;
