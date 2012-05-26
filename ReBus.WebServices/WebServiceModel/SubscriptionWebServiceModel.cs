@@ -44,7 +44,7 @@ namespace ReBus.WebServices.WebServiceModel
                 Account = account,
                 Created = subscription.Created,
                 End = subscription.End,
-                Lines = subscription.Lines.Select(LineWebServiceModel.FromDataModel),
+                Lines = subscription.Lines.Select(LineWebServiceModel.FromDataModel).ToList(),
                 Start = subscription.Start
             };
         }

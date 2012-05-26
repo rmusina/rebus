@@ -94,7 +94,8 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account { GUID = account.GUID };
             return subscriptionService.GetActiveSubscriptins(dmAccount)
-                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account));
+                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account))
+                .ToList();
         }
 
         /// <summary>
@@ -106,7 +107,8 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account { GUID = account.GUID };
             return subscriptionService.GetHistory(dmAccount)
-                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account));
+                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account))
+                .ToList();
         }
 
         /// <summary>
@@ -119,7 +121,8 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account { GUID = account.GUID };
             return subscriptionService.GetHistory(dmAccount, limit)
-                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account));
+                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account))
+                .ToList();
         }
 
         /// <summary>
@@ -133,7 +136,8 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account { GUID = account.GUID };
             return subscriptionService.GetHistory(dmAccount, before, limit)
-                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account));
+                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account))
+                .ToList();
         }
 
         /// <summary>
@@ -146,7 +150,8 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account { GUID = account.GUID };
             return subscriptionService.GetNewSubscriptions(dmAccount, after)
-                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account));
+                .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account))
+                .ToList();
         }
     }
 }

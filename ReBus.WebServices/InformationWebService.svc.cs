@@ -20,7 +20,7 @@ namespace ReBus.WebServices
             return new GeneralInformationWebServiceModel
             {
                 TicketPrice = informationService.GetTicketPrice(),
-                Lines =  informationService.GetLines().Select(LineWebServiceModel.FromDataModel),
+                Lines =  informationService.GetLines().Select(LineWebServiceModel.FromDataModel).ToList(),
                 SubscriptionPrices = informationService.GetSubscriptionPrices()
             };
         }
@@ -35,12 +35,12 @@ namespace ReBus.WebServices
             return SubscriptionWebServiceModel.FromDataModel(informationService.GetSubscription(guid));
         }
 
-        public object GetSubscriptionOrTicket(Guid guid)
-        {
-            var obj = informationService.GetSubscriptionOrTicket(guid);
-            if (obj is Ticket)
-                return TicketWebServiceModel.FromDataModel((Ticket) obj);
-            return SubscriptionWebServiceModel.FromDataModel((Subscription) obj);
-        }
+//        public object GetSubscriptionOrTicket(Guid guid)
+//        {
+//            var obj = informationService.GetSubscriptionOrTicket(guid);
+//            if (obj is Ticket)
+//                return TicketWebServiceModel.FromDataModel((Ticket) obj);
+//            return SubscriptionWebServiceModel.FromDataModel((Subscription) obj);
+//        }
     }
 }

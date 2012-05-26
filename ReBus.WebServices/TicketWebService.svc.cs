@@ -45,7 +45,9 @@ namespace ReBus.WebServices
         public IEnumerable<TicketWebServiceModel> GetHistory(AccountWebServiceModel account)
         {
             var dmAccount = new Account() { GUID = account.GUID };
-            return ticketService.GetHistory(dmAccount).Select(t => TicketWebServiceModel.FromDataModel(t, account));
+            return ticketService.GetHistory(dmAccount)
+                .Select(t => TicketWebServiceModel.FromDataModel(t, account))
+                .ToList();
         }
 
         /// <summary>
@@ -57,7 +59,9 @@ namespace ReBus.WebServices
         public IEnumerable<TicketWebServiceModel> GetHistoryWithLimit(AccountWebServiceModel account, int limit)
         {
             var dmAccount = new Account() { GUID = account.GUID };
-            return ticketService.GetHistory(dmAccount, limit).Select(t => TicketWebServiceModel.FromDataModel(t, account));
+            return ticketService.GetHistory(dmAccount, limit)
+                .Select(t => TicketWebServiceModel.FromDataModel(t, account))
+                .ToList();
         }
 
         /// <summary>
@@ -70,7 +74,9 @@ namespace ReBus.WebServices
         public IEnumerable<TicketWebServiceModel> GetNextHistoryWithLimit(AccountWebServiceModel account, DateTime before, int limit)
         {
             var dmAccount = new Account() { GUID = account.GUID };
-            return ticketService.GetHistory(dmAccount, before, limit).Select(t => TicketWebServiceModel.FromDataModel(t, account));
+            return ticketService.GetHistory(dmAccount, before, limit)
+                .Select(t => TicketWebServiceModel.FromDataModel(t, account))
+                .ToList();
         }
 
         /// <summary>
@@ -82,7 +88,9 @@ namespace ReBus.WebServices
         public IEnumerable<TicketWebServiceModel> GetNewTickets(AccountWebServiceModel account, DateTime after)
         {
             var dmAccount = new Account() { GUID = account.GUID };
-            return ticketService.GetNewTickets(dmAccount, after).Select(t => TicketWebServiceModel.FromDataModel(t, account));
+            return ticketService.GetNewTickets(dmAccount, after)
+                .Select(t => TicketWebServiceModel.FromDataModel(t, account))
+                .ToList();
         }
     }
 }
