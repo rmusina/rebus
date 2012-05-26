@@ -27,6 +27,7 @@ namespace ReBus.Services
                 {
                     db.Accounts.Attach(account);
                     db.Buses.Attach(bus);
+                    Line tmp = bus.Line; 
                     db.Refresh(RefreshMode.StoreWins, new Object[] { account, bus});
 
                     var cost = db.TicketCost.Single().Cost;
@@ -60,12 +61,9 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                db.Accounts.Attach(account);
-                db.Refresh(RefreshMode.StoreWins, account);
-
                 DateTime validity = DateTime.Now - new TimeSpan(0, 0, 45);
-                return db.Tickets
-                    .Where(t => t.Account == account)
+                return db.Tickets.Include("Account").Include("Bus").Include("Bus.Line")
+                    .Where(t => t.AccountGUID == account.GUID)
                     .Where(t => t.Created >= validity)
                     .OrderByDescending(t => t.Created)
                     .FirstOrDefault();
@@ -105,11 +103,8 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer()) 
             {
-                db.Accounts.Attach(account);
-                db.Refresh(RefreshMode.StoreWins, account);
-
-                return db.Tickets
-                    .Where(t => t.Account == account)
+                return db.Tickets.Include("Account").Include("Bus").Include("Bus.Line")
+                    .Where(t => t.AccountGUID == account.GUID)
                     .Where(t => t.Created < before)
                     .OrderByDescending(t => t.Created)
                     .Take(limit).ToList();
@@ -126,11 +121,8 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                db.Accounts.Attach(account);
-                db.Refresh(RefreshMode.StoreWins, account);
-
-                return db.Tickets
-                    .Where(t => t.Account == account)
+                return db.Tickets.Include("Account").Include("Bus").Include("Bus.Line")
+                    .Where(t => t.AccountGUID == account.GUID)
                     .Where(t => t.Created > after)
                     .OrderByDescending(t => t.Created).ToList();
             }

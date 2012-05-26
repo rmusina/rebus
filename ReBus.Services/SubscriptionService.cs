@@ -156,11 +156,8 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                db.Accounts.Attach(account);
-                db.Refresh(RefreshMode.StoreWins, account);
-
-                return db.Subscriptions
-                    .Where(s => s.Account == account)
+                return db.Subscriptions.Include("Lines").Include("Account")
+                    .Where(s => s.AccountGUID == account.GUID)
                     .Where(s => s.End >= DateTime.Today)
                     .OrderBy(s => s.End).ToList();
             }
@@ -184,7 +181,7 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Subscription> GetHistory(Account account, int limit)
         {
-            return GetHistory(account, DateTime.MaxValue, limit);
+            return GetHistory(account, DateTime.Now + TimeSpan.FromDays(1), limit);
         }
 
         /// <summary>
@@ -198,11 +195,8 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                db.Accounts.Attach(account);
-                db.Refresh(RefreshMode.StoreWins, account);
-
-                return db.Subscriptions
-                    .Where(s => s.Account == account)
+                return db.Subscriptions.Include("Lines").Include("Account")
+                    .Where(s => s.AccountGUID == account.GUID)
                     .Where(s => s.Created < before)
                     .OrderByDescending(s => s.Created)
                     .Take(limit).ToList();
@@ -220,11 +214,8 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                db.Accounts.Attach(account);
-                db.Refresh(RefreshMode.StoreWins, account);
-
-                return db.Subscriptions
-                    .Where(s => s.Account == account)
+                return db.Subscriptions.Include("Lines").Include("Account")
+                    .Where(s => s.AccountGUID == account.GUID)
                     .Where(s => s.Created > after)
                     .OrderByDescending(s => s.Created).ToList();
             }
