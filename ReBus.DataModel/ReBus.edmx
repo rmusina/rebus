@@ -191,7 +191,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ReBusContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Model1.Account" />
           <EntitySet Name="Transactions" EntityType="Model1.Transaction" />
           <EntitySet Name="Lines" EntityType="Model1.Line" />
@@ -357,7 +357,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="ReBusContainer">
     <EntitySetMapping Name="Accounts">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Account)">
         <MappingFragment StoreEntitySet="Accounts">
