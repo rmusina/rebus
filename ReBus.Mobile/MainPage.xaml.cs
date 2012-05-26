@@ -20,5 +20,17 @@ namespace ReBus.Mobile
         {
             InitializeComponent();
         }
+
+        private void logInButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: log in
+
+            this.NavigationService.Navigate(new Uri("/ReBusPivotMenu.xaml", UriKind.Relative));
+        }
+
+        private void NewAccountButton_Click(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/AccountCreationPage.xaml", UriKind.Relative));
+        }
     }
 }
