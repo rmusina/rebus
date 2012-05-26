@@ -10,7 +10,15 @@ namespace ReBus.Services.API
         /// <param name="username">username</param>
         /// <param name="password">password</param>
         /// <returns>corresponding Account instance or null if inexistent user</returns>
-        Account Authenticate(string username, string password);
+        Account Authenticate(string userName, string password);
+
+        /// <summary>
+        /// Authenticates TicketController 
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="password">password</param>
+        /// <returns>corresponding Account instance or null if inexistent user</returns>
+        Account AuthenticateTicketController(string userName, string password);
 
         /// <summary>
         /// Registers new user

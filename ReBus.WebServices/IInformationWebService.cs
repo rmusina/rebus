@@ -20,6 +20,9 @@ namespace ReBus.WebServices
 
         [OperationContract]
         SubscriptionWebServiceModel GetSubscription(Guid guid);
+
+        [OperationContract]
+        BusWebServiceModel GetBus(Guid guid);
 //
 //        [OperationContract]
 //        Object GetSubscriptionOrTicket(Guid guid);
