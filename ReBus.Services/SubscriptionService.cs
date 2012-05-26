@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using ReBus.Model;
+using ReBus.Services.API;
 
-namespace ReBus.Services.API
+namespace ReBus.Services
 {
-    public interface ISubscriptionService
+    public class SubscriptionService : ISubscriptionService
     {
         /// <summary>
         /// Buy a new subscription for all the lines
         /// </summary>
         /// <param name="account">The account for which to buy the subscription</param>
         /// <returns></returns>
-        Subscription BuySubscription(Account account);
+        public Subscription BuySubscription(Account account)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Buy a new subscription for all the lines
@@ -19,7 +23,10 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to buy the subscription</param>
         /// <param name="startDate">The start date for the new subscription</param>
         /// <returns></returns>
-        Subscription BuySubscription(Account account, DateTime startDate);
+        public Subscription BuySubscription(Account account, DateTime startDate)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Buy a new subscription
@@ -27,7 +34,10 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to buy the subscription</param>
         /// <param name="lines">The lines on which the subscription applies to</param>
         /// <returns></returns>
-        Subscription BuySubscription(Account account, IEnumerable<Line> lines);
+        public Subscription BuySubscription(Account account, IEnumerable<Line> lines)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Buy a new subscription
@@ -36,14 +46,20 @@ namespace ReBus.Services.API
         /// <param name="lines">The lines on which the subscription applies to</param>
         /// <param name="startDate">The start date for the new subscription</param>
         /// <returns></returns>
-        Subscription BuySubscription(Account account, IEnumerable<Line> lines, DateTime startDate);
+        public Subscription BuySubscription(Account account, IEnumerable<Line> lines, DateTime startDate)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Renew an existing subscription
         /// </summary>
         /// <param name="subscription">The subscription to renew</param>
         /// <returns></returns>
-        Subscription RenewSubscription(Subscription subscription);
+        public Subscription RenewSubscription(Subscription subscription)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Renew an existing subscription
@@ -51,21 +67,30 @@ namespace ReBus.Services.API
         /// <param name="subscription">The subscription to renew</param>
         /// <param name="startDate">The start date from which to renew the subscription</param>
         /// <returns></returns>
-        Subscription RenewSubscription( Subscription subscription, DateTime startDate);
+        public Subscription RenewSubscription(Subscription subscription, DateTime startDate)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Get the active subscription of a given account.
         /// </summary>
         /// <param name="account">The account for which to get the subscription</param>
         /// <returns></returns>
-        IEnumerable<Subscription> GetActiveSubscriptins(Account account);
+        public IEnumerable<Subscription> GetActiveSubscriptins(Account account)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Get all the subscriptions associated to an account.
         /// </summary>
         /// <param name="account">The account for which to get the subscriptions</param>
         /// <returns></returns>
-        IEnumerable<Subscription> GetHistory(Account account);
+        public IEnumerable<Subscription> GetHistory(Account account)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Get latest subscriptions.
@@ -73,7 +98,10 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to get the subscriptions</param>
         /// <param name="limit">The max number of subscriptions to fetch</param>
         /// <returns></returns>
-        IEnumerable<Subscription> GetHistory(Account account, int limit);
+        public IEnumerable<Subscription> GetHistory(Account account, int limit)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Get older subscriptions.
@@ -82,7 +110,10 @@ namespace ReBus.Services.API
         /// <param name="before">The date before which to get the subscriptions</param>
         /// <param name="limit">The max number of subscriptions to fetch</param>
         /// <returns></returns>
-        IEnumerable<Subscription> GetHistory(Account account, DateTime before, int limit);
+        public IEnumerable<Subscription> GetHistory(Account account, DateTime before, int limit)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Get the subscriptions that have been added after a given date (used to refresh the list with new values).
@@ -90,6 +121,9 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to get the subscriptions</param>
         /// <param name="after">The date of the last subscription the client has</param>
         /// <returns></returns>
-        IEnumerable<Subscription> GetHistory(Account account, DateTime after);
+        public IEnumerable<Subscription> GetHistory(Account account, DateTime after)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

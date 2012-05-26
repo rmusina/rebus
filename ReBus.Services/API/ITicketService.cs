@@ -26,7 +26,7 @@ namespace ReBus.Services.API
         /// </summary>
         /// <param name="account">The account for which to get the tickets</param>
         /// <returns></returns>
-        IEnumerable<Ticket> GetTicketHistory(Account account);
+        IEnumerable<Ticket> GetHistory(Account account);
 
         /// <summary>
         /// Get latest tickets.
@@ -34,7 +34,7 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to get the tickets</param>
         /// <param name="limit">The max number of thickets to fetch</param>
         /// <returns></returns>
-        IEnumerable<Ticket> GetTicketHistory(Account account, int limit);
+        IEnumerable<Ticket> GetHistory(Account account, int limit);
 
         /// <summary>
         /// Get older tickets.
@@ -43,7 +43,7 @@ namespace ReBus.Services.API
         /// <param name="before">The date before which to get the tickets</param>
         /// <param name="limit">The max number of thickets to fetch</param>
         /// <returns></returns>
-        IEnumerable<Ticket> GetTicketHistory(Account account, DateTime before, int limit);
+        IEnumerable<Ticket> GetHistory(Account account, DateTime before, int limit);
 
         /// <summary>
         /// Get the tickets that have been added after a given date (used to refresh the list with new values).
@@ -51,6 +51,6 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to get the tickets</param>
         /// <param name="after">The date of the last ticket the client has</param>
         /// <returns></returns>
-        IEnumerable<Ticket> GetTicketHistory(Account account, DateTime after);
+        IEnumerable<Ticket> GetHistory(Account account, DateTime after);
     }
 }
