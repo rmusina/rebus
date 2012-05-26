@@ -14,26 +14,26 @@ using ReBus.Model;
 
 namespace ReBus.Repository
 {
-    public partial class Model1Container : ObjectContext
+    public partial class ReBusContainer : ObjectContext
     {
-        public const string ConnectionString = "name=Model1Container";
-        public const string ContainerName = "Model1Container";
+        public const string ConnectionString = "name=ReBusContainer";
+        public const string ContainerName = "ReBusContainer";
     
         #region Constructors
     
-        public Model1Container()
+        public ReBusContainer()
             : base(ConnectionString, ContainerName)
         {
             this.ContextOptions.LazyLoadingEnabled = true;
         }
     
-        public Model1Container(string connectionString)
+        public ReBusContainer(string connectionString)
             : base(connectionString, ContainerName)
         {
             this.ContextOptions.LazyLoadingEnabled = true;
         }
     
-        public Model1Container(EntityConnection connection)
+        public ReBusContainer(EntityConnection connection)
             : base(connection, ContainerName)
         {
             this.ContextOptions.LazyLoadingEnabled = true;
