@@ -15,6 +15,7 @@ using System.Collections.Specialized;
 
 namespace ReBus.Model
 {
+    
     public partial class Account
     {
         #region Primitive Properties
