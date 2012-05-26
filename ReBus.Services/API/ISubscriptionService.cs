@@ -90,6 +90,6 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to get the subscriptions</param>
         /// <param name="after">The date of the last subscription the client has</param>
         /// <returns></returns>
-        IEnumerable<Subscription> GetHistory(Account account, DateTime after);
+        IEnumerable<Subscription> GetNewSubscriptions(Account account, DateTime after);
     }
 }

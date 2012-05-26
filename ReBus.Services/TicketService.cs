@@ -39,6 +39,7 @@ namespace ReBus.Services
         {
             DateTime validity = DateTime.Now - new TimeSpan(0, 0, 45);
             return db.Tickets
+                .Where(t => t.Account == account)
                 .Where(t => t.Created >= validity)
                 .OrderByDescending(t => t.Created)
                 .FirstOrDefault();
@@ -62,7 +63,7 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetHistory(Account account, int limit)
         {
-            return GetHistory(account, DateTime.Today + new TimeSpan(1), limit);
+            return GetHistory(account, DateTime.MaxValue, limit);
         }
 
         /// <summary>
@@ -74,12 +75,11 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetHistory(Account account, DateTime before, int limit)
         {
-            var q = db.Tickets.Where(t => t.Created < before);
-            if (limit != Int32.MaxValue)
-            {
-                q = q.Take(limit);
-            }
-            return q.ToList();
+            return db.Tickets
+                .Where(t => t.Account == account)
+                .Where(t => t.Created < before)
+                .OrderByDescending(t => t.Created)
+                .Take(limit).ToList();
         }
 
         /// <summary>
@@ -90,7 +90,10 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetNewTickets(Account account, DateTime after)
         {
-            return db.Tickets.Where(t => t.Created > after).ToList();
+            return db.Tickets
+                .Where(t => t.Account == account)
+                .Where(t => t.Created > after)
+                .OrderByDescending(t => t.Created).ToList();
         }
     }
 }

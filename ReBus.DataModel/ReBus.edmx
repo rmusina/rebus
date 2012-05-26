@@ -94,6 +94,7 @@
     <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Start" Type="datetime" Nullable="false" />
     <Property Name="End" Type="datetime" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="SubscriptionLine">
     <Key>
@@ -323,6 +324,7 @@
           <NavigationProperty Name="Lines" Relationship="Model1.SubscriptionLine" FromRole="Subscription" ToRole="Line" />
           <Property Type="DateTime" Name="Start" Nullable="false" />
           <Property Type="DateTime" Name="End" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
         </EntityType>
         <Association Name="SubscriptionAccount">
           <End Type="Model1.Subscription" Role="Subscription" Multiplicity="*" />
@@ -414,6 +416,7 @@
           <ScalarProperty Name="AccountGUID" ColumnName="AccountGUID" />
           <ScalarProperty Name="Start" ColumnName="Start" />
           <ScalarProperty Name="End" ColumnName="End" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -462,17 +465,17 @@
           <ConnectorPoint PointX="1.25" PointY="3.625" />
           <ConnectorPoint PointX="1.25" PointY="3.2494921875" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Model1.Subscription" Width="2.25" PointX="4.75" PointY="3.125" Height="2.1725878906250005" />
+        <EntityTypeShape EntityType="Model1.Subscription" Width="2.25" PointX="4.75" PointY="3.125" Height="2.3648893229166656" />
         <AssociationConnector Association="Model1.SubscriptionAccount" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.75" PointY="4.1536057565864537" />
-          <ConnectorPoint PointX="3.375" PointY="4.1536057565864537" />
-          <ConnectorPoint PointX="3.375" PointY="3.4994921874999996" />
-          <ConnectorPoint PointX="1.6562519999999998" PointY="3.4994921874999996" />
-          <ConnectorPoint PointX="1.6562519999999998" PointY="3.2494921875" />
+          <ConnectorPoint PointX="4.75" PointY="4.3074446614583328" />
+          <ConnectorPoint PointX="3.375" PointY="4.3074446614583328" />
+          <ConnectorPoint PointX="3.375" PointY="3.4994921875" />
+          <ConnectorPoint PointX="1.25" PointY="3.4994921875" />
+          <ConnectorPoint PointX="1.25" PointY="3.2494921875" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.TicketBus">
-          <ConnectorPoint PointX="3.125" PointY="5.578837890625" />
-          <ConnectorPoint PointX="8.375" PointY="5.578837890625" />
+          <ConnectorPoint PointX="3.125" PointY="5.6749886067708326" />
+          <ConnectorPoint PointX="8.375" PointY="5.6749886067708326" />
           <ConnectorPoint PointX="8.375" PointY="2.2879850260416665" />
         </AssociationConnector>
         <AssociationConnector Association="Model1.SubscriptionLine">

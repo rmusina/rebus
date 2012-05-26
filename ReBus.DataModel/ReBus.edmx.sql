@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2012 17:19:46
+-- Date Created: 05/26/2012 17:41:20
 -- Generated from EDMX file: D:\projects\rebus\ReBus.DataModel\ReBus.edmx
 -- --------------------------------------------------
 
@@ -118,7 +118,8 @@ CREATE TABLE [dbo].[Subscriptions] (
     [GUID] uniqueidentifier  NOT NULL,
     [AccountGUID] uniqueidentifier  NOT NULL,
     [Start] datetime  NOT NULL,
-    [End] datetime  NOT NULL
+    [End] datetime  NOT NULL,
+    [Created] datetime  NOT NULL
 );
 GO
 

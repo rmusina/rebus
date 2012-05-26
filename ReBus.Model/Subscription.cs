@@ -53,6 +53,12 @@ namespace ReBus.Model
             get;
             set;
         }
+    
+        public virtual System.DateTime Created
+        {
+            get;
+            set;
+        }
 
         #endregion
         #region Navigation Properties
