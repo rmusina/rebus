@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="ReBus.WebServices.TicketWebService" CodeBehind="TicketWebService.svc.cs" %>
