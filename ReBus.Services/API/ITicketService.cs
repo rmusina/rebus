@@ -51,6 +51,6 @@ namespace ReBus.Services.API
         /// <param name="account">The account for which to get the tickets</param>
         /// <param name="after">The date of the last ticket the client has</param>
         /// <returns></returns>
-        IEnumerable<Ticket> GetHistory(Account account, DateTime after);
+        IEnumerable<Ticket> GetNewTickets(Account account, DateTime after);
     }
 }

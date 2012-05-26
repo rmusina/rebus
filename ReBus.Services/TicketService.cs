@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using ReBus.Model;
+using ReBus.Repository;
 using ReBus.Services.API;
+using System.Linq;
 
 namespace ReBus.Services
 {
     public class TicketService : ITicketService
     {
+        ReBusContainer db = new ReBusContainer();
+
         /// <summary>
         /// Buy a new ticket.
         /// </summary>
@@ -15,7 +19,15 @@ namespace ReBus.Services
         /// <returns></returns>
         public Ticket BuyTicket(Account account, Bus bus)
         {
-            throw new NotImplementedException();
+            var ticket = new Ticket {Account = account, Bus = bus, Created = DateTime.Now};
+
+            using (var insertDb = new ReBusContainer())
+            {
+                insertDb.Tickets.AddObject(ticket);
+                insertDb.SaveChanges();
+            }
+
+            return ticket;
         }
 
         /// <summary>
@@ -25,7 +37,11 @@ namespace ReBus.Services
         /// <returns></returns>
         public Ticket GetActiveTicket(Account account)
         {
-            throw new NotImplementedException();
+            DateTime validity = DateTime.Now - new TimeSpan(0, 0, 45);
+            return db.Tickets
+                .Where(t => t.Created >= validity)
+                .OrderByDescending(t => t.Created)
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -35,7 +51,7 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetHistory(Account account)
         {
-            throw new NotImplementedException();
+            return GetHistory(account, Int32.MaxValue);
         }
 
         /// <summary>
@@ -46,7 +62,7 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetHistory(Account account, int limit)
         {
-            throw new NotImplementedException();
+            return GetHistory(account, DateTime.Today + new TimeSpan(1), limit);
         }
 
         /// <summary>
@@ -58,7 +74,12 @@ namespace ReBus.Services
         /// <returns></returns>
         public IEnumerable<Ticket> GetHistory(Account account, DateTime before, int limit)
         {
-            throw new NotImplementedException();
+            var q = db.Tickets.Where(t => t.Created < before);
+            if (limit != Int32.MaxValue)
+            {
+                q = q.Take(limit);
+            }
+            return q.ToList();
         }
 
         /// <summary>
@@ -67,9 +88,9 @@ namespace ReBus.Services
         /// <param name="account">The account for which to get the tickets</param>
         /// <param name="after">The date of the last ticket the client has</param>
         /// <returns></returns>
-        public IEnumerable<Ticket> GetHistory(Account account, DateTime after)
+        public IEnumerable<Ticket> GetNewTickets(Account account, DateTime after)
         {
-            throw new NotImplementedException();
+            return db.Tickets.Where(t => t.Created > after).ToList();
         }
     }
 }
