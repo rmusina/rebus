@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2012 15:03:30
--- Generated from EDMX file: F:\info\ReBus\rebus\ReBus.Model\ReBus.edmx
+-- Date Created: 05/26/2012 17:19:46
+-- Generated from EDMX file: D:\projects\rebus\ReBus.DataModel\ReBus.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -118,7 +118,7 @@ CREATE TABLE [dbo].[Subscriptions] (
     [GUID] uniqueidentifier  NOT NULL,
     [AccountGUID] uniqueidentifier  NOT NULL,
     [Start] datetime  NOT NULL,
-    [Validity] datetimeoffset  NOT NULL
+    [End] datetime  NOT NULL
 );
 GO
 

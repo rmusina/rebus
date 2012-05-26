@@ -93,7 +93,7 @@
     <Property Name="GUID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AccountGUID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Start" Type="datetime" Nullable="false" />
-    <Property Name="Validity" Type="datetimeoffset" Nullable="false" />
+    <Property Name="End" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="SubscriptionLine">
     <Key>
@@ -322,7 +322,7 @@
           <Property Type="Guid" Name="AccountGUID" Nullable="false" />
           <NavigationProperty Name="Lines" Relationship="Model1.SubscriptionLine" FromRole="Subscription" ToRole="Line" />
           <Property Type="DateTime" Name="Start" Nullable="false" />
-          <Property Type="DateTimeOffset" Name="Validity" Nullable="false" />
+          <Property Type="DateTime" Name="End" Nullable="false" />
         </EntityType>
         <Association Name="SubscriptionAccount">
           <End Type="Model1.Subscription" Role="Subscription" Multiplicity="*" />
@@ -413,7 +413,7 @@
           <ScalarProperty Name="GUID" ColumnName="GUID" />
           <ScalarProperty Name="AccountGUID" ColumnName="AccountGUID" />
           <ScalarProperty Name="Start" ColumnName="Start" />
-          <ScalarProperty Name="Validity" ColumnName="Validity" />
+          <ScalarProperty Name="End" ColumnName="End" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

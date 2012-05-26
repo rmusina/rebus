@@ -48,7 +48,7 @@ namespace ReBus.Model
             set;
         }
     
-        public virtual System.DateTimeOffset Validity
+        public virtual System.DateTime End
         {
             get;
             set;
