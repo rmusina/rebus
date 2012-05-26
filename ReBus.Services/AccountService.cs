@@ -11,24 +11,38 @@ namespace ReBus.Services
 {
     public class AccountService : IAccountService
     {
-        public Account Authenticate(string username, string password)
+        public Account Authenticate(string userName, string password)
         {
             ReBusContainer repository = new ReBusContainer();
 
             return (from currentUser in repository.Accounts
-                    where currentUser.Username == username &&
+                    where currentUser.Username == userName &&
                           currentUser.PasswordHash == password
                     select currentUser).FirstOrDefault<Account>();
         }
 
-        public string Register(string userName, string password, string firstName, string lastName)
+        private bool UsernameIsUnique(string userName)
+        {
+            ReBusContainer repository = new ReBusContainer();
+
+            return (from currentUser in repository.Accounts
+                    where currentUser.Username == userName
+                    select currentUser).FirstOrDefault<Account>() == null;
+        }
+
+        public Account Register(string userName, string password, string firstName, string lastName)
         {
             if (String.IsNullOrEmpty(userName) ||
                 String.IsNullOrEmpty(password) ||
                 String.IsNullOrEmpty(firstName) ||
                 String.IsNullOrEmpty(lastName))
             {
-                return "Completati toate campurile";
+                throw new NotAllFieldsFilledException();
+            }
+
+            if (!UsernameIsUnique(userName))
+            {
+                throw new UserAlreadyExistsException();
             }
 
             using (ReBusContainer repository = new ReBusContainer())
@@ -41,18 +55,11 @@ namespace ReBus.Services
                 userAccount.LastName = lastName;
                 userAccount.Credit = 0;
 
-                try
-                {
-                    repository.Accounts.AddObject(userAccount);
-                    repository.SaveChanges();
-                } 
-                catch (Exception exc)
-                {
-                    return exc.Message;
-                }
+                repository.Accounts.AddObject(userAccount);
+                repository.SaveChanges();
+
+                return userAccount;
             }
-                        
-            return null;
         }
 
         public IEnumerable<Transaction> GetTransactionHistory(Account userAccount)

@@ -49,9 +49,11 @@
     <Compile Include="API\ISubscriptionService.cs" />
     <Compile Include="API\ITicketService.cs" />
     <Compile Include="InsufficientCreditException.cs" />
+    <Compile Include="NotAllFieldsFilledException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscriptionService.cs" />
     <Compile Include="TicketService.cs" />
+    <Compile Include="UserAlreadyExistsException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReBus.Model\ReBus.Model.csproj">
