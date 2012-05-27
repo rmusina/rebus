@@ -21,13 +21,25 @@
             <!--Tickets pivot item-->
             
             <!--History pivot item-->
-            <controls:PivotItem Header="Autobuz">
-                <Grid/>
-            </controls:PivotItem>
-
-            <!--Account pivot item-->
-            <controls:PivotItem Header="Bilete">
-                <Grid/>
+            <controls:PivotItem Header="Controliran">
+                <Grid>
+                    <Rectangle x:Name="previewRect" 
+                       Margin="0" 
+                       Height="800" 
+                       Width="600" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center">
+                        <Rectangle.Fill>
+                            <VideoBrush x:Name="previewVideo">
+                                <VideoBrush.RelativeTransform>
+                                    <CompositeTransform  
+                        x:Name="previewTransform" CenterX=".5" CenterY=".5" />
+                                </VideoBrush.RelativeTransform>
+                            </VideoBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Height="60" FontSize="36" Foreground="Green" HorizontalAlignment="Center" Margin="6,480,12,0" Name="qrResultTextBlock" Text="Scanez..." VerticalAlignment="Top" Width="438" TextAlignment="Center" />
+                </Grid>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>

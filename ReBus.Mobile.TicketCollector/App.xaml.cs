@@ -23,6 +23,9 @@ namespace ReBus.Mobile.TicketCollector
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
+        public Guid BusGuid { get; set; }
+        public string BusGuidString { get; set; }
+
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>

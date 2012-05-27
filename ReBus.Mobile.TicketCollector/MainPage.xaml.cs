@@ -24,7 +24,7 @@ namespace ReBus.Mobile.TicketCollector
 
         private void logInButton_Click(object sender, RoutedEventArgs e)
         {
-            if (userNameTextBox.Text.Equals("") || passwordTextBox.Password.Equals(""))
+        /*    if (userNameTextBox.Text.Equals("") || passwordTextBox.Password.Equals(""))
             {
                 MessageBox.Show("Toate campurile trebuie completate.");
             }
@@ -33,7 +33,8 @@ namespace ReBus.Mobile.TicketCollector
                 AuthenticationWebServiceClient proxy = new AuthenticationWebServiceClient();
                 proxy.AuthenticateTicketControllerCompleted += new EventHandler<AuthenticateTicketControllerCompletedEventArgs>(proxy_AuthenticateTicketControllerCompleted);
                 proxy.AuthenticateTicketControllerAsync(userNameTextBox.Text, passwordTextBox.Password);
-            }
+            }*/
+            this.NavigationService.Navigate(new Uri("/ReBusPivotMenu.xaml", UriKind.Relative));
         }
 
         void proxy_AuthenticateTicketControllerCompleted(object sender, AuthenticateTicketControllerCompletedEventArgs e)
