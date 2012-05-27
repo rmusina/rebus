@@ -41,4 +41,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSubscriptionWebServiceModel" nillable="true" type="tns:ArrayOfSubscriptionWebServiceModel" />
+  <xs:complexType name="BusWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Line" nillable="true" type="tns:LineWebServiceModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusWebServiceModel" nillable="true" type="tns:BusWebServiceModel" />
 </xs:schema>

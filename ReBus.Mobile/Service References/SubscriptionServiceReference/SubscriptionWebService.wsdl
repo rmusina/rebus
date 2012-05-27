@@ -73,6 +73,12 @@
   <wsdl:message name="ISubscriptionWebService_GetNewSubscriptions_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetNewSubscriptionsResponse" />
   </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_ValidateSubscription_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateSubscription" />
+  </wsdl:message>
+  <wsdl:message name="ISubscriptionWebService_ValidateSubscription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateSubscriptionResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISubscriptionWebService">
     <wsdl:operation name="BuySubscriptionForAllLines">
       <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/BuySubscriptionForAllLines" message="tns:ISubscriptionWebService_BuySubscriptionForAllLines_InputMessage" />
@@ -117,6 +123,10 @@
     <wsdl:operation name="GetNewSubscriptions">
       <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetNewSubscriptions" message="tns:ISubscriptionWebService_GetNewSubscriptions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/GetNewSubscriptionsResponse" message="tns:ISubscriptionWebService_GetNewSubscriptions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateSubscription">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISubscriptionWebService/ValidateSubscription" message="tns:ISubscriptionWebService_ValidateSubscription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISubscriptionWebService/ValidateSubscriptionResponse" message="tns:ISubscriptionWebService_ValidateSubscription_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISubscriptionWebService" type="tns:ISubscriptionWebService">
@@ -213,6 +223,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetNewSubscriptions">
       <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/GetNewSubscriptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateSubscription">
+      <soap:operation soapAction="http://tempuri.org/ISubscriptionWebService/ValidateSubscription" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

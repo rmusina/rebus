@@ -255,6 +255,51 @@ namespace ReBus.Mobile.SubscriptionServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BusWebServiceModel", Namespace="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel")]
+    public partial class BusWebServiceModel : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private System.Guid GUIDField;
+        
+        private ReBus.Mobile.SubscriptionServiceReference.LineWebServiceModel LineField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid GUID {
+            get {
+                return this.GUIDField;
+            }
+            set {
+                if ((this.GUIDField.Equals(value) != true)) {
+                    this.GUIDField = value;
+                    this.RaisePropertyChanged("GUID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ReBus.Mobile.SubscriptionServiceReference.LineWebServiceModel Line {
+            get {
+                return this.LineField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LineField, value) != true)) {
+                    this.LineField = value;
+                    this.RaisePropertyChanged("Line");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SubscriptionServiceReference.ISubscriptionWebService")]
     public interface ISubscriptionWebService {
@@ -316,6 +361,11 @@ namespace ReBus.Mobile.SubscriptionServiceReference {
         System.IAsyncResult BeginGetNewSubscriptions(ReBus.Mobile.SubscriptionServiceReference.AccountWebServiceModel account, System.DateTime after, System.AsyncCallback callback, object asyncState);
         
         System.Collections.ObjectModel.ObservableCollection<ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel> EndGetNewSubscriptions(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISubscriptionWebService/ValidateSubscription", ReplyAction="http://tempuri.org/ISubscriptionWebService/ValidateSubscriptionResponse")]
+        System.IAsyncResult BeginValidateSubscription(ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel subscription, ReBus.Mobile.SubscriptionServiceReference.BusWebServiceModel bus, System.AsyncCallback callback, object asyncState);
+        
+        int EndValidateSubscription(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -533,6 +583,25 @@ namespace ReBus.Mobile.SubscriptionServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ValidateSubscriptionCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ValidateSubscriptionCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class SubscriptionWebServiceClient : System.ServiceModel.ClientBase<ReBus.Mobile.SubscriptionServiceReference.ISubscriptionWebService>, ReBus.Mobile.SubscriptionServiceReference.ISubscriptionWebService {
         
         private BeginOperationDelegate onBeginBuySubscriptionForAllLinesDelegate;
@@ -600,6 +669,12 @@ namespace ReBus.Mobile.SubscriptionServiceReference {
         private EndOperationDelegate onEndGetNewSubscriptionsDelegate;
         
         private System.Threading.SendOrPostCallback onGetNewSubscriptionsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginValidateSubscriptionDelegate;
+        
+        private EndOperationDelegate onEndValidateSubscriptionDelegate;
+        
+        private System.Threading.SendOrPostCallback onValidateSubscriptionCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -675,6 +750,8 @@ namespace ReBus.Mobile.SubscriptionServiceReference {
         public event System.EventHandler<GetNextHistoryWithLimitCompletedEventArgs> GetNextHistoryWithLimitCompleted;
         
         public event System.EventHandler<GetNewSubscriptionsCompletedEventArgs> GetNewSubscriptionsCompleted;
+        
+        public event System.EventHandler<ValidateSubscriptionCompletedEventArgs> ValidateSubscriptionCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1204,6 +1281,54 @@ namespace ReBus.Mobile.SubscriptionServiceReference {
                         after}, this.onEndGetNewSubscriptionsDelegate, this.onGetNewSubscriptionsCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult ReBus.Mobile.SubscriptionServiceReference.ISubscriptionWebService.BeginValidateSubscription(ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel subscription, ReBus.Mobile.SubscriptionServiceReference.BusWebServiceModel bus, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginValidateSubscription(subscription, bus, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        int ReBus.Mobile.SubscriptionServiceReference.ISubscriptionWebService.EndValidateSubscription(System.IAsyncResult result) {
+            return base.Channel.EndValidateSubscription(result);
+        }
+        
+        private System.IAsyncResult OnBeginValidateSubscription(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel subscription = ((ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel)(inValues[0]));
+            ReBus.Mobile.SubscriptionServiceReference.BusWebServiceModel bus = ((ReBus.Mobile.SubscriptionServiceReference.BusWebServiceModel)(inValues[1]));
+            return ((ReBus.Mobile.SubscriptionServiceReference.ISubscriptionWebService)(this)).BeginValidateSubscription(subscription, bus, callback, asyncState);
+        }
+        
+        private object[] OnEndValidateSubscription(System.IAsyncResult result) {
+            int retVal = ((ReBus.Mobile.SubscriptionServiceReference.ISubscriptionWebService)(this)).EndValidateSubscription(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnValidateSubscriptionCompleted(object state) {
+            if ((this.ValidateSubscriptionCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ValidateSubscriptionCompleted(this, new ValidateSubscriptionCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ValidateSubscriptionAsync(ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel subscription, ReBus.Mobile.SubscriptionServiceReference.BusWebServiceModel bus) {
+            this.ValidateSubscriptionAsync(subscription, bus, null);
+        }
+        
+        public void ValidateSubscriptionAsync(ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel subscription, ReBus.Mobile.SubscriptionServiceReference.BusWebServiceModel bus, object userState) {
+            if ((this.onBeginValidateSubscriptionDelegate == null)) {
+                this.onBeginValidateSubscriptionDelegate = new BeginOperationDelegate(this.OnBeginValidateSubscription);
+            }
+            if ((this.onEndValidateSubscriptionDelegate == null)) {
+                this.onEndValidateSubscriptionDelegate = new EndOperationDelegate(this.OnEndValidateSubscription);
+            }
+            if ((this.onValidateSubscriptionCompletedDelegate == null)) {
+                this.onValidateSubscriptionCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnValidateSubscriptionCompleted);
+            }
+            base.InvokeAsync(this.onBeginValidateSubscriptionDelegate, new object[] {
+                        subscription,
+                        bus}, this.onEndValidateSubscriptionDelegate, this.onValidateSubscriptionCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -1429,6 +1554,20 @@ namespace ReBus.Mobile.SubscriptionServiceReference {
             public System.Collections.ObjectModel.ObservableCollection<ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel> EndGetNewSubscriptions(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 System.Collections.ObjectModel.ObservableCollection<ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel> _result = ((System.Collections.ObjectModel.ObservableCollection<ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel>)(base.EndInvoke("GetNewSubscriptions", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginValidateSubscription(ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel subscription, ReBus.Mobile.SubscriptionServiceReference.BusWebServiceModel bus, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = subscription;
+                _args[1] = bus;
+                System.IAsyncResult _result = base.BeginInvoke("ValidateSubscription", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public int EndValidateSubscription(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                int _result = ((int)(base.EndInvoke("ValidateSubscription", _args, result)));
                 return _result;
             }
         }

@@ -24,6 +24,9 @@ namespace ReBus.Mobile
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
+        /// 
+        public bool ShouldRequestAgain { get; set; }
+
         public PhoneApplicationFrame RootFrame { get; private set; }
 
         public Guid BusGuid { get; set; }

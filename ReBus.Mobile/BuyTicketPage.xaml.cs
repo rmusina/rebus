@@ -142,6 +142,7 @@ namespace ReBus.Mobile
                 timer.Stop();
                 photoCamera.Dispose();
                 MessageBox.Show("Biletul a fost cumparat cu succes!");
+                (App.Current as App).ShouldRequestAgain = true;
                 this.NavigationService.GoBack();
             }
         }

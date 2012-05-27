@@ -17,6 +17,7 @@ using Microsoft.Devices;
 using com.google.zxing.common;
 using com.google.zxing;
 using System.Windows.Navigation;
+using ReBus.Mobile.TicketCollector.TicketServiceReference;
 
 namespace ReBus.Mobile.TicketCollector
 {
@@ -101,13 +102,46 @@ namespace ReBus.Mobile.TicketCollector
                     if (!text.Equals((App.Current as App).BusGuidString))
                     {
                         qrResultTextBlock.Text = "Verificare bilet...";
+                        Guid ticketGuid = new Guid(text);
+                        BusWebServiceModel busServiceModel = new BusWebServiceModel();
+                        busServiceModel.GUID = (App.Current as App).BusGuid;
+                        TicketWebServiceModel ticketServiceModel = new TicketWebServiceModel();
+                        ticketServiceModel.GUID = ticketGuid;
+
+                        TicketWebServiceClient ticketService = new TicketWebServiceClient();
+                        ticketService.ValidateTicketCompleted += new EventHandler<ValidateTicketCompletedEventArgs>(ticketService_ValidateTicketCompleted);
+                        ticketService.ValidateTicketAsync(ticketServiceModel, busServiceModel);
+
+                        timer.Stop();
                     }
                 }
             }
             catch
             {
-                qrResultTextBlock.Text = "Scaneaza din nou...";
+                if (!busIdentified)
+                {
+                    qrResultTextBlock.Text = "Scaneaza din nou...";
+                }
+                else
+                {
+                    qrResultTextBlock.Text = "Identificare bilet...";
+                }
             }
+        }
+
+        void ticketService_ValidateTicketCompleted(object sender, ValidateTicketCompletedEventArgs e)
+        {
+            if (e.Result == 1)
+            {
+                qrResultTextBlock.Text = "Bilet Valid!";
+            }
+            else
+            {
+                qrResultTextBlock.Text = "Bilet invalid!";
+                MessageBox.Show("Bilet invalid!");
+            }
+
+            timer.Start();
         }
     }
 }

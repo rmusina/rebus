@@ -78,6 +78,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\TicketServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -108,7 +113,27 @@
     </None>
     <Content Include="Libs\Silverlight_ZXing_Core.dll" />
     <Content Include="Libs\WP7_Barcode_Library.dll" />
+    <None Include="Service References\TicketServiceReference\ReBus.Mobile.TicketCollector.TicketServiceReference.TicketWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TicketServiceReference\TicketWebService.disco" />
+    <None Include="Service References\TicketServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\TicketServiceReference\configuration.svcinfo" />
+    <None Include="Service References\TicketServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="ServiceReferences.ClientConfig" />
+    <None Include="Service References\TicketServiceReference\TicketWebService.wsdl" />
+    <None Include="Service References\TicketServiceReference\TicketWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TicketServiceReference\TicketWebService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TicketServiceReference\TicketWebService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -137,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AuthenticationWebServiceReference\" />
+    <WCFMetadataStorage Include="Service References\TicketServiceReference\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

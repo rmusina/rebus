@@ -164,4 +164,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ValidateSubscription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="subscription" nillable="true" type="q25:SubscriptionWebServiceModel" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="bus" nillable="true" type="q26:BusWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateSubscriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidateSubscriptionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

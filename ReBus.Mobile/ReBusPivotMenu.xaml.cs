@@ -21,6 +21,7 @@ using ReBus.Mobile.AuthenticationServiceReference;
 using ReBus.Mobile.TicketServiceReference;
 using ReBus.Mobile.SubscriptionServiceReference;
 using System.Collections.ObjectModel;
+using System.Windows.Navigation;
 
 namespace ReBus.Mobile
 {
@@ -60,6 +61,30 @@ namespace ReBus.Mobile
 
             historyList = new ObservableCollection<HistoryItem>();
             historyListBox.ItemsSource = historyList;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if ((App.Current as App).ShouldRequestAgain)
+            {
+                (App.Current as App).ShouldRequestAgain = false;
+
+                SubscriptionWebServiceClient subscriptionService = new SubscriptionWebServiceClient();
+                subscriptionService.GetActiveSubscriptinsCompleted += new EventHandler<GetActiveSubscriptinsCompletedEventArgs>(subscriptionService_GetActiveSubscriptinsCompleted);
+                subscriptionService.GetActiveSubscriptinsAsync((App.Current as App).SUserData);
+
+                TicketWebServiceClient ticketService = new TicketWebServiceClient();
+                ticketService.GetActiveTicketCompleted += new EventHandler<GetActiveTicketCompletedEventArgs>(ticketService_GetActiveTicketCompleted);
+                ticketService.GetActiveTicketAsync((App.Current as App).TUserData);
+
+                ticketService.GetHistoryCompleted += new EventHandler<TicketServiceReference.GetHistoryCompletedEventArgs>(ticketService_GetHistoryCompleted);
+                ticketService.GetHistoryAsync((App.Current as App).TUserData);
+
+                subscriptionService.GetHistoryCompleted += new EventHandler<SubscriptionServiceReference.GetHistoryCompletedEventArgs>(subscriptionService_GetHistoryCompleted);
+                subscriptionService.GetHistoryAsync((App.Current as App).SUserData);
+            }
+
+            base.OnNavigatedTo(e);
         }
 
         void ticketService_GetHistoryCompleted(object sender, TicketServiceReference.GetHistoryCompletedEventArgs e)
