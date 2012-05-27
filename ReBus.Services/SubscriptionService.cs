@@ -59,62 +59,55 @@ namespace ReBus.Services
             {
                 using (new TransactionScope())
                 {
-                    try
+                    var myLines = new Dictionary<Guid, Line>();
+                    List<Object> toRefresh = new List<Object>();
+
+                    foreach (var line in lines)
                     {
-                        var myLines = new Dictionary<Guid, Line>();
-                        List<Object> toRefresh = new List<Object>();
-
-                        foreach (var line in lines)
-                        {
-                            myLines.Add(line.GUID, line);
-                            db.Lines.Attach(line);
-                            toRefresh.Add(line);
-                        }
-
-                        db.Accounts.Attach(account);
-                        toRefresh.Add(account);
-                        db.Refresh(RefreshMode.StoreWins, toRefresh);
-
-                        var subscriptionCost = db.SubscriptionCosts.SingleOrDefault(s => s.Lines == myLines.Count);
-                        // If there is no subscription plan for the number of lines we want, get a subscription for all the lines
-                        if (subscriptionCost == null)
-                        {
-                            subscriptionCost = db.SubscriptionCosts.Single(s => s.Lines == 0);
-                            myLines.Clear();
-                        }
-                        var cost = subscriptionCost.Cost;
-                        if (account.Credit < cost)
-                        {
-                            throw new InsufficientCreditException();
-                        }
-
-                        var subscription = new Subscription
-                                           {
-                                               Account = account,
-                                               Start = startDate.Date,
-                                               End = startDate.Date + TimeSpan.FromDays(30),
-                                               Lines = myLines.Values,
-                                               Created = DateTime.Today
-                                           };
-                        var transaction = new Transaction
-                                              {
-                                                  Account = account,
-                                                  Type = (int)TransactionType.Subscription,
-                                                  Amount = cost,
-                                                  Created = DateTime.Now
-                                              };
-                        account.Credit -= cost;
-
-                        db.Subscriptions.AddObject(subscription);
-                        db.Transactions.AddObject(transaction);
-                        db.SaveChanges();
-
-                        return subscription;
+                        myLines.Add(line.GUID, line);
+                        db.Lines.Attach(line);
+                        toRefresh.Add(line);
                     }
-                    catch (Exception)
+
+                    db.Accounts.Attach(account);
+                    toRefresh.Add(account);
+                    db.Refresh(RefreshMode.StoreWins, toRefresh);
+
+                    var subscriptionCost = db.SubscriptionCosts.SingleOrDefault(s => s.Lines == myLines.Count);
+                    // If there is no subscription plan for the number of lines we want, get a subscription for all the lines
+                    if (subscriptionCost == null)
                     {
-                        return null;
+                        subscriptionCost = db.SubscriptionCosts.Single(s => s.Lines == 0);
+                        myLines.Clear();
                     }
+                    var cost = subscriptionCost.Cost;
+                    if (account.Credit < cost)
+                    {
+                        throw new InsufficientCreditException();
+                    }
+
+                    var subscription = new Subscription
+                                        {
+                                            Account = account,
+                                            Start = startDate.Date,
+                                            End = startDate.Date + TimeSpan.FromDays(30),
+                                            Lines = myLines.Values,
+                                            Created = DateTime.Today
+                                        };
+                    var transaction = new Transaction
+                                            {
+                                                Account = account,
+                                                Type = (int)TransactionType.Subscription,
+                                                Amount = cost,
+                                                Created = DateTime.Now
+                                            };
+                    account.Credit -= cost;
+
+                    db.Subscriptions.AddObject(subscription);
+                    db.Transactions.AddObject(transaction);
+                    db.SaveChanges();
+
+                    return subscription;
                 }
             }
         }
@@ -137,7 +130,6 @@ namespace ReBus.Services
                 {
                     date = DateTime.Today;
                 }
-                
             }
 
             return RenewSubscription(subscription, date);

@@ -23,7 +23,18 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account() {GUID = account.GUID};
             var dmBus = new Bus() {GUID = bus.GUID};
-            return TicketWebServiceModel.FromDataModel(ticketService.BuyTicket(dmAccount, dmBus), account);
+
+            TicketWebServiceModel ticket = null;
+
+            try
+            {
+                ticket = TicketWebServiceModel.FromDataModel(ticketService.BuyTicket(dmAccount, dmBus), account);
+            }
+            catch (Exception)
+            {             
+            }
+
+            return ticket;
         }
 
         /// <summary>
@@ -96,8 +107,18 @@ namespace ReBus.WebServices
 
         public int ValidateTicket(TicketWebServiceModel ticket, BusWebServiceModel bus)
         {
-            return ticketService.ValidateTicket(new Ticket() { GUID = ticket.GUID },
-                                                new Bus() { GUID = bus.GUID });
+            int returnCode = 3;
+
+            try
+            {
+                returnCode = ticketService.ValidateTicket(new Ticket() { GUID = ticket.GUID },
+                                                          new Bus() { GUID = bus.GUID });
+            }
+            catch (Exception)
+            { 
+            }
+
+            return returnCode;
         }
     }
 }
