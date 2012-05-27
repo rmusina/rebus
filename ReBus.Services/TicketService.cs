@@ -132,16 +132,16 @@ namespace ReBus.Services
         {
             using (ReBusContainer repository = new ReBusContainer())
             {
-                try
-                {
-                    repository.Tickets.Attach(ticket);
-                    repository.Refresh(RefreshMode.StoreWins, ticket);
-                    repository.Tickets.Include("Bus");
+                repository.Tickets.Attach(ticket);
+                repository.Refresh(RefreshMode.StoreWins, ticket);
+                repository.Tickets.Include("Bus");
 
-                    repository.Buses.Attach(bus);
-                    repository.Refresh(RefreshMode.StoreWins, bus);
-                }
-                catch (Exception)
+                repository.Buses.Attach(bus);
+                repository.Refresh(RefreshMode.StoreWins, bus);
+                
+                if (ticket == null || 
+                    ticket.Bus == null || 
+                    bus == null)
                 {
                     return 3;
                 }

@@ -97,7 +97,7 @@ namespace ReBus.Services.API
         /// </summary>
         /// <param name="account">The subscription you want to validate</param>
         /// <param name="after">The current logged in bus</param>
-        /// <returns>0 - subscription expired, 1 - valid subscription, 2 - lines do not match warning</returns>
+        /// <returns>0 - subscription expired, 1 - valid subscription, 2 - lines do not match warning, 3 - invalid</returns>
         int ValidateSubscription(Subscription subscription, Bus bus);
     }
 }

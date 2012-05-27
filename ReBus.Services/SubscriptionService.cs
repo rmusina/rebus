@@ -225,22 +225,23 @@ namespace ReBus.Services
         public int ValidateSubscription(Subscription subscription, Bus bus)
         {
             using (ReBusContainer repository = new ReBusContainer())
-            {
-                try
-                {
-                    repository.Subscriptions.Attach(subscription);
-                    repository.Refresh(RefreshMode.StoreWins, subscription);
-                    repository.Subscriptions.Include("Lines");
+            {                
+                repository.Subscriptions.Attach(subscription);
+                repository.Refresh(RefreshMode.StoreWins, subscription);
+                repository.Subscriptions.Include("Lines");
 
-                    repository.Buses.Attach(bus);
-                    repository.Refresh(RefreshMode.StoreWins, bus);
-                    repository.Buses.Include("Line");
-                }
-                catch (Exception)
+                repository.Buses.Attach(bus);
+                repository.Refresh(RefreshMode.StoreWins, bus);
+
+                if (subscription == null ||
+                    subscription.Lines == null ||
+                    subscription.Lines.Count == 0 || 
+                    bus == null || 
+                    bus.Line == null)
                 {
                     return 3;
                 }
-
+                
                 if (subscription.End > DateTime.Now)
                 {
                     return 0;
