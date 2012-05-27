@@ -42,7 +42,7 @@ VALUES
 
 INSERT INTO Accounts(Username, PasswordHash, FirstName, LastName, Credit, IsTicketController)
 VALUES
- ('a', 'a', 'Alexandru', 'Spiridon', 200, 'true'),
+ ('a', 'a', 'Alexandru', 'Spiridon', 200, 'false'),
  ('b', 'b', 'Rares', 'Musina', 150, 'true'),
  ('c', 'c', 'Razvan', 'Jurca', 100, 'false');
 
@@ -162,7 +162,7 @@ VALUES
 ('Septimiu Albini', 46.769043, 23.607382),					-- 33
 ('Piata Cipariu', 46.768149,  23.599513),					-- 34
 ('Piatza Avram Iancu',  46.769857,  23.598420),				-- 35
-('Grigore Alexandrescu', 46.756967,  23.556471)				-- 36
+('Grigore Alexandrescu', 46.756967,  23.556471),			-- 36
 ('Minerva I',  46.754363,  23.555354),						-- 37
 ('Bucium I',  46.751578,  23.545635),						-- 38
 ('Bucium II',  46.751204,  23.545108),						-- 39
