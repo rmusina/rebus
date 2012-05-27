@@ -20,14 +20,18 @@ using System.Windows.Media.Imaging;
 using ReBus.Mobile.AuthenticationServiceReference;
 using ReBus.Mobile.TicketServiceReference;
 using ReBus.Mobile.SubscriptionServiceReference;
+using System.Collections.ObjectModel;
 
 namespace ReBus.Mobile
 {
     public partial class ReBusPivotMenu : PhoneApplicationPage
     {
-        private List<HistoryItem> historyList;
-        private List<SubscriptionData> subscriptionsList;
+        private ObservableCollection<HistoryItem> historyList;
+        private ObservableCollection<SubscriptionData> subscriptionsList;
         private TicketData ticketData;
+
+        private bool ticketHistoryRecieved = false;
+        private bool subscriptionHistoryRecieved = false;
 
         public ReBusPivotMenu()
         {
@@ -45,48 +49,109 @@ namespace ReBus.Mobile
             ticketService.GetActiveTicketCompleted += new EventHandler<GetActiveTicketCompletedEventArgs>(ticketService_GetActiveTicketCompleted);
             ticketService.GetActiveTicketAsync((App.Current as App).TUserData);
 
+            ticketService.GetHistoryCompleted += new EventHandler<TicketServiceReference.GetHistoryCompletedEventArgs>(ticketService_GetHistoryCompleted);
+            ticketService.GetHistoryAsync((App.Current as App).TUserData);
+
             subscriptionService.GetHistoryCompleted += new EventHandler<SubscriptionServiceReference.GetHistoryCompletedEventArgs>(subscriptionService_GetHistoryCompleted);
             subscriptionService.GetHistoryAsync((App.Current as App).SUserData);
-            
-            subscriptionsList = new List<SubscriptionData>();
+
+            subscriptionsList = new ObservableCollection<SubscriptionData>();
             subscriptionsListBox.ItemsSource = subscriptionsList;
 
-            historyList = new List<HistoryItem>();
+            historyList = new ObservableCollection<HistoryItem>();
             historyListBox.ItemsSource = historyList;
+        }
+
+        void ticketService_GetHistoryCompleted(object sender, TicketServiceReference.GetHistoryCompletedEventArgs e)
+        {
+            if (e.Result != null)
+            {
+                for (int i = 0; i < e.Result.Count; i++)
+                {
+                    TicketWebServiceModel currentTicket = e.Result[i];
+                    HistoryItem newItem = new HistoryItem("Ticket", currentTicket.Bus.Line.Name, currentTicket.Created.ToString(), "/Images/qrtest.jpg");
+                    historyList.Add(newItem);
+                }
+                ticketHistoryRecieved = true;
+
+                if (subscriptionHistoryRecieved)
+                    SortHistoryByDate();
+            }
         }
 
         void subscriptionService_GetHistoryCompleted(object sender, SubscriptionServiceReference.GetHistoryCompletedEventArgs e)
         {
-            String defaultDate = "26/5/2012 15:20:00";
-            for (int i = 0; i < 10; i++)
+            if (e.Result != null)
             {
-                string type = "ticket";
-                if (i % 2 == 0)
-                    type = "subscription";
-                HistoryItem newItem = new HistoryItem(type, i.ToString(), defaultDate, "/Images/qrtest.jpg");
-                historyList.Add(newItem);
+                for (int i = 0; i < e.Result.Count; i++)
+                {
+                    SubscriptionWebServiceModel currentSubscription = e.Result[i];
+                    string subscribedLines = "";
+                    for (int j = 0; j < currentSubscription.Lines.Count; j++)
+                    {
+                        SubscriptionServiceReference.LineWebServiceModel currentLine = currentSubscription.Lines[i];
+                        subscribedLines += currentLine.Name;
+                        if (j < currentSubscription.Lines.Count - 1)
+                            subscribedLines += ", ";
+                    }
+                    HistoryItem newItem = new HistoryItem("Subscription", subscribedLines, currentSubscription.Start.ToString(), "/Images/qrtest.jpg");
+                    historyList.Add(newItem);
+                }
+                subscriptionHistoryRecieved = true;
+
+                if (ticketHistoryRecieved)
+                    SortHistoryByDate();
             }
-
-            HistoryItem currentHistoryItem = historyList[0];
-
-            largeQRImage.Source = new BitmapImage(new Uri(currentHistoryItem.QR, UriKind.Relative));
-            typeTextBlock.Text = currentHistoryItem.Type;
-            dateTextBlock.Text = currentHistoryItem.Date;
         }
 
         void ticketService_GetActiveTicketCompleted(object sender, GetActiveTicketCompletedEventArgs e)
         {
-            String defaultDate = "26/5/2012 15:20:00";
-            ticketData = new TicketData("Test", defaultDate, "/Images/qrtest.jpg");
-            ticketButton.DataContext = ticketData;
+            if (e.Result != null)
+            {
+                ticketButton.Visibility = System.Windows.Visibility.Visible;
+                noActiveTicketTextBlock.Visibility = System.Windows.Visibility.Collapsed;
+                ticketData = new TicketData(e.Result.Bus.Line.Name, e.Result.Created.ToString(), "/Images/qrtest.jpg");
+                ticketButton.DataContext = ticketData;
+            }
+            else
+            {
+                ticketButton.Visibility = System.Windows.Visibility.Collapsed;
+                noActiveTicketTextBlock.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
         void subscriptionService_GetActiveSubscriptinsCompleted(object sender, GetActiveSubscriptinsCompletedEventArgs e)
         {
-            String defaultDate = "26/5/2012 15:20:00";
-            for (int i = 0; i < 10; i++)
+            if (e.Result != null)
             {
-                subscriptionsList.Add(new SubscriptionData("24B", defaultDate, defaultDate, "/Images/qrtest.jpg"));
+                for (int i = 0; i < e.Result.Count; i++)
+                {
+                    SubscriptionWebServiceModel currentSubscription = e.Result[i];
+                    string subscribedLines = "";
+                    for (int j = 0; j < currentSubscription.Lines.Count; j++)
+                    {
+                        SubscriptionServiceReference.LineWebServiceModel currentLine = currentSubscription.Lines[i];
+                        subscribedLines += currentLine.Name;
+                        if (j < currentSubscription.Lines.Count - 1)
+                            subscribedLines += ", ";
+                    }
+                    subscriptionsList.Add(new SubscriptionData(subscribedLines, currentSubscription.Start.ToString(),
+                        currentSubscription.End.ToString(), "/Images/qrtest.jpg"));
+                }
+            }
+        }
+
+        private void SortHistoryByDate()
+        {
+            if (historyList.Count > 0)
+            {
+                HistoryItem currentHistoryItem = historyList[0];
+
+                largeQRImage.Source = new BitmapImage(new Uri(currentHistoryItem.QR, UriKind.Relative));
+                typeTextBlock.Text = currentHistoryItem.Type;
+                dateTextBlock.Text = currentHistoryItem.Date;
+
+                // TODO sort
             }
         }
 
@@ -102,40 +167,14 @@ namespace ReBus.Mobile
             }
         }
 
-        public void BarcodeResults_Finished(BarcodeCaptureResult BCResults)
-        {
-            try
-            {
-                if (WP7BarcodeManager.LastCaptureResults.BarcodeImage != null)
-                {
-                    image1.Source = WP7BarcodeManager.LastCaptureResults.BarcodeImage; //Display image
-                }
-                else
-                {
-                    //No image captured
-                }
-                if (BCResults.State == WP7_Barcode_Library.CaptureState.Success)
-                {
-                    qrResultsTextBlock.Text = BCResults.BarcodeText; //Use results
-                }
-                else
-                {
-                    Debug.WriteLine(BCResults.ErrorMessage);
-                    qrResultsTextBlock.Text = "BCResults error: " + BCResults.ErrorMessage;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(String.Format("QR Code Processing Error: {0}", ex.Message));
-                qrResultsTextBlock.Text = "Exception: " + ex.Message;
-            }
-        }
-
         private void ticketButton_Click(object sender, RoutedEventArgs e)
         {
-            TicketData ticketData = ((TicketData)((Button)sender).DataContext);
-            string ticketPageUri = "/TicketPage.xaml?Name=" + ticketData.Name + "&Date=" + ticketData.Date;
-            this.NavigationService.Navigate(new Uri(ticketPageUri, UriKind.Relative));
+            if (((Button)sender).DataContext != null)
+            {
+                TicketData ticketData = ((TicketData)((Button)sender).DataContext);
+                string ticketPageUri = "/TicketPage.xaml?Name=" + ticketData.Name + "&Date=" + ticketData.Date;
+                this.NavigationService.Navigate(new Uri(ticketPageUri, UriKind.Relative));
+            }
         }
 
         private void historyListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -147,6 +186,18 @@ namespace ReBus.Mobile
             largeQRImage.Source = new BitmapImage(new Uri(currentHistoryItem.QR, UriKind.Relative));
             typeTextBlock.Text = currentHistoryItem.Type;
             dateTextBlock.Text = currentHistoryItem.Date;
+        }
+
+        private void addCreditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (amountTextBox.Text.Equals(""))
+            {
+                MessageBox.Show("Adauga o suma!");
+            }
+            else
+            {
+                // TODO - alimentare credit
+            }
         }
     }
 }
