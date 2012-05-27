@@ -132,12 +132,8 @@ namespace ReBus.Services
         {
             using (ReBusContainer repository = new ReBusContainer())
             {
-                repository.Tickets.Attach(ticket);
-                repository.Refresh(RefreshMode.StoreWins, ticket);
-                repository.Tickets.Include("Bus");
-
-                repository.Buses.Attach(bus);
-                repository.Refresh(RefreshMode.StoreWins, bus);
+                ticket = repository.Tickets.Single(t => t.GUID == ticket.GUID);
+                bus = repository.Buses.Single(b => b.GUID == bus.GUID);
                 
                 if (ticket == null || 
                     ticket.Bus == null || 
