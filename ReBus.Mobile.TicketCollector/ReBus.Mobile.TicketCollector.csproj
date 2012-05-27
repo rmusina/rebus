@@ -111,6 +111,7 @@
     <None Include="Service References\AuthenticationWebServiceReference\AuthenticationWebService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Images\appbar.check.rest.png" />
     <Content Include="Libs\Silverlight_ZXing_Core.dll" />
     <Content Include="Libs\WP7_Barcode_Library.dll" />
     <None Include="Service References\TicketServiceReference\ReBus.Mobile.TicketCollector.TicketServiceReference.TicketWebServiceModel.datasource">

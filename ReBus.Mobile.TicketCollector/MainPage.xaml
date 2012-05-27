@@ -22,8 +22,8 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="ReBus Ticket Collector" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Log in" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Foreground="Green" x:Name="ApplicationTitle" Text="ReBus Ticket Collector" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Foreground="Green" x:Name="PageTitle" Text="Log in" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -33,8 +33,11 @@
                 <TextBox x:Name="userNameTextBox" Text="{Binding Username, Mode=TwoWay}"/>
                 <TextBlock Text="Password"/>
                 <PasswordBox x:Name="passwordTextBox" Password="{Binding Password, Mode=TwoWay}"/>
-                <Button x:Name="logInButton"
-                            Content="Log in" Click="logInButton_Click" />
+                <Button Foreground="Green" x:Name="logInButton" Click="logInButton_Click">
+                    <Button.Content>
+                        <Image Source="/Images/appbar.check.rest.png" Margin="0" Width="70" Height="70" />
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>
