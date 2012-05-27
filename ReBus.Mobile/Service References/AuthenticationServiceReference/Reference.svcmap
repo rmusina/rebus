@@ -24,9 +24,9 @@
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="AuthenticationWebService.xsd" MetadataType="Schema" ID="77340e1e-f24c-455b-a206-9843dbe51129" SourceId="1" SourceUrl="http://192.168.1.128/AuthenticationWebService.svc?xsd=xsd0" />
+    <MetadataFile FileName="AuthenticationWebService.disco" MetadataType="Disco" ID="ebd5cb05-80a5-4c57-89bf-0d42cfe95c49" SourceId="1" SourceUrl="http://192.168.1.128/AuthenticationWebService.svc?disco" />
     <MetadataFile FileName="AuthenticationWebService.wsdl" MetadataType="Wsdl" ID="e128d40f-fe30-4780-86db-1705840ccce3" SourceId="1" SourceUrl="http://192.168.1.128/AuthenticationWebService.svc?wsdl" />
     <MetadataFile FileName="AuthenticationWebService1.xsd" MetadataType="Schema" ID="654324cf-72b3-48f7-93b6-29268a9b9044" SourceId="1" SourceUrl="http://192.168.1.128/AuthenticationWebService.svc?xsd=xsd1" />
-    <MetadataFile FileName="AuthenticationWebService.disco" MetadataType="Disco" ID="ebd5cb05-80a5-4c57-89bf-0d42cfe95c49" SourceId="1" SourceUrl="http://192.168.1.128/AuthenticationWebService.svc?disco" />
     <MetadataFile FileName="AuthenticationWebService2.xsd" MetadataType="Schema" ID="30686fd7-da6c-4d85-bb22-925c3c4031f9" SourceId="1" SourceUrl="http://192.168.1.128/AuthenticationWebService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>

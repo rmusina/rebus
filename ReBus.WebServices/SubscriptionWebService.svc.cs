@@ -20,7 +20,18 @@ namespace ReBus.WebServices
         public SubscriptionWebServiceModel BuySubscriptionForAllLines(AccountWebServiceModel account)
         {
             var dmAccount = new Account {GUID = account.GUID};
-            return SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount));
+
+            SubscriptionWebServiceModel subscription = null;
+
+            try
+            {
+                subscription = SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount));
+            }
+            catch (Exception)
+            { 
+            }
+
+            return subscription;
         }
 
         /// <summary>
@@ -32,7 +43,17 @@ namespace ReBus.WebServices
         public SubscriptionWebServiceModel BuySubscriptionForAllLinesWithStartDate(AccountWebServiceModel account, DateTime startDate)
         {
             var dmAccount = new Account { GUID = account.GUID };
-            return SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount, startDate));
+            SubscriptionWebServiceModel subscription = null;
+
+            try
+            {
+                subscription = SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount, startDate));
+            }
+            catch (Exception)
+            {             
+            }
+
+            return subscription;
         }
 
         /// <summary>
@@ -45,7 +66,17 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account { GUID = account.GUID };
             var dmLines = lines.Select(l => new Line { GUID = l.GUID });
-            return SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount, dmLines));
+            SubscriptionWebServiceModel subscription = null;
+
+            try
+            {
+                subscription = SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount, dmLines));
+            }
+            catch (Exception)
+            { 
+            }
+
+            return subscription;
         }
 
         /// <summary>
@@ -59,7 +90,17 @@ namespace ReBus.WebServices
         {
             var dmAccount = new Account { GUID = account.GUID };
             var dmLines = lines.Select(l => new Line { GUID = l.GUID });
-            return SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount, dmLines, startDate));
+            SubscriptionWebServiceModel subscription = null;
+
+            try
+            {
+                subscription = SubscriptionWebServiceModel.FromDataModel(subscriptionService.BuySubscription(dmAccount, dmLines, startDate));
+            }
+            catch (Exception)
+            { 
+            }
+
+            return subscription;
         }
 
         /// <summary>
@@ -70,7 +111,18 @@ namespace ReBus.WebServices
         public SubscriptionWebServiceModel RenewSubscription(SubscriptionWebServiceModel subscription)
         {
             var dmSubscription = new Subscription {GUID = subscription.GUID};
-            return SubscriptionWebServiceModel.FromDataModel(subscriptionService.RenewSubscription(dmSubscription));
+
+            subscription = null;
+
+            try
+            {
+                subscription = SubscriptionWebServiceModel.FromDataModel(subscriptionService.RenewSubscription(dmSubscription));
+            }
+            catch (Exception)
+            { 
+            }
+
+            return subscription;
         }
 
         /// <summary>
@@ -82,7 +134,17 @@ namespace ReBus.WebServices
         public SubscriptionWebServiceModel RenewSubscriptionWithStartDate(SubscriptionWebServiceModel subscription, DateTime startDate)
         {
             var dmSubscription = new Subscription { GUID = subscription.GUID };
-            return SubscriptionWebServiceModel.FromDataModel(subscriptionService.RenewSubscription(dmSubscription, startDate));
+            subscription = null;
+
+            try
+            {
+                subscription = SubscriptionWebServiceModel.FromDataModel(subscriptionService.RenewSubscription(dmSubscription, startDate));
+            }
+            catch (Exception)
+            { 
+            }
+
+            return subscription;
         }
 
         /// <summary>
@@ -157,8 +219,18 @@ namespace ReBus.WebServices
 
         public int ValidateSubscription(SubscriptionWebServiceModel subscription, BusWebServiceModel bus)
         {
-            return subscriptionService.ValidateSubscription(new Subscription() { GUID = subscription.GUID },
-                                                            new Bus() { GUID = bus.GUID });        
+            int returnCode = 3;
+
+            try
+            {
+                returnCode= subscriptionService.ValidateSubscription(new Subscription() { GUID = subscription.GUID },
+                                                                     new Bus() { GUID = bus.GUID });
+            }
+            catch (Exception)
+            { 
+            }
+
+            return returnCode;
         }
     }
 }

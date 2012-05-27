@@ -20,40 +20,32 @@ namespace ReBus.Services
         /// <returns></returns>
         public Ticket BuyTicket(Account account, Bus bus)
         {
-            try
+            using (ReBusContainer db = new ReBusContainer())
             {
-                using (ReBusContainer db = new ReBusContainer())
+                account = db.Accounts.Single(a => a.GUID == account.GUID);
+                bus = db.Buses.Include("Line").Single(b => b.GUID == bus.GUID);
+                var cost = db.TicketCost.Single().Cost;
+                if (cost > account.Credit)
                 {
-                    account = db.Accounts.Single(a => a.GUID == account.GUID);
-                    bus = db.Buses.Include("Line").Single(b => b.GUID == bus.GUID);
-                    var cost = db.TicketCost.Single().Cost;
-                    if (cost > account.Credit)
-                    {
-                        throw new InsufficientCreditException();
-                    }
-
-                    var ticket = new Ticket {Account = account, Bus = bus, Created = DateTime.Now};
-                    var transaction = new Transaction
-                                          {
-                                              Account = account,
-                                              Amount = cost,
-                                              Type = (int) TransactionType.Ticket,
-                                              Created = DateTime.Now
-                                          };
-                    account.Credit -= cost;
-
-                    db.Tickets.AddObject(ticket);
-                    db.Transactions.AddObject(transaction);
-                    db.SaveChanges();
-
-                    return ticket;
+                    throw new InsufficientCreditException();
                 }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
 
+                var ticket = new Ticket {Account = account, Bus = bus, Created = DateTime.Now};
+                var transaction = new Transaction
+                                        {
+                                            Account = account,
+                                            Amount = cost,
+                                            Type = (int) TransactionType.Ticket,
+                                            Created = DateTime.Now
+                                        };
+                account.Credit -= cost;
+
+                db.Tickets.AddObject(ticket);
+                db.Transactions.AddObject(transaction);
+                db.SaveChanges();
+
+                return ticket;
+            }
         }
 
         /// <summary>
@@ -136,34 +128,27 @@ namespace ReBus.Services
         {
             using (ReBusContainer repository = new ReBusContainer())
             {
-                try
+                ticket = repository.Tickets.Single(t => t.GUID == ticket.GUID);
+                bus = repository.Buses.Single(b => b.GUID == bus.GUID);
+
+                if (ticket == null ||
+                    ticket.Bus == null ||
+                    bus == null)
                 {
-                    ticket = repository.Tickets.Single(t => t.GUID == ticket.GUID);
-                    bus = repository.Buses.Single(b => b.GUID == bus.GUID);
-
-                    if (ticket == null ||
-                        ticket.Bus == null ||
-                        bus == null)
-                    {
-                        return 3;
-                    }
-
-                    if (ticket.Created.AddHours(1.5) < DateTime.Now)
-                    {
-                        return 0;
-                    }
-
-                    if (ticket.Bus.GUID != bus.GUID)
-                    {
-                        return 2;
-                    }
-
-                    return 1;
+                    return 3;
                 }
-                catch (Exception)
+
+                if (ticket.Created.AddHours(1.5) < DateTime.Now)
                 {
                     return 0;
                 }
+
+                if (ticket.Bus.GUID != bus.GUID)
+                {
+                    return 2;
+                }
+
+                return 1;
             }
         }
     }
