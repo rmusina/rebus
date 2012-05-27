@@ -45,9 +45,16 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                account = db.Accounts.Single(a => a.GUID == account.GUID);
-                account.Credit += amount;
-                return account;
+                try
+                {
+                    account = db.Accounts.Single(a => a.GUID == account.GUID);
+                    account.Credit += amount;
+                    return account;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
         }
 
@@ -101,8 +108,7 @@ namespace ReBus.Services
                 repository.AttachTo("Accounts", userAccount);
                 repository.Refresh(RefreshMode.StoreWins, userAccount);
 
-                return userAccount.Transactions;
-                
+                return userAccount.Transactions;                
             }
         }
     }

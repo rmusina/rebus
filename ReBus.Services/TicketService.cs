@@ -136,27 +136,34 @@ namespace ReBus.Services
         {
             using (ReBusContainer repository = new ReBusContainer())
             {
-                ticket = repository.Tickets.Single(t => t.GUID == ticket.GUID);
-                bus = repository.Buses.Single(b => b.GUID == bus.GUID);
-                
-                if (ticket == null || 
-                    ticket.Bus == null || 
-                    bus == null)
+                try
                 {
-                    return 3;
-                }
+                    ticket = repository.Tickets.Single(t => t.GUID == ticket.GUID);
+                    bus = repository.Buses.Single(b => b.GUID == bus.GUID);
 
-                if (ticket.Created.AddHours(1.5) < DateTime.Now)
+                    if (ticket == null ||
+                        ticket.Bus == null ||
+                        bus == null)
+                    {
+                        return 3;
+                    }
+
+                    if (ticket.Created.AddHours(1.5) < DateTime.Now)
+                    {
+                        return 0;
+                    }
+
+                    if (ticket.Bus.GUID != bus.GUID)
+                    {
+                        return 2;
+                    }
+
+                    return 1;
+                }
+                catch (Exception)
                 {
                     return 0;
                 }
-
-                if (ticket.Bus.GUID != bus.GUID)
-                {
-                    return 2;
-                }
-
-                return 1;
             }
         }
     }
