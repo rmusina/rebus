@@ -52,5 +52,14 @@ namespace ReBus.Services.API
         /// <param name="after">The date of the last ticket the client has</param>
         /// <returns></returns>
         IEnumerable<Ticket> GetNewTickets(Account account, DateTime after);
+
+
+        /// <summary>
+        /// Validates a ticket
+        /// </summary>
+        /// <param name="ticket">Ticket to validate</param>
+        /// <param name="bus">Current checked in bus</param>
+        /// <returns>0 - ticket expired, 1 - valid ticket, 2 - ticket not for current bus</returns>
+        int ValidateTicket(Ticket ticket, Bus bus);
     }
 }

@@ -97,6 +97,38 @@ namespace ReBus.Model
             }
         }
         private ICollection<Subscription> _subscriptions;
+    
+        public virtual ICollection<Station> Stations
+        {
+            get
+            {
+                if (_stations == null)
+                {
+                    var newCollection = new FixupCollection<Station>();
+                    newCollection.CollectionChanged += FixupStations;
+                    _stations = newCollection;
+                }
+                return _stations;
+            }
+            set
+            {
+                if (!ReferenceEquals(_stations, value))
+                {
+                    var previousValue = _stations as FixupCollection<Station>;
+                    if (previousValue != null)
+                    {
+                        previousValue.CollectionChanged -= FixupStations;
+                    }
+                    _stations = value;
+                    var newValue = value as FixupCollection<Station>;
+                    if (newValue != null)
+                    {
+                        newValue.CollectionChanged += FixupStations;
+                    }
+                }
+            }
+        }
+        private ICollection<Station> _stations;
 
         #endregion
         #region Association Fixup
@@ -139,6 +171,31 @@ namespace ReBus.Model
             if (e.OldItems != null)
             {
                 foreach (Subscription item in e.OldItems)
+                {
+                    if (item.Lines.Contains(this))
+                    {
+                        item.Lines.Remove(this);
+                    }
+                }
+            }
+        }
+    
+        private void FixupStations(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (Station item in e.NewItems)
+                {
+                    if (!item.Lines.Contains(this))
+                    {
+                        item.Lines.Add(this);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (Station item in e.OldItems)
                 {
                     if (item.Lines.Contains(this))
                     {

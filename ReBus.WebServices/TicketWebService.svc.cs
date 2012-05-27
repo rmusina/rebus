@@ -92,5 +92,12 @@ namespace ReBus.WebServices
                 .Select(t => TicketWebServiceModel.FromDataModel(t, account))
                 .ToList();
         }
+
+
+        public int ValidateTicket(TicketWebServiceModel ticket, BusWebServiceModel bus)
+        {
+            return ticketService.ValidateTicket(new Ticket() { GUID = ticket.GUID },
+                                                new Bus() { GUID = bus.GUID });
+        }
     }
 }

@@ -153,5 +153,12 @@ namespace ReBus.WebServices
                 .Select(s => SubscriptionWebServiceModel.FromDataModel(s, account))
                 .ToList();
         }
+
+
+        public int ValidateSubscription(SubscriptionWebServiceModel subscription, BusWebServiceModel bus)
+        {
+            return subscriptionService.ValidateSubscription(new Subscription() { GUID = subscription.GUID },
+                                                            new Bus() { GUID = bus.GUID });        
+        }
     }
 }
