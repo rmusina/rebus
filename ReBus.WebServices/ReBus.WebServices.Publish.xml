@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="C:\Sites\ReBusWebServices" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="ReBusWebServices" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
-    <file relUrl="Web.config" publishTime="05/27/2012 07:18:48" />
-    <file relUrl="bin/ReBus.DataModel.pdb" publishTime="05/27/2012 07:18:46" />
+    <file relUrl="Web.config" publishTime="05/27/2012 08:26:37" />
+    <file relUrl="bin/ReBus.DataModel.pdb" publishTime="05/27/2012 08:26:08" />
     <file relUrl="SubscriptionWebService.svc" publishTime="05/27/2012 07:15:06" />
-    <file relUrl="bin/ReBus.Model.dll" publishTime="05/27/2012 07:18:47" />
-    <file relUrl="bin/ReBus.Services.pdb" publishTime="05/27/2012 07:44:08" />
-    <file relUrl="bin/ReBus.DataModel.dll" publishTime="05/27/2012 07:18:46" />
+    <file relUrl="bin/ReBus.Model.dll" publishTime="05/27/2012 08:52:43" />
+    <file relUrl="bin/ReBus.Services.pdb" publishTime="05/27/2012 09:19:14" />
+    <file relUrl="bin/ReBus.DataModel.dll" publishTime="05/27/2012 08:26:08" />
     <file relUrl="TicketWebService.svc" publishTime="05/27/2012 07:15:06" />
-    <file relUrl="bin/ReBus.WebServices.pdb" publishTime="05/27/2012 07:44:08" />
-    <file relUrl="bin/ReBus.Repository.dll" publishTime="05/27/2012 07:18:47" />
-    <file relUrl="bin/ReBus.Services.dll" publishTime="05/27/2012 07:44:08" />
-    <file relUrl="bin/ReBus.WebServices.dll" publishTime="05/27/2012 07:44:08" />
+    <file relUrl="bin/ReBus.WebServices.pdb" publishTime="05/27/2012 09:19:14" />
+    <file relUrl="bin/ReBus.Repository.dll" publishTime="05/27/2012 08:52:43" />
+    <file relUrl="bin/ReBus.Services.dll" publishTime="05/27/2012 09:19:14" />
+    <file relUrl="bin/ReBus.WebServices.dll" publishTime="05/27/2012 09:19:14" />
     <file relUrl="AuthenticationWebService.svc" publishTime="05/27/2012 07:15:06" />
-    <file relUrl="bin/ReBus.Model.pdb" publishTime="05/27/2012 07:18:47" />
+    <file relUrl="bin/ReBus.Model.pdb" publishTime="05/27/2012 08:52:43" />
     <file relUrl="InformationWebService.svc" publishTime="05/27/2012 07:15:06" />
-    <file relUrl="bin/ReBus.Repository.pdb" publishTime="05/27/2012 07:18:47" />
+    <file relUrl="bin/ReBus.Repository.pdb" publishTime="05/27/2012 08:52:43" />
   </publishProfile>
 </publishData>
