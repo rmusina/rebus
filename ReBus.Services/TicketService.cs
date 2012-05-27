@@ -127,5 +127,37 @@ namespace ReBus.Services
                     .OrderByDescending(t => t.Created).ToList();
             }
         }
+        
+        public int ValidateTicket(Ticket ticket, Bus bus)
+        {
+            using (ReBusContainer repository = new ReBusContainer())
+            {
+                repository.Tickets.Attach(ticket);
+                repository.Refresh(RefreshMode.StoreWins, ticket);
+                repository.Tickets.Include("Bus");
+
+                repository.Buses.Attach(bus);
+                repository.Refresh(RefreshMode.StoreWins, bus);
+                
+                if (ticket == null || 
+                    ticket.Bus == null || 
+                    bus == null)
+                {
+                    return 3;
+                }
+
+                if (ticket.Created.AddHours(1.5) < DateTime.Now)
+                {
+                    return 0;
+                }
+
+                if (ticket.Bus.GUID != bus.GUID)
+                {
+                    return 2;
+                }
+
+                return 1;
+            }
+        }
     }
 }

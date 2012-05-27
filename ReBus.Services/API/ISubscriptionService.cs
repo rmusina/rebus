@@ -91,5 +91,13 @@ namespace ReBus.Services.API
         /// <param name="after">The date of the last subscription the client has</param>
         /// <returns></returns>
         IEnumerable<Subscription> GetNewSubscriptions(Account account, DateTime after);
+
+        /// <summary>
+        /// Returns a validation code saying if the ticket 
+        /// </summary>
+        /// <param name="account">The subscription you want to validate</param>
+        /// <param name="after">The current logged in bus</param>
+        /// <returns>0 - subscription expired, 1 - valid subscription, 2 - lines do not match warning, 3 - invalid</returns>
+        int ValidateSubscription(Subscription subscription, Bus bus);
     }
 }

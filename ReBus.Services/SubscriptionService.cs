@@ -220,5 +220,40 @@ namespace ReBus.Services
                     .OrderByDescending(s => s.Created).ToList();
             }
         }
+
+
+        public int ValidateSubscription(Subscription subscription, Bus bus)
+        {
+            using (ReBusContainer repository = new ReBusContainer())
+            {                
+                repository.Subscriptions.Attach(subscription);
+                repository.Refresh(RefreshMode.StoreWins, subscription);
+                repository.Subscriptions.Include("Lines");
+
+                repository.Buses.Attach(bus);
+                repository.Refresh(RefreshMode.StoreWins, bus);
+
+                if (subscription == null ||
+                    subscription.Lines == null ||
+                    subscription.Lines.Count == 0 || 
+                    bus == null || 
+                    bus.Line == null)
+                {
+                    return 3;
+                }
+                
+                if (subscription.End > DateTime.Now)
+                {
+                    return 0;
+                }
+
+                if (subscription.Lines.Contains<Line>(bus.Line))
+                {
+                    return 2;
+                }
+
+                return 1;
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                return db.Buses.SingleOrDefault(b => b.GUID == bus);
+                return db.Buses.Include("Line").SingleOrDefault(b => b.GUID == bus);
             }
         }
 
@@ -46,7 +46,7 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                return db.Tickets.SingleOrDefault(t => t.GUID == ticket);
+                return db.Tickets.Include("Account").Include("Bus").Include("Bus.Line").SingleOrDefault(t => t.GUID == ticket);
             }
         }
 
@@ -54,7 +54,7 @@ namespace ReBus.Services
         {
             using (var db = new ReBusContainer())
             {
-                return db.Subscriptions.SingleOrDefault(s => s.GUID == subscription);
+                return db.Subscriptions.Include("Account").Include("Lines").SingleOrDefault(s => s.GUID == subscription);
             }
         }
 

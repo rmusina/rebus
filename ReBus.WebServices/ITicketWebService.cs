@@ -63,5 +63,14 @@ namespace ReBus.WebServices
         /// <returns></returns>
         [OperationContract]
         IEnumerable<TicketWebServiceModel> GetNewTickets(AccountWebServiceModel account, DateTime after);
+
+        /// <summary>
+        /// Validates a ticket
+        /// </summary>
+        /// <param name="ticket">Ticket to validate</param>
+        /// <param name="bus">Current checked in bus</param>
+        /// <returns>0 - ticket expired, 1 - valid ticket, 2 - ticket not for current bus</returns>
+        [OperationContract]
+        int ValidateTicket(TicketWebServiceModel ticket, BusWebServiceModel bus);
     }
 }
