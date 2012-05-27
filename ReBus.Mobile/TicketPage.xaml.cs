@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.Windows.Media.Imaging;
 
 namespace ReBus.Mobile
 {
@@ -30,6 +31,7 @@ namespace ReBus.Mobile
             {
                 dateTextBlock.Text = NavigationContext.QueryString["Date"];
             }
+            qrImage.Source = new BitmapImage(new Uri((App.Current as App).ActiveTicketQrUrl, UriKind.Absolute));
         }
     }
 }

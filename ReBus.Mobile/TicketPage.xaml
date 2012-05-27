@@ -23,17 +23,17 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="ReBus" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Ticket" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Foreground="Green" x:Name="ApplicationTitle" Text="ReBus" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Foreground="Green" x:Name="PageTitle" Text="Ticket" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Image Height="400" HorizontalAlignment="Left" Margin="28,27,0,0" Name="qrImage" Stretch="Fill" VerticalAlignment="Top" Width="400" />
-            <TextBlock Height="30" HorizontalAlignment="Left" Margin="28,469,0,0" Name="textBlock1" Text="Date:" VerticalAlignment="Top" />
-            <TextBlock Height="30" HorizontalAlignment="Left" Margin="28,433,0,0" Name="textBlock2" Text="Name:" VerticalAlignment="Top" />
-            <TextBlock Height="30" HorizontalAlignment="Left" Margin="104,433,0,0" Name="userNameTextBlock" Text="user name" VerticalAlignment="Top" Width="324" />
-            <TextBlock Height="30" HorizontalAlignment="Left" Margin="104,469,0,0" Name="dateTextBlock" Text="date" VerticalAlignment="Top" Width="324" />
+            <TextBlock Foreground="Green" Height="30" HorizontalAlignment="Left" Margin="28,469,0,0" Name="textBlock1" Text="Date:" VerticalAlignment="Top" />
+            <TextBlock Foreground="Green" Height="30" HorizontalAlignment="Left" Margin="28,433,0,0" Name="textBlock2" Text="Name:" VerticalAlignment="Top" />
+            <TextBlock Foreground="Green" Height="30" HorizontalAlignment="Left" Margin="104,433,0,0" Name="userNameTextBlock" Text="user name" VerticalAlignment="Top" Width="324" />
+            <TextBlock Foreground="Green" Height="30" HorizontalAlignment="Left" Margin="104,469,0,0" Name="dateTextBlock" Text="date" VerticalAlignment="Top" Width="324" />
         </Grid>
     </Grid>
 

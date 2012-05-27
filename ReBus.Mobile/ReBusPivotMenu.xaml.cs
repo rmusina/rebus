@@ -110,7 +110,8 @@ namespace ReBus.Mobile
             {
                 ticketButton.Visibility = System.Windows.Visibility.Visible;
                 noActiveTicketTextBlock.Visibility = System.Windows.Visibility.Collapsed;
-                ticketData = new TicketData(e.Result.Bus.Line.Name, e.Result.Created.ToString(), "/Images/Bank account.png");
+                string qrUri = "http://qrcode.kaywa.com/img.php?s=12&d=" + e.Result.GUID.ToString();
+                ticketData = new TicketData(e.Result.Bus.Line.Name, e.Result.Created.ToString(), qrUri);
                 ticketButton.DataContext = ticketData;
             }
             else
@@ -173,6 +174,7 @@ namespace ReBus.Mobile
             {
                 TicketData ticketData = ((TicketData)((Button)sender).DataContext);
                 string ticketPageUri = "/TicketPage.xaml?Name=" + ticketData.Name + "&Date=" + ticketData.Date;
+                (App.Current as App).ActiveTicketQrUrl = ticketData.QR;
                 this.NavigationService.Navigate(new Uri(ticketPageUri, UriKind.Relative));
             }
         }

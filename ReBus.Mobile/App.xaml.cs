@@ -46,6 +46,12 @@ namespace ReBus.Mobile
             set;
         }
 
+        public string ActiveTicketQrUrl
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>

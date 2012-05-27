@@ -115,6 +115,8 @@ namespace ReBus.Mobile
         {
             if (e.Result == null)
             {
+                timer.Stop();
+                photoCamera.Dispose();  
                 MessageBox.Show("Detaliile autobuzului nu au fost descarcate!");
                 this.NavigationService.GoBack();
             }
@@ -137,6 +139,8 @@ namespace ReBus.Mobile
             }
             else
             {
+                timer.Stop();
+                photoCamera.Dispose();
                 MessageBox.Show("Biletul a fost cumparat cu succes!");
                 this.NavigationService.GoBack();
             }

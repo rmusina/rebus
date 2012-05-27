@@ -232,7 +232,7 @@
     <None Include="Service References\TicketServiceReference\TicketWebService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Resource Include="Images\Bank account.png" />
+    <Content Include="Images\Bank account.png" />
     <Content Include="Images\Doghouse.png" />
     <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.disco" />
     <None Include="Service References\InformationServiceReference\InformationWebService.disco" />
@@ -240,8 +240,14 @@
     <None Include="Service References\TicketServiceReference\TicketWebService.disco" />
     <Resource Include="Images\pivot_back.png" />
     <Resource Include="Images\pivot_back1.png" />
+    <Resource Include="Images\pivot_back_green.png" />
+    <Resource Include="Images\pivot_back_green2.png" />
+    <Resource Include="Images\pivot_back_green3.png" />
+    <Resource Include="Images\pivot_back_green4.png" />
     <Content Include="Images\ReBus-Icon.png" />
     <Resource Include="Images\ReBus-Tile.png" />
+    <Content Include="Images\ReBus-Icon2.png" />
+    <Content Include="Images\ReBus-Tile2.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
