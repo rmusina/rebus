@@ -31,6 +31,12 @@ namespace ReBus.Mobile.Model
             set;
         }
 
+        public string ExpDate
+        {
+            get;
+            set;
+        }
+
         public string QR
         {
             get;

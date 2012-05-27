@@ -147,6 +147,7 @@ namespace ReBus.Mobile
                             subscribedLines += ", ";
                     }
                     HistoryItem newItem = new HistoryItem("Subscription", subscribedLines, currentSubscription.Start.ToString(), "/Images/Account card.png");
+                    newItem.ExpDate = currentSubscription.End.ToString();
                     historyList.Add(newItem);
                 }
                 subscriptionHistoryRecieved = true;
@@ -205,13 +206,40 @@ namespace ReBus.Mobile
         {
             if (historyList.Count > 0)
             {
-                // TODO sort
+                for (int i = 0; i < historyList.Count - 1; i++)
+                {
+                    for (int j = i + 1; j < historyList.Count; j++)
+                    {
+                        DateTime date1, date2;
+                        if (DateTime.TryParse(historyList[i].Date, out date1) && DateTime.TryParse(historyList[j].Date, out date2))
+                        {
+                            if (date1.CompareTo(date2) > 0)
+                            {
+                                HistoryItem item1 = historyList[i];
+                                HistoryItem item2 = historyList[j];
+                                historyList.RemoveAt(i);
+                                historyList.Insert(i, item2);
+                                historyList.RemoveAt(j);
+                                historyList.Insert(j, item1);
+                            }
+                        }
+                    }
+                }
 
                 HistoryItem currentHistoryItem = historyList[0];
 
                 largeQRImage.Source = new BitmapImage(new Uri(currentHistoryItem.QR, UriKind.Relative));
                 typeTextBlock.Text = currentHistoryItem.Type;
                 dateTextBlock.Text = currentHistoryItem.Date;
+
+                if (currentHistoryItem.Type.Equals("Subscription"))
+                {
+                    endDateTextBlock.Text = currentHistoryItem.ExpDate;
+                }
+                else
+                {
+                    endDateTextBlock.Text = "-";
+                }
             }
         }
 
@@ -247,6 +275,15 @@ namespace ReBus.Mobile
             largeQRImage.Source = new BitmapImage(new Uri(currentHistoryItem.QR, UriKind.Relative));
             typeTextBlock.Text = currentHistoryItem.Type;
             dateTextBlock.Text = currentHistoryItem.Date;
+
+            if (currentHistoryItem.Type.Equals("Subscription"))
+            {
+                endDateTextBlock.Text = currentHistoryItem.ExpDate;
+            }
+            else
+            {
+                endDateTextBlock.Text = "-";
+            }
         }
 
         private void addCreditButton_Click(object sender, RoutedEventArgs e)
