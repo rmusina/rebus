@@ -25,7 +25,7 @@ namespace ReBus.Mobile.TicketCollector
     {
         bool busIdentified = false;
 
-        private readonly DispatcherTimer timer;
+        private DispatcherTimer timer;
 
         private PhotoCameraLuminanceSource luminance;
         private QRCodeReader reader;
@@ -34,7 +34,11 @@ namespace ReBus.Mobile.TicketCollector
         public ReBusPivotMenu()
         {
             InitializeComponent();
+            InitializeTimer();        
+        }
 
+        private void InitializeTimer()
+        {
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(250);
             timer.Tick += (o, arg) => ScanPreviewBuffer();
@@ -53,7 +57,8 @@ namespace ReBus.Mobile.TicketCollector
 
         private void scanNewTicket_button_Click(object sender, EventArgs e)
         {
-
+            busIdentified = false;
+            InitializeTimer();
         }
 
         private void OnPhotoCameraInitialized(object sender, CameraOperationCompletedEventArgs e)

@@ -21,7 +21,7 @@
             <!--Tickets pivot item-->
             
             <!--History pivot item-->
-            <controls:PivotItem Header="Controliran">
+            <controls:PivotItem Header="Control">
                 <Grid>
                     <Rectangle x:Name="previewRect" 
                        Margin="0" 
@@ -47,7 +47,7 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="scanNewTicket_button" IconUri="/Images/AppBarImages/appbar.add.rest.png" Text="Scaneaza Alt Bilet" Click="scanNewTicket_button_Click"/>
+            <shell:ApplicationBarIconButton x:Name="scanNewTicket_button" IconUri="/Images/appbar.check.rest.png" Text="Scaneaza Alt Bilet" Click="scanNewTicket_button_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
