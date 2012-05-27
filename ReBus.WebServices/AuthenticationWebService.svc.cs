@@ -35,11 +35,21 @@ namespace ReBus.WebServices
             return AuthenticateUser(username, password, false);
         }
 
+        public AccountWebServiceModel GetAccount(Guid guid)
+        {
+            return AccountWebServiceModel.FromModelObject(accountService.GetAccount(guid));
+        }
+
         public AccountWebServiceModel AuthenticateTicketController(string username, string password)
         {
             return AuthenticateUser(username, password, true);
         }
-        
+
+        public AccountWebServiceModel AddFunds(AccountWebServiceModel account, decimal amount)
+        {
+            return AccountWebServiceModel.FromModelObject(accountService.AddFunds(new Account {GUID = account.GUID}, amount));
+        }
+
         public string Register(string userName, string password, string firstName, string lastName)
         {
             try

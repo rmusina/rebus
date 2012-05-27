@@ -1,4 +1,5 @@
-﻿using ReBus.Model;
+﻿using System;
+using ReBus.Model;
 using System.Collections.Generic;
 namespace ReBus.Services.API
 {
@@ -12,6 +13,8 @@ namespace ReBus.Services.API
         /// <returns>corresponding Account instance or null if inexistent user</returns>
         Account Authenticate(string userName, string password);
 
+        Account GetAccount(Guid guid);
+
         /// <summary>
         /// Authenticates TicketController 
         /// </summary>
@@ -19,6 +22,8 @@ namespace ReBus.Services.API
         /// <param name="password">password</param>
         /// <returns>corresponding Account instance or null if inexistent user</returns>
         Account AuthenticateTicketController(string userName, string password);
+
+        Account AddFunds(Account account, decimal amount);
 
         /// <summary>
         /// Registers new user
