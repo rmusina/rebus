@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.128/InformationWebService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://192.168.1.128/InformationWebService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="GeneralInformationWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Lines" nillable="true" type="tns:ArrayOfLineWebServiceModel" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SubscriptionPrices" nillable="true" type="q1:ArrayOfKeyValueOfintdecimal" />
+      <xs:element minOccurs="0" name="TicketPrice" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GeneralInformationWebServiceModel" nillable="true" type="tns:GeneralInformationWebServiceModel" />
+  <xs:complexType name="ArrayOfLineWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LineWebServiceModel" nillable="true" type="tns:LineWebServiceModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLineWebServiceModel" nillable="true" type="tns:ArrayOfLineWebServiceModel" />
+  <xs:complexType name="LineWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LineWebServiceModel" nillable="true" type="tns:LineWebServiceModel" />
+  <xs:complexType name="TicketWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Account" nillable="true" type="tns:AccountWebServiceModel" />
+      <xs:element minOccurs="0" name="Bus" nillable="true" type="tns:BusWebServiceModel" />
+      <xs:element minOccurs="0" name="Created" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TicketWebServiceModel" nillable="true" type="tns:TicketWebServiceModel" />
+  <xs:complexType name="AccountWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Credit" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountWebServiceModel" nillable="true" type="tns:AccountWebServiceModel" />
+  <xs:complexType name="BusWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Line" nillable="true" type="tns:LineWebServiceModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusWebServiceModel" nillable="true" type="tns:BusWebServiceModel" />
+  <xs:complexType name="SubscriptionWebServiceModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Account" nillable="true" type="tns:AccountWebServiceModel" />
+      <xs:element minOccurs="0" name="Created" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="End" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Lines" nillable="true" type="tns:ArrayOfLineWebServiceModel" />
+      <xs:element minOccurs="0" name="Start" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubscriptionWebServiceModel" nillable="true" type="tns:SubscriptionWebServiceModel" />
+</xs:schema>

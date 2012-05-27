@@ -23,11 +23,11 @@
     <MetadataSource Address="http://192.168.1.128/TicketWebService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="TicketWebService.xsd" MetadataType="Schema" ID="d4363d38-b40e-4eb3-a776-6f6ddce88662" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?xsd=xsd1" />
-    <MetadataFile FileName="TicketWebService1.xsd" MetadataType="Schema" ID="6cc76a5c-0621-434a-b34f-4dabf6ab096f" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?xsd=xsd0" />
-    <MetadataFile FileName="TicketWebService.disco" MetadataType="Disco" ID="72262912-f489-43c6-afd9-3a58dd960299" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?disco" />
-    <MetadataFile FileName="TicketWebService2.xsd" MetadataType="Schema" ID="8c117dd0-351d-49db-9f95-3fd5803da353" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?xsd=xsd2" />
-    <MetadataFile FileName="TicketWebService.wsdl" MetadataType="Wsdl" ID="7b2febff-87d9-4683-a640-d48968b67991" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?wsdl" />
+    <MetadataFile FileName="TicketWebService.xsd" MetadataType="Schema" ID="317560dd-e531-4fda-b061-0830bf982d85" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?xsd=xsd1" />
+    <MetadataFile FileName="TicketWebService1.xsd" MetadataType="Schema" ID="903f53a3-8654-4d88-92ba-db13a49e662e" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?xsd=xsd0" />
+    <MetadataFile FileName="TicketWebService.disco" MetadataType="Disco" ID="d0aac99f-ac14-422b-9843-4bb3d90633d6" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?disco" />
+    <MetadataFile FileName="TicketWebService2.xsd" MetadataType="Schema" ID="5265ee6c-7e04-4294-b1f7-cf51ae6d1127" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?xsd=xsd2" />
+    <MetadataFile FileName="TicketWebService.wsdl" MetadataType="Wsdl" ID="230d366e-f8e7-4e5e-9623-70457a71b254" SourceId="1" SourceUrl="http://192.168.1.128/TicketWebService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

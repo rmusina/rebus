@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
   <App xmlns="" ProductID="{bb4a23bc-a6ae-4e0e-a3c6-35ef22493858}" Title="ReBus.Mobile" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="ReBus.Mobile author" Description="Sample description" Publisher="ReBus.Mobile">
-    <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Images\ReBus-Icon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
       <Capability Name="ID_CAP_IDENTITY_DEVICE" />
@@ -14,7 +14,7 @@
       <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
       <Capability Name="ID_CAP_SENSORS" />
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
-      <Capability Name="ID_CAP_ISV_CAMERA"/>
+      <Capability Name="ID_CAP_ISV_CAMERA" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
@@ -22,9 +22,9 @@
     <Tokens>
       <PrimaryToken TokenID="ReBus.MobileToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Images\ReBus-Tile.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>ReBus.Mobile</Title>
+          <Title>ReBus</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

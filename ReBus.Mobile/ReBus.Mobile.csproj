@@ -91,6 +91,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\InformationServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\SubscriptionServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,7 +139,16 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.disco" />
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.wsdl" />
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AuthenticationServiceReference\configuration91.svcinfo" />
     <None Include="Service References\AuthenticationServiceReference\configuration.svcinfo" />
     <None Include="Service References\AuthenticationServiceReference\ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel.datasource">
@@ -147,36 +161,39 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\InformationServiceReference\InformationWebService.wsdl" />
+    <None Include="Service References\InformationServiceReference\InformationWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InformationServiceReference\InformationWebService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InformationServiceReference\InformationWebService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InformationServiceReference\InformationWebService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InformationServiceReference\ReBus.Mobile.InformationServiceReference.BusWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\InformationServiceReference\ReBus.Mobile.InformationServiceReference.GeneralInformationWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\InformationServiceReference\ReBus.Mobile.InformationServiceReference.SubscriptionWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\InformationServiceReference\ReBus.Mobile.InformationServiceReference.TicketWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\SubscriptionServiceReference\ReBus.Mobile.SubscriptionServiceReference.SubscriptionWebServiceModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService.disco" />
     <None Include="Service References\SubscriptionServiceReference\configuration91.svcinfo" />
     <None Include="Service References\SubscriptionServiceReference\configuration.svcinfo" />
     <None Include="Service References\SubscriptionServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\TicketServiceReference\ReBus.Mobile.TicketServiceReference.TicketWebServiceModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\TicketServiceReference\TicketWebService.disco" />
-    <None Include="Service References\TicketServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\TicketServiceReference\configuration.svcinfo" />
-    <None Include="Service References\TicketServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <Content Include="ServiceReferences.ClientConfig" />
-    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.wsdl" />
-    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService2.xsd">
-      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService.wsdl" />
     <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService.xsd">
@@ -188,6 +205,23 @@
     <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\TicketServiceReference\ReBus.Mobile.TicketServiceReference.TicketWebServiceModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TicketServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\TicketServiceReference\configuration.svcinfo" />
+    <None Include="Service References\TicketServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\InformationServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\InformationServiceReference\configuration.svcinfo" />
+    <None Include="Service References\InformationServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Images\Account card.png" />
+    <Content Include="Images\appbar.check.rest.png" />
     <None Include="Service References\TicketServiceReference\TicketWebService.wsdl" />
     <None Include="Service References\TicketServiceReference\TicketWebService.xsd">
       <SubType>Designer</SubType>
@@ -198,6 +232,17 @@
     <None Include="Service References\TicketServiceReference\TicketWebService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="Images\Bank account.png" />
+    <Content Include="Images\Doghouse.png" />
+    <None Include="Service References\AuthenticationServiceReference\AuthenticationWebService.disco" />
+    <None Include="Service References\InformationServiceReference\InformationWebService.disco" />
+    <None Include="Service References\SubscriptionServiceReference\SubscriptionWebService.disco" />
+    <None Include="Service References\TicketServiceReference\TicketWebService.disco" />
+    <Resource Include="Images\pivot_back.png" />
+    <Resource Include="Images\pivot_back1.png" />
+    <Content Include="Images\ReBus-Icon.png" />
+    <Resource Include="Images\ReBus-Tile.png" />
+    <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -220,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AuthenticationServiceReference\" />
+    <WCFMetadataStorage Include="Service References\InformationServiceReference\" />
     <WCFMetadataStorage Include="Service References\SubscriptionServiceReference\" />
     <WCFMetadataStorage Include="Service References\TicketServiceReference\" />
   </ItemGroup>

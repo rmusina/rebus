@@ -23,11 +23,11 @@
     <MetadataSource Address="http://192.168.1.128/SubscriptionWebService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SubscriptionWebService.disco" MetadataType="Disco" ID="1a463133-0771-4c6f-846d-4269a269b10c" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?disco" />
-    <MetadataFile FileName="SubscriptionWebService.xsd" MetadataType="Schema" ID="567f017c-3850-4757-b2eb-f49e2b50e481" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd0" />
-    <MetadataFile FileName="SubscriptionWebService1.xsd" MetadataType="Schema" ID="6915be17-297a-4995-8d1e-f234420cf520" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd1" />
-    <MetadataFile FileName="SubscriptionWebService2.xsd" MetadataType="Schema" ID="e9c0efb8-1df9-49d6-bb16-aa3c33e5013d" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd2" />
-    <MetadataFile FileName="SubscriptionWebService.wsdl" MetadataType="Wsdl" ID="febc0f7a-42c5-4351-b3a4-992bb686214e" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?wsdl" />
+    <MetadataFile FileName="SubscriptionWebService.disco" MetadataType="Disco" ID="60aef560-baab-4def-888f-763b9fb9a673" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?disco" />
+    <MetadataFile FileName="SubscriptionWebService.xsd" MetadataType="Schema" ID="87a9ef59-547d-4424-a3bd-4894df4f661d" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SubscriptionWebService1.xsd" MetadataType="Schema" ID="4706dcfd-0816-4d7e-a400-a8d9d6f5d797" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SubscriptionWebService2.xsd" MetadataType="Schema" ID="bddae760-4f83-4955-a417-244b611ab840" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SubscriptionWebService.wsdl" MetadataType="Wsdl" ID="b7dd804f-9aa3-4df7-9c39-96d7f457e278" SourceId="1" SourceUrl="http://192.168.1.128/SubscriptionWebService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

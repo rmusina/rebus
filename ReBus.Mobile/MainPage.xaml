@@ -22,20 +22,31 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="ReBus" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Log in" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Foreground="Green" x:Name="ApplicationTitle" Text="ReBus" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Foreground="Green" x:Name="PageTitle" Text="Log in" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel>
-                <TextBlock Text="Username"/>
-                <TextBox x:Name="userNameTextBox" Text="{Binding Username, Mode=TwoWay}"/>
-                <TextBlock Text="Password"/>
-                <PasswordBox x:Name="passwordTextBox" Password="{Binding Password, Mode=TwoWay}"/>
-                <Button x:Name="logInButton"
-                            Content="Log in" Click="logInButton_Click" />
-            </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" VerticalAlignment="Center" Text="Username"/>
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="userNameTextBox" Text="{Binding Username, Mode=TwoWay}"/>
+                <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="Password"/>
+                <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="passwordTextBox" Password="{Binding Password, Mode=TwoWay}"/>
+            <Button HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Background="Green" x:Name="logInButton" Click="logInButton_Click" Width="120" Height="120">
+                <Button.Content>
+                    <Image Source="/Images/appbar.check.rest.png" Margin="0" Width="70" Height="70" />
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 

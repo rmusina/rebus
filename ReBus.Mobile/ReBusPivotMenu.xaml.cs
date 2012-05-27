@@ -69,7 +69,7 @@ namespace ReBus.Mobile
                 for (int i = 0; i < e.Result.Count; i++)
                 {
                     TicketWebServiceModel currentTicket = e.Result[i];
-                    HistoryItem newItem = new HistoryItem("Ticket", currentTicket.Bus.Line.Name, currentTicket.Created.ToString(), "/Images/qrtest.jpg");
+                    HistoryItem newItem = new HistoryItem("Ticket", currentTicket.Bus.Line.Name, currentTicket.Created.ToString(), "/Images/Bank account.png");
                     historyList.Add(newItem);
                 }
                 ticketHistoryRecieved = true;
@@ -94,7 +94,7 @@ namespace ReBus.Mobile
                         if (j < currentSubscription.Lines.Count - 1)
                             subscribedLines += ", ";
                     }
-                    HistoryItem newItem = new HistoryItem("Subscription", subscribedLines, currentSubscription.Start.ToString(), "/Images/qrtest.jpg");
+                    HistoryItem newItem = new HistoryItem("Subscription", subscribedLines, currentSubscription.Start.ToString(), "/Images/Account card.png");
                     historyList.Add(newItem);
                 }
                 subscriptionHistoryRecieved = true;
@@ -110,7 +110,7 @@ namespace ReBus.Mobile
             {
                 ticketButton.Visibility = System.Windows.Visibility.Visible;
                 noActiveTicketTextBlock.Visibility = System.Windows.Visibility.Collapsed;
-                ticketData = new TicketData(e.Result.Bus.Line.Name, e.Result.Created.ToString(), "/Images/qrtest.jpg");
+                ticketData = new TicketData(e.Result.Bus.Line.Name, e.Result.Created.ToString(), "/Images/Bank account.png");
                 ticketButton.DataContext = ticketData;
             }
             else
@@ -136,7 +136,7 @@ namespace ReBus.Mobile
                             subscribedLines += ", ";
                     }
                     subscriptionsList.Add(new SubscriptionData(subscribedLines, currentSubscription.Start.ToString(),
-                        currentSubscription.End.ToString(), "/Images/qrtest.jpg"));
+                        currentSubscription.End.ToString(), "/Images/Account card.png"));
                 }
             }
         }
@@ -145,13 +145,13 @@ namespace ReBus.Mobile
         {
             if (historyList.Count > 0)
             {
+                // TODO sort
+
                 HistoryItem currentHistoryItem = historyList[0];
 
                 largeQRImage.Source = new BitmapImage(new Uri(currentHistoryItem.QR, UriKind.Relative));
                 typeTextBlock.Text = currentHistoryItem.Type;
                 dateTextBlock.Text = currentHistoryItem.Date;
-
-                // TODO sort
             }
         }
 
@@ -196,7 +196,7 @@ namespace ReBus.Mobile
             }
             else
             {
-                // TODO - alimentare credit
+                //TODO: alimentare cont
             }
         }
     }

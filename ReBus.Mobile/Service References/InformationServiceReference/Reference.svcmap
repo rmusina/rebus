@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5e287aaf-4b6d-45a8-abb0-e4b96d42b8e0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.128/InformationWebService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="InformationWebService.wsdl" MetadataType="Wsdl" ID="77fa72ac-a475-4d96-b4db-7593f945c08a" SourceId="1" SourceUrl="http://192.168.1.128/InformationWebService.svc?wsdl" />
+    <MetadataFile FileName="InformationWebService.disco" MetadataType="Disco" ID="dd4952c7-096b-4493-9d7a-d3256d55016c" SourceId="1" SourceUrl="http://192.168.1.128/InformationWebService.svc?disco" />
+    <MetadataFile FileName="InformationWebService.xsd" MetadataType="Schema" ID="d0c0ddff-d83f-4058-9997-af88e846c7af" SourceId="1" SourceUrl="http://192.168.1.128/InformationWebService.svc?xsd=xsd3" />
+    <MetadataFile FileName="InformationWebService1.xsd" MetadataType="Schema" ID="87f63c72-e464-476c-927d-b0e55e23e62e" SourceId="1" SourceUrl="http://192.168.1.128/InformationWebService.svc?xsd=xsd0" />
+    <MetadataFile FileName="InformationWebService2.xsd" MetadataType="Schema" ID="33b685e7-bed9-4dbd-9887-9baa6a7bba09" SourceId="1" SourceUrl="http://192.168.1.128/InformationWebService.svc?xsd=xsd1" />
+    <MetadataFile FileName="InformationWebService3.xsd" MetadataType="Schema" ID="3adfff9e-a3a4-4798-a680-31e115d790cc" SourceId="1" SourceUrl="http://192.168.1.128/InformationWebService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

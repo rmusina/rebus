@@ -14,6 +14,10 @@
                     maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
+                <binding name="BasicHttpBinding_IInformationWebService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
             </basicHttpBinding>
         </bindings>
         <client>
@@ -21,6 +25,10 @@
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IAuthenticationWebService"
                 contract="AuthenticationServiceReference.IAuthenticationWebService"
                 name="BasicHttpBinding_IAuthenticationWebService" />
+            <endpoint address="http://192.168.1.128/InformationWebService.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IInformationWebService"
+                contract="InformationServiceReference.IInformationWebService"
+                name="BasicHttpBinding_IInformationWebService" />
             <endpoint address="http://192.168.1.128/SubscriptionWebService.svc"
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_ISubscriptionWebService"
                 contract="SubscriptionServiceReference.ISubscriptionWebService"

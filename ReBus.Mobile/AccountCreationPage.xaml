@@ -22,10 +22,12 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="ReBus" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Cont nou" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-            <!--ContentPanel - place additional content here-->
-            <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <TextBlock Foreground="Green" x:Name="ApplicationTitle" Text="ReBus" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Foreground="Green" x:Name="PageTitle" Text="Cont nou" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+        <!--ContentPanel - place additional content here-->
+        <Grid  Grid.Row="1">
+            <StackPanel VerticalAlignment="Top" x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -49,9 +51,13 @@
                     <PasswordBox Grid.Row="2" Grid.Column="1" Height="72" Name="pass2TextBox"></PasswordBox>
                     <TextBox Grid.Row="3" Grid.Column="1" Height="72" Name="nameTextBox"></TextBox>
                     <TextBox Grid.Row="4" Grid.Column="1" Height="72" Name="surnameTextBox"></TextBox>
+                    <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Background="Green" VerticalAlignment="Bottom" Name="createAccountButton" Click="createAccountButton_Click" Width="120" Height="120">
+                        <Button.Content>
+                            <Image Source="/Images/appbar.check.rest.png" Margin="0" Width="70" Height="70" />
+                        </Button.Content>
+                    </Button>
                 </Grid>
-                <Button Content="Creeaza cont" Name="createAccountButton" Click="createAccountButton_Click"></Button>
             </StackPanel>
-        </StackPanel>
+        </Grid>
     </Grid>
 </phone:PhoneApplicationPage>

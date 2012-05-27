@@ -13,6 +13,12 @@
   <wsdl:message name="IAuthenticationWebService_Authenticate_OutputMessage">
     <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
   </wsdl:message>
+  <wsdl:message name="IAuthenticationWebService_AuthenticateTicketController_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateTicketController" />
+  </wsdl:message>
+  <wsdl:message name="IAuthenticationWebService_AuthenticateTicketController_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateTicketControllerResponse" />
+  </wsdl:message>
   <wsdl:message name="IAuthenticationWebService_Register_InputMessage">
     <wsdl:part name="parameters" element="tns:Register" />
   </wsdl:message>
@@ -30,6 +36,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthenticationWebService/Authenticate" message="tns:IAuthenticationWebService_Authenticate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAuthenticationWebService/AuthenticateResponse" message="tns:IAuthenticationWebService_Authenticate_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AuthenticateTicketController">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthenticationWebService/AuthenticateTicketController" message="tns:IAuthenticationWebService_AuthenticateTicketController_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthenticationWebService/AuthenticateTicketControllerResponse" message="tns:IAuthenticationWebService_AuthenticateTicketController_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Register">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthenticationWebService/Register" message="tns:IAuthenticationWebService_Register_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAuthenticationWebService/RegisterResponse" message="tns:IAuthenticationWebService_Register_OutputMessage" />
@@ -43,6 +53,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Authenticate">
       <soap:operation soapAction="http://tempuri.org/IAuthenticationWebService/Authenticate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateTicketController">
+      <soap:operation soapAction="http://tempuri.org/IAuthenticationWebService/AuthenticateTicketController" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

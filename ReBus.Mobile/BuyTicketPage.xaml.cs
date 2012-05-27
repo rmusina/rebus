@@ -24,6 +24,8 @@ using com.google.zxing.qrcode;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using ReBus.Mobile.QRModel;
+using ReBus.Mobile.TicketServiceReference;
+using ReBus.Mobile.InformationServiceReference;
 
 namespace ReBus.Mobile
 {
@@ -89,14 +91,54 @@ namespace ReBus.Mobile
         {
             try
             {
-                (App.Current as App).BusGuid = new Guid(text);
                 qrResultTextBlock.Text = "Succes";
-                timer.Stop();
-                this.NavigationService.GoBack();
+                if (MessageBox.Show("Esti sigur ca doresti acest bilet (ii scump)?",
+                    "Confirma tranzactia", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                {
+                    (App.Current as App).BusGuid = new Guid(text);
+
+                    InformationWebServiceClient informationService = new InformationWebServiceClient();
+                    informationService.GetBusCompleted += new EventHandler<GetBusCompletedEventArgs>(informationService_GetBusCompleted);
+                    informationService.GetBusAsync((App.Current as App).BusGuid);
+
+                    timer.Stop();
+                    photoCamera.Dispose();      
+                }              
             }
             catch
             {
                 qrResultTextBlock.Text = "Scaneaza din nou...";
+            }
+        }
+
+        void informationService_GetBusCompleted(object sender, GetBusCompletedEventArgs e)
+        {
+            if (e.Result == null)
+            {
+                MessageBox.Show("Detaliile autobuzului nu au fost descarcate!");
+                this.NavigationService.GoBack();
+            }
+            else
+            {
+                TicketWebServiceClient ticketService = new TicketWebServiceClient();
+                ticketService.BuyTicketCompleted += new EventHandler<BuyTicketCompletedEventArgs>(ticketService_BuyTicketCompleted);
+
+                TicketServiceReference.BusWebServiceModel busServiceModel = new TicketServiceReference.BusWebServiceModel();
+                busServiceModel.GUID = e.Result.GUID;
+                ticketService.BuyTicketAsync((App.Current as App).TUserData, busServiceModel);  
+            }
+        }
+
+        void ticketService_BuyTicketCompleted(object sender, BuyTicketCompletedEventArgs e)
+        {
+            if (e.Result == null)
+            {
+                MessageBox.Show("Biletul nu a putut fi cumparat!");
+            }
+            else
+            {
+                MessageBox.Show("Biletul a fost cumparat cu succes!");
+                this.NavigationService.GoBack();
             }
         }
     }

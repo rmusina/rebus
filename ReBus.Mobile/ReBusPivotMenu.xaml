@@ -17,7 +17,10 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="ReBus">
+        <controls:Pivot Foreground="White" Title="ReBus">
+            <controls:Pivot.Background>
+                <ImageBrush ImageSource="/ReBus.Mobile;component/Images/pivot_back1.png" />
+            </controls:Pivot.Background>
             <!--Tickets pivot item-->
             <controls:PivotItem Header="Bilete">
                 <Grid>
