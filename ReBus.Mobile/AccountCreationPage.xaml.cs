@@ -12,14 +12,29 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.ServiceModel;
 using ReBus.Mobile.AuthenticationServiceReference;
+using System.Windows.Controls.Primitives;
 
 namespace ReBus.Mobile
 {
     public partial class AccountCreationPage : PhoneApplicationPage
     {
+        Popup popup;
+
         public AccountCreationPage()
         {
             InitializeComponent();
+        }
+
+        private void ShowPopup()
+        {
+            this.popup = new Popup();
+            this.popup.Child = new PopupSplash();
+            this.popup.IsOpen = true;
+        }
+
+        private void HidePopup()
+        {
+            this.popup.IsOpen = false;
         }
 
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
@@ -39,6 +54,7 @@ namespace ReBus.Mobile
                 AuthenticationWebServiceClient proxy = new AuthenticationWebServiceClient();
                 proxy.RegisterCompleted += new EventHandler<RegisterCompletedEventArgs>(proxy_RegisterCompleted);
                 proxy.RegisterAsync(userTextBox.Text, pass1TextBox.Password, nameTextBox.Text, surnameTextBox.Text);
+                ShowPopup();
             }
         }
 
@@ -53,6 +69,7 @@ namespace ReBus.Mobile
             {
                 MessageBox.Show("Eroare in crearea noului utilizator.");
             }
+            HidePopup();
         }
     }
 }

@@ -26,6 +26,7 @@ using System.Collections.ObjectModel;
 using ReBus.Mobile.QRModel;
 using ReBus.Mobile.TicketServiceReference;
 using ReBus.Mobile.InformationServiceReference;
+using System.Windows.Controls.Primitives;
 
 namespace ReBus.Mobile
 {
@@ -37,6 +38,8 @@ namespace ReBus.Mobile
         private QRCodeReader reader;
         private PhotoCamera photoCamera;
 
+        Popup popup;
+
         public BuyTicketPage()
         {
             InitializeComponent();
@@ -44,6 +47,18 @@ namespace ReBus.Mobile
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(250);
             timer.Tick += (o, arg) => ScanPreviewBuffer();
+        }
+
+        private void ShowPopup()
+        {
+            this.popup = new Popup();
+            this.popup.Child = new PopupSplash();
+            this.popup.IsOpen = true;
+        }
+
+        private void HidePopup()
+        {
+            this.popup.IsOpen = false;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -100,6 +115,7 @@ namespace ReBus.Mobile
                     InformationWebServiceClient informationService = new InformationWebServiceClient();
                     informationService.GetBusCompleted += new EventHandler<GetBusCompletedEventArgs>(informationService_GetBusCompleted);
                     informationService.GetBusAsync((App.Current as App).BusGuid);
+                    ShowPopup();
 
                     timer.Stop();
                     photoCamera.Dispose();      
@@ -116,7 +132,8 @@ namespace ReBus.Mobile
             if (e.Result == null)
             {
                 timer.Stop();
-                photoCamera.Dispose();  
+                photoCamera.Dispose();
+                HidePopup();
                 MessageBox.Show("Detaliile autobuzului nu au fost descarcate!");
                 this.NavigationService.GoBack();
             }
@@ -127,7 +144,7 @@ namespace ReBus.Mobile
 
                 TicketServiceReference.BusWebServiceModel busServiceModel = new TicketServiceReference.BusWebServiceModel();
                 busServiceModel.GUID = e.Result.GUID;
-                ticketService.BuyTicketAsync((App.Current as App).TUserData, busServiceModel);  
+                ticketService.BuyTicketAsync((App.Current as App).TUserData, busServiceModel);
             }
         }
 
@@ -145,6 +162,7 @@ namespace ReBus.Mobile
                 (App.Current as App).ShouldRequestAgain = true;
                 this.NavigationService.GoBack();
             }
+            HidePopup();
         }
     }
 }

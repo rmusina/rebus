@@ -22,6 +22,7 @@ using ReBus.Mobile.TicketServiceReference;
 using ReBus.Mobile.SubscriptionServiceReference;
 using System.Collections.ObjectModel;
 using System.Windows.Navigation;
+using System.Windows.Controls.Primitives;
 
 namespace ReBus.Mobile
 {
@@ -33,6 +34,10 @@ namespace ReBus.Mobile
 
         private bool ticketHistoryRecieved = false;
         private bool subscriptionHistoryRecieved = false;
+        private bool activeSubscriptionRecieved = false;
+        private bool activeTicketRecieved = false;
+
+        Popup popup;
 
         public ReBusPivotMenu()
         {
@@ -53,6 +58,8 @@ namespace ReBus.Mobile
             ticketService.GetHistoryCompleted += new EventHandler<TicketServiceReference.GetHistoryCompletedEventArgs>(ticketService_GetHistoryCompleted);
             ticketService.GetHistoryAsync((App.Current as App).TUserData);
 
+            ShowPopup();
+
             subscriptionService.GetHistoryCompleted += new EventHandler<SubscriptionServiceReference.GetHistoryCompletedEventArgs>(subscriptionService_GetHistoryCompleted);
             subscriptionService.GetHistoryAsync((App.Current as App).SUserData);
 
@@ -63,11 +70,31 @@ namespace ReBus.Mobile
             historyListBox.ItemsSource = historyList;
         }
 
+        private void ShowPopup()
+        {
+            this.popup = new Popup();
+            this.popup.Child = new PopupSplash();
+            this.popup.IsOpen = true;
+            this.ApplicationBar.IsVisible = false;
+        }
+
+        private void HidePopup()
+        {
+            this.popup.IsOpen = false;
+            this.ApplicationBar.IsVisible = true;
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if ((App.Current as App).ShouldRequestAgain)
             {
+                ticketHistoryRecieved = false;
+                subscriptionHistoryRecieved = false;
+                activeSubscriptionRecieved = false;
+                activeTicketRecieved = false;
                 (App.Current as App).ShouldRequestAgain = false;
+
+                ShowPopup();
 
                 SubscriptionWebServiceClient subscriptionService = new SubscriptionWebServiceClient();
                 subscriptionService.GetActiveSubscriptinsCompleted += new EventHandler<GetActiveSubscriptinsCompletedEventArgs>(subscriptionService_GetActiveSubscriptinsCompleted);
@@ -144,6 +171,10 @@ namespace ReBus.Mobile
                 ticketButton.Visibility = System.Windows.Visibility.Collapsed;
                 noActiveTicketTextBlock.Visibility = System.Windows.Visibility.Visible;
             }
+
+            activeTicketRecieved = true;
+            if (activeSubscriptionRecieved == true)
+                HidePopup();
         }
 
         void subscriptionService_GetActiveSubscriptinsCompleted(object sender, GetActiveSubscriptinsCompletedEventArgs e)
@@ -165,6 +196,9 @@ namespace ReBus.Mobile
                         currentSubscription.End.ToString(), "/Images/Account card.png"));
                 }
             }
+            activeSubscriptionRecieved = true;
+            if (activeTicketRecieved)
+                HidePopup();
         }
 
         private void SortHistoryByDate()

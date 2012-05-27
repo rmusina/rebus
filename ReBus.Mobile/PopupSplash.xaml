@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="ReBus.Mobile.PopupSplash"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="800" d:DesignWidth="480">
+
+    <Grid x:Name="LayoutRoot" Background="Black" Opacity="0.6" Width="480" Height="800">
+        <ProgressBar HorizontalAlignment="Left" Margin="52,0,0,385" Name="progressBar1" Width="383" Height="19" VerticalAlignment="Bottom" />
+        <TextBlock HorizontalAlignment="Left" Margin="190,360,0,410" Name="textBlock1" Text="Loading..." Width="111" Foreground="White" FontSize="22" />
+    </Grid>
+</UserControl>

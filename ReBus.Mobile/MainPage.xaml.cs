@@ -17,10 +17,25 @@ namespace ReBus.Mobile
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        Popup popup;
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void ShowPopup()
+        {
+            this.popup = new Popup();
+            this.popup.Child = new PopupSplash();
+            this.popup.IsOpen = true;
+            this.ApplicationBar.IsVisible = false;
+        }
+
+        private void HidePopup()
+        {
+            this.popup.IsOpen = false;
+            this.ApplicationBar.IsVisible = true;
         }
 
         private void logInButton_Click(object sender, RoutedEventArgs e)
@@ -34,6 +49,7 @@ namespace ReBus.Mobile
                 AuthenticationWebServiceClient proxy = new AuthenticationWebServiceClient();
                 proxy.AuthenticateCompleted += new EventHandler<AuthenticateCompletedEventArgs>(proxy_AuthenticateCompleted);
                 proxy.AuthenticateAsync(userNameTextBox.Text, passwordTextBox.Password);
+                ShowPopup();
             }
         }
 
@@ -63,6 +79,7 @@ namespace ReBus.Mobile
             {
                 MessageBox.Show("Eroare la log in.");
             }
+            HidePopup();
         }
 
         private void NewAccountButton_Click(object sender, EventArgs e)
