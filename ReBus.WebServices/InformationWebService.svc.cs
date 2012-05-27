@@ -34,6 +34,11 @@ namespace ReBus.WebServices
         {
             return SubscriptionWebServiceModel.FromDataModel(informationService.GetSubscription(guid));
         }
+        
+        public BusWebServiceModel GetBus(Guid guid)
+        {
+            return BusWebServiceModel.FromDataModel(informationService.GetBus(guid));
+        }
 
 //        public object GetSubscriptionOrTicket(Guid guid)
 //        {
@@ -42,5 +47,6 @@ namespace ReBus.WebServices
 //                return TicketWebServiceModel.FromDataModel((Ticket) obj);
 //            return SubscriptionWebServiceModel.FromDataModel((Subscription) obj);
 //        }
+
     }
 }

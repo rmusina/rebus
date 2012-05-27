@@ -17,6 +17,9 @@ namespace ReBus.WebServices
         AccountWebServiceModel Authenticate(string username, string password);
 
         [OperationContract]
+        AccountWebServiceModel AuthenticateTicketController(string username, string password);
+
+        [OperationContract]
         string Register(string userName, string password, string firstName, string lastName);
 
         [OperationContract]

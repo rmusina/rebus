@@ -11,14 +11,25 @@ namespace ReBus.Services
 {
     public class AccountService : IAccountService
     {
-        public Account Authenticate(string userName, string password)
+        private Account AuthenticateUser(string userName, string password, bool isTicketController)
         {
             ReBusContainer repository = new ReBusContainer();
 
             return (from currentUser in repository.Accounts
                     where currentUser.Username == userName &&
-                          currentUser.PasswordHash == password
+                          currentUser.PasswordHash == password &&
+                          currentUser.IsTicketController == isTicketController
                     select currentUser).FirstOrDefault<Account>();
+        }
+
+        public Account Authenticate(string userName, string password)
+        {
+            return AuthenticateUser(userName, password, false);
+        }
+
+        public Account AuthenticateTicketController(string userName, string password)
+        {
+            return AuthenticateUser(userName, password, true);
         }
 
         private bool UsernameIsUnique(string userName)

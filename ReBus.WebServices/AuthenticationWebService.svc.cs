@@ -16,9 +16,11 @@ namespace ReBus.WebServices
     {
         readonly IAccountService accountService = new AccountService();
 
-        public AccountWebServiceModel Authenticate(string username, string password)
+        private AccountWebServiceModel AuthenticateUser(string username, string password, bool isTicketController)
         {
-            Account account = accountService.Authenticate(username, password);
+            Account account = isTicketController ? 
+                accountService.AuthenticateTicketController(username, password) :
+                accountService.Authenticate(username, password);
 
             if (account == null)
             {
@@ -28,7 +30,16 @@ namespace ReBus.WebServices
             return AccountWebServiceModel.FromModelObject(account);
         }
 
+        public AccountWebServiceModel Authenticate(string username, string password)
+        {
+            return AuthenticateUser(username, password, false);
+        }
 
+        public AccountWebServiceModel AuthenticateTicketController(string username, string password)
+        {
+            return AuthenticateUser(username, password, true);
+        }
+        
         public string Register(string userName, string password, string firstName, string lastName)
         {
             try
