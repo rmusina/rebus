@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://192.168.1.128/AuthenticationWebService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" />
+  <xs:import schemaLocation="http://192.168.1.128/AuthenticationWebService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:element name="Authenticate">
     <xs:complexType>
       <xs:sequence>
@@ -16,6 +17,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="guid" type="q2:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetAccountResult" nillable="true" type="q3:AccountWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="AuthenticateTicketController">
     <xs:complexType>
       <xs:sequence>
@@ -27,7 +42,22 @@
   <xs:element name="AuthenticateTicketControllerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="AuthenticateTicketControllerResult" nillable="true" type="q2:AccountWebServiceModel" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="AuthenticateTicketControllerResult" nillable="true" type="q4:AccountWebServiceModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFunds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="account" nillable="true" type="q5:AccountWebServiceModel" />
+        <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFundsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="AddFundsResult" nillable="true" type="q6:AccountWebServiceModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -51,14 +81,14 @@
   <xs:element name="GetTransactionHistory">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="userAccount" nillable="true" type="q3:AccountWebServiceModel" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="userAccount" nillable="true" type="q7:AccountWebServiceModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTransactionHistoryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetTransactionHistoryResult" nillable="true" type="q4:ArrayOfTransactionWebServiceModel" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ReBus.WebServices.WebServiceModel" minOccurs="0" name="GetTransactionHistoryResult" nillable="true" type="q8:ArrayOfTransactionWebServiceModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

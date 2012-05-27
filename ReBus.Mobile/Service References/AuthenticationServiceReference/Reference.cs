@@ -189,11 +189,21 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
         
         ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel EndAuthenticate(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAuthenticationWebService/GetAccount", ReplyAction="http://tempuri.org/IAuthenticationWebService/GetAccountResponse")]
+        System.IAsyncResult BeginGetAccount(System.Guid guid, System.AsyncCallback callback, object asyncState);
+        
+        ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel EndGetAccount(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAuthenticationWebService/AuthenticateTicketController", ReplyAction="http://tempuri.org/IAuthenticationWebService/AuthenticateTicketControllerResponse" +
             "")]
         System.IAsyncResult BeginAuthenticateTicketController(string username, string password, System.AsyncCallback callback, object asyncState);
         
         ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel EndAuthenticateTicketController(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAuthenticationWebService/AddFunds", ReplyAction="http://tempuri.org/IAuthenticationWebService/AddFundsResponse")]
+        System.IAsyncResult BeginAddFunds(ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel account, decimal amount, System.AsyncCallback callback, object asyncState);
+        
+        ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel EndAddFunds(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAuthenticationWebService/Register", ReplyAction="http://tempuri.org/IAuthenticationWebService/RegisterResponse")]
         System.IAsyncResult BeginRegister(string userName, string password, string firstName, string lastName, System.AsyncCallback callback, object asyncState);
@@ -231,11 +241,49 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAccountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class AuthenticateTicketControllerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
         public AuthenticateTicketControllerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddFundsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddFundsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -296,11 +344,23 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
         
         private System.Threading.SendOrPostCallback onAuthenticateCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetAccountDelegate;
+        
+        private EndOperationDelegate onEndGetAccountDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAccountCompletedDelegate;
+        
         private BeginOperationDelegate onBeginAuthenticateTicketControllerDelegate;
         
         private EndOperationDelegate onEndAuthenticateTicketControllerDelegate;
         
         private System.Threading.SendOrPostCallback onAuthenticateTicketControllerCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddFundsDelegate;
+        
+        private EndOperationDelegate onEndAddFundsDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddFundsCompletedDelegate;
         
         private BeginOperationDelegate onBeginRegisterDelegate;
         
@@ -369,7 +429,11 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
         
         public event System.EventHandler<AuthenticateCompletedEventArgs> AuthenticateCompleted;
         
+        public event System.EventHandler<GetAccountCompletedEventArgs> GetAccountCompleted;
+        
         public event System.EventHandler<AuthenticateTicketControllerCompletedEventArgs> AuthenticateTicketControllerCompleted;
+        
+        public event System.EventHandler<AddFundsCompletedEventArgs> AddFundsCompleted;
         
         public event System.EventHandler<RegisterCompletedEventArgs> RegisterCompleted;
         
@@ -428,6 +492,52 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService.BeginGetAccount(System.Guid guid, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAccount(guid, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService.EndGetAccount(System.IAsyncResult result) {
+            return base.Channel.EndGetAccount(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAccount(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            System.Guid guid = ((System.Guid)(inValues[0]));
+            return ((ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService)(this)).BeginGetAccount(guid, callback, asyncState);
+        }
+        
+        private object[] OnEndGetAccount(System.IAsyncResult result) {
+            ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel retVal = ((ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService)(this)).EndGetAccount(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAccountCompleted(object state) {
+            if ((this.GetAccountCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAccountCompleted(this, new GetAccountCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAccountAsync(System.Guid guid) {
+            this.GetAccountAsync(guid, null);
+        }
+        
+        public void GetAccountAsync(System.Guid guid, object userState) {
+            if ((this.onBeginGetAccountDelegate == null)) {
+                this.onBeginGetAccountDelegate = new BeginOperationDelegate(this.OnBeginGetAccount);
+            }
+            if ((this.onEndGetAccountDelegate == null)) {
+                this.onEndGetAccountDelegate = new EndOperationDelegate(this.OnEndGetAccount);
+            }
+            if ((this.onGetAccountCompletedDelegate == null)) {
+                this.onGetAccountCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAccountCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAccountDelegate, new object[] {
+                        guid}, this.onEndGetAccountDelegate, this.onGetAccountCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService.BeginAuthenticateTicketController(string username, string password, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginAuthenticateTicketController(username, password, callback, asyncState);
         }
@@ -473,6 +583,54 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
             base.InvokeAsync(this.onBeginAuthenticateTicketControllerDelegate, new object[] {
                         username,
                         password}, this.onEndAuthenticateTicketControllerDelegate, this.onAuthenticateTicketControllerCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService.BeginAddFunds(ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel account, decimal amount, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddFunds(account, amount, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService.EndAddFunds(System.IAsyncResult result) {
+            return base.Channel.EndAddFunds(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddFunds(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel account = ((ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel)(inValues[0]));
+            decimal amount = ((decimal)(inValues[1]));
+            return ((ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService)(this)).BeginAddFunds(account, amount, callback, asyncState);
+        }
+        
+        private object[] OnEndAddFunds(System.IAsyncResult result) {
+            ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel retVal = ((ReBus.Mobile.AuthenticationServiceReference.IAuthenticationWebService)(this)).EndAddFunds(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddFundsCompleted(object state) {
+            if ((this.AddFundsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddFundsCompleted(this, new AddFundsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddFundsAsync(ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel account, decimal amount) {
+            this.AddFundsAsync(account, amount, null);
+        }
+        
+        public void AddFundsAsync(ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel account, decimal amount, object userState) {
+            if ((this.onBeginAddFundsDelegate == null)) {
+                this.onBeginAddFundsDelegate = new BeginOperationDelegate(this.OnBeginAddFunds);
+            }
+            if ((this.onEndAddFundsDelegate == null)) {
+                this.onEndAddFundsDelegate = new EndOperationDelegate(this.OnEndAddFunds);
+            }
+            if ((this.onAddFundsCompletedDelegate == null)) {
+                this.onAddFundsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddFundsCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddFundsDelegate, new object[] {
+                        account,
+                        amount}, this.onEndAddFundsDelegate, this.onAddFundsCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -663,6 +821,19 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
                 return _result;
             }
             
+            public System.IAsyncResult BeginGetAccount(System.Guid guid, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = guid;
+                System.IAsyncResult _result = base.BeginInvoke("GetAccount", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel EndGetAccount(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel _result = ((ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel)(base.EndInvoke("GetAccount", _args, result)));
+                return _result;
+            }
+            
             public System.IAsyncResult BeginAuthenticateTicketController(string username, string password, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[2];
                 _args[0] = username;
@@ -674,6 +845,20 @@ namespace ReBus.Mobile.AuthenticationServiceReference {
             public ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel EndAuthenticateTicketController(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel _result = ((ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel)(base.EndInvoke("AuthenticateTicketController", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginAddFunds(ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel account, decimal amount, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = account;
+                _args[1] = amount;
+                System.IAsyncResult _result = base.BeginInvoke("AddFunds", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel EndAddFunds(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel _result = ((ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel)(base.EndInvoke("AddFunds", _args, result)));
                 return _result;
             }
             

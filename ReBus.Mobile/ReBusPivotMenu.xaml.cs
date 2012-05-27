@@ -23,6 +23,7 @@ using ReBus.Mobile.SubscriptionServiceReference;
 using System.Collections.ObjectModel;
 using System.Windows.Navigation;
 using System.Windows.Controls.Primitives;
+using AccountWebServiceModel = ReBus.Mobile.AuthenticationServiceReference.AccountWebServiceModel;
 
 namespace ReBus.Mobile
 {
@@ -43,9 +44,7 @@ namespace ReBus.Mobile
         {
             InitializeComponent();
 
-            accountUserNameTextBlock.Text = (App.Current as App).UserData.FirstName;
-            accountUserSurnameTextBlock.Text = (App.Current as App).UserData.LastName;
-            accountCreditTextBlock.Text = (App.Current as App).UserData.Credit.ToString();
+            UpdateAccountScreen();
 
             SubscriptionWebServiceClient subscriptionService = new SubscriptionWebServiceClient();
             subscriptionService.GetActiveSubscriptinsCompleted += new EventHandler<GetActiveSubscriptinsCompletedEventArgs>(subscriptionService_GetActiveSubscriptinsCompleted);
@@ -68,6 +67,13 @@ namespace ReBus.Mobile
 
             historyList = new ObservableCollection<HistoryItem>();
             historyListBox.ItemsSource = historyList;
+        }
+
+        private void UpdateAccountScreen()
+        {
+            accountUserNameTextBlock.Text = (App.Current as App).UserData.FirstName;
+            accountUserSurnameTextBlock.Text = (App.Current as App).UserData.LastName;
+            accountCreditTextBlock.Text = (App.Current as App).UserData.Credit.ToString();
         }
 
         private void ShowPopup()
@@ -251,13 +257,34 @@ namespace ReBus.Mobile
 
         private void addCreditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (amountTextBox.Text.Equals(""))
+            string sAmount = amountTextBox.Text.Trim();
+            decimal amount;
+            if (sAmount.Equals("") || !decimal.TryParse(sAmount, out amount))
             {
-                MessageBox.Show("Adauga o suma!");
+                MessageBox.Show("Adauga o suma valida!");
             }
             else
             {
-                //TODO: alimentare cont
+                ShowPopup();
+                AuthenticationWebServiceClient service = new AuthenticationWebServiceClient();
+                service.AddFundsCompleted += new EventHandler<AddFundsCompletedEventArgs>(service_AddFundsCompleted );
+                service.AddFundsAsync(new AccountWebServiceModel() {GUID = (App.Current as App).UserData.GUID }, amount);
+            }
+        }
+
+        void service_AddFundsCompleted(object sender, AddFundsCompletedEventArgs e)
+        {
+            HidePopup();
+            if (e.Result == null)
+            {
+                MessageBox.Show("Contul nu a putut fi alimentat.");
+            }
+            else
+            {
+                (App.Current as App).UserData = e.Result;
+                UpdateAccountScreen();
+                MessageBox.Show("Contul a fost alimentat, soldul curent este: " + e.Result.Credit);
+
             }
         }
     }
